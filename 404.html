@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080a14" />
+  <meta name="description" content="404 — Page Not Found · Titan DigiStack" />
+  <title>404 — Page Not Found · Titan DigiStack</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" href="assets/prime-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/prime-logo-icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <script defer src="js/main.js"></script>
+  <script defer src="js/cart.js"></script>
+  <script>
+    (function () {
+      const t = localStorage.getItem('titan_theme');
+      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) { document.documentElement.setAttribute('data-theme', 'light'); }
+      const c = localStorage.getItem('titan_colorway');
+      if (c) { document.documentElement.setAttribute('data-colorway', c); }
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="cursor-aura" aria-hidden="true"></div>
+
+  <!-- 1. TOP BAR -->
+  <div class="top-bar" role="region" aria-label="Site announcement">
+    <div class="container top-bar__inner">
+      <p class="top-bar__msg">
+        <span class="top-bar__pulse" aria-hidden="true"></span>
+        Trusted by 10,000+ Creators &amp; Engineers · Instant Key Delivery · 100% Genuine
+      </p>
+      <div class="top-bar__meta">
+        <span class="currency-pill">৳ BDT · ₹ INR · $ USD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container site-header__container">
+      <div class="site-header__card">
+        <div class="header-branding-row">
+          <div class="header-left">
+            <a href="index.html" class="brand header-logo-link" aria-label="Titan DigiStack home">
+              <img src="assets/prime-logo.png" alt="Titan DigiStack Prime Logo" class="brand__mark header-logo-img">
+            </a>
+          </div>
+          <div class="header-brand-container">
+            <a href="index.html" class="brand header-brand-link" aria-label="Titan DigiStack home">
+              <img src="assets/company-banner.png" alt="Titan DigiStack" class="brand__text header-brand-img">
+            </a>
+          </div>
+        </div>
+
+        <div class="header-divider"></div>
+
+        <div class="header-bottom-row">
+          <nav class="header-nav" aria-label="Primary navigation">
+            <a href="index.html#catTabs" class="header-nav__link">EXPLORE</a>
+            <a href="index.html#tutorials" class="header-nav__link">DOCS</a>
+            <a href="index.html#ai" class="header-nav__link">TOOLS</a>
+            <a href="index.html#plugins" class="header-nav__link">PLUGINS</a>
+            <a href="pages/shop.html" class="header-nav__link">STORE</a>
+            <a href="index.html#offerBanner" class="header-nav__link">PRICING</a>
+            <a href="pages/contact.html" class="header-nav__link">COMMUNITY</a>
+          </nav>
+
+          <div class="header-right">
+            <nav class="header-actions" aria-label="Account and cart">
+              <a href="pages/contact.html#account" class="icon-btn header-account-btn" aria-label="Account" title="My Account">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </a>
+              <a href="pages/cart.html" class="icon-btn cart-btn" aria-label="Cart" title="View Cart">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge" id="cartCount">0</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. MAIN 404 CONTENT -->
+  <main id="main">
+    <section class="hero" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 20px;">
+      <div class="container" style="max-width: 680px; margin: 0 auto;">
+        <span class="badge badge--cyber" style="font-size: 0.95rem; margin-bottom: 20px; display: inline-flex;">HTTP 404 · ROUTE NOT FOUND</span>
+        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; margin-bottom: 16px; background: linear-gradient(135deg, #00f2fe 0%, #ffffff 50%, #ff007a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          SIGNAL LOST
+        </h1>
+        <p style="color: var(--color-text-secondary); font-size: 1.15rem; line-height: 1.6; margin-bottom: 32px;">
+          The digital asset or coordinates you requested cannot be located in the Titan DigiStack neural grid. It may have moved or been decommissioned.
+        </p>
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <a href="index.html" class="btn btn--primary" style="padding: 12px 28px; font-weight: 700;">RETURN TO HOMEPAGE</a>
+          <a href="pages/shop.html" class="btn btn--secondary" style="padding: 12px 28px; font-weight: 700;">EXPLORE STORE</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 4. FOOTER -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__bottom">
+        <p class="site-footer__copyright">
+          &copy; <span id="currentYear">2026</span> Titan DigiStack. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

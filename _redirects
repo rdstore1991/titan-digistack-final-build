@@ -1,0 +1,7 @@
+# Cloudflare Pages Clean Route Rewrites
+/shop       /pages/shop.html       200
+/cart       /pages/cart.html       200
+/contact    /pages/contact.html    200
+/privacy    /pages/contact.html    200
+/terms      /pages/contact.html    200
+/refund     /pages/contact.html    200

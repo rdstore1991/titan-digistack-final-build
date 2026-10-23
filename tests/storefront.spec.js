@@ -7,6 +7,7 @@ const indexUrl = url.pathToFileURL(path.resolve('index.html')).href;
 const shopUrl = url.pathToFileURL(path.resolve('pages/shop.html')).href;
 const cartUrl = url.pathToFileURL(path.resolve('pages/cart.html')).href;
 const contactUrl = url.pathToFileURL(path.resolve('pages/contact.html')).href;
+const notFoundUrl = url.pathToFileURL(path.resolve('404.html')).href;
 
 test.describe('Titan DigiStack E2E Test Suite', () => {
 
@@ -135,5 +136,46 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     expect(switcherPosition).toBe('relative');
   });
 
+  test('Cloudflare 404 page renders with cyber aesthetic and recovery buttons', async ({ page }) => {
+    await page.goto(notFoundUrl);
+    await expect(page).toHaveTitle(/404/);
+    await expect(page.locator('h1')).toContainText('SIGNAL LOST');
+    const homeBtn = page.locator('a[href="index.html"]', { hasText: 'RETURN TO HOMEPAGE' });
+    await expect(homeBtn).toBeVisible();
+    const storeBtn = page.locator('a[href="pages/shop.html"]', { hasText: 'EXPLORE STORE' });
+    await expect(storeBtn).toBeVisible();
+  });
+
+  test('Cart state persists across page reloads via localStorage', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    // Initial cart badge is 0
+    const cartBadge = page.locator('#cartCount');
+    await expect(cartBadge).toHaveText('0');
+
+    // Add item
+    const addBtn = page.locator('.hero__showcase button[data-add-to-cart]').first();
+    await addBtn.click();
+    await expect(cartBadge).toHaveText('1');
+
+    // Reload page
+    await page.reload();
+    await expect(page.locator('#cartCount')).toHaveText('1');
+  });
+
+  test('Mobile viewport (375px) renders thumb-zone bar and adapts branding', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto(indexUrl);
+
+    // Mobile bottom bar should be visible on 375px width
+    const mobileBottomBar = page.locator('.mobile-bottom-bar');
+    await expect(mobileBottomBar).toBeVisible();
+
+    // Verify main header remains visible and compact
+    const headerCard = page.locator('.site-header__card');
+    await expect(headerCard).toBeVisible();
+  });
+
 });
+
 
