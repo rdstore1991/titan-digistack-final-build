@@ -420,30 +420,81 @@
     linear-gradient(135deg, var(--ph-a, #131b36), var(--ph-b, #080c1a));
 }
 
-/* Product Card Squircle Avatar */
+/* Product Card Squircle Avatar with Cyber-Grid Backdrop */
 .product-card__avatar {
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: radial-gradient(circle at 30% 30%, rgba(0, 242, 254, 0.16), rgba(8, 16, 32, 0.92));
-  border: 1px solid rgba(0, 242, 254, 0.32);
-  box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.12), 0 4px 14px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+  background-color: #060b19;
+  background-image:
+    radial-gradient(circle at 30% 30%, rgba(0, 242, 254, 0.22), rgba(6, 11, 25, 0.94)),
+    linear-gradient(rgba(0, 242, 254, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 254, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 8px 8px, 8px 8px;
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.15), 0 4px 14px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 11px;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  padding: 10px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
 }
+
+/* Category-matched border glow & tint */
+.product-card[data-category="ai"] .product-card__avatar {
+  border-color: rgba(0, 242, 254, 0.45);
+  box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.2), 0 0 14px rgba(0, 242, 254, 0.15);
+}
+.product-card[data-category="themes"] .product-card__avatar {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.2), 0 0 14px rgba(56, 189, 248, 0.15);
+}
+.product-card[data-category="plugins"] .product-card__avatar {
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.2), 0 0 14px rgba(16, 185, 129, 0.15);
+}
+.product-card[data-category="software"] .product-card__avatar {
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.2), 0 0 14px rgba(245, 158, 11, 0.15);
+}
+.product-card[data-category="graphic"] .product-card__avatar {
+  border-color: rgba(236, 72, 153, 0.45);
+  box-shadow: inset 0 0 12px rgba(236, 72, 153, 0.2), 0 0 14px rgba(236, 72, 153, 0.15);
+}
+.product-card[data-category="tutorials"] .product-card__avatar,
+.product-card[data-category="ebooks"] .product-card__avatar,
+.product-card[data-category="entertainment"] .product-card__avatar,
+.product-card[data-category="services"] .product-card__avatar {
+  border-color: rgba(244, 63, 94, 0.45);
+  box-shadow: inset 0 0 12px rgba(244, 63, 94, 0.2), 0 0 14px rgba(244, 63, 94, 0.15);
+}
+
 .product-card:hover .product-card__avatar {
-  transform: translateY(-2px) scale(1.05);
-  border-color: rgba(0, 242, 254, 0.7);
-  box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+  transform: translateY(-2px) scale(1.06);
+  border-color: rgba(0, 242, 254, 0.85);
+  box-shadow: 0 0 22px rgba(0, 242, 254, 0.45);
 }
+
 .product-card__avatar img,
-.product-card__avatar svg {
+.product-card__avatar svg,
+.product-brand-logo,
+.category-fallback-svg {
   width: 28px;
   height: 28px;
   object-fit: contain;
+  display: block;
+}
+
+.product-brand-logo {
+  border-radius: 6px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease;
+}
+
+.category-fallback-svg {
+  filter: drop-shadow(0 0 8px currentColor);
 }
 
 /* Product Card Pricing Wrap */

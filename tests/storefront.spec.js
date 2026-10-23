@@ -176,7 +176,7 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(headerCard).toBeVisible();
   });
 
-  test('Product cards render official brand vector avatars with squircle styling', async ({ page }) => {
+  test('Product cards render official brand vector avatars with squircle styling and 3-tier fallbacks', async ({ page }) => {
     await page.goto(indexUrl);
 
     const avatars = page.locator('.product-card__avatar');
@@ -186,6 +186,16 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     const box = await avatars.first().boundingBox();
     expect(box?.width).toBeCloseTo(52, 1);
     expect(box?.height).toBeCloseTo(52, 1);
+
+    // Verify 3-tier icon engine produces Google favicons, SimpleIcons, or category SVGs (zero text initials)
+    const cardAvatars = await page.locator('.product-card__avatar').all();
+    expect(cardAvatars.length).toBeGreaterThan(0);
+
+    for (const avatar of cardAvatars.slice(0, 10)) {
+      const hasLogo = await avatar.locator('.product-brand-logo').count();
+      const hasSvg = await avatar.locator('.category-fallback-svg, svg').count();
+      expect(hasLogo > 0 || hasSvg > 0).toBeTruthy();
+    }
   });
 
   test('Interactive currency switcher converts prices accurately across BDT, INR, and USD', async ({ page }) => {

@@ -343,9 +343,90 @@ function getWhatsAppQuoteUrl(title, curr = getActiveCurrency()) {
 }
 window.getWhatsAppQuoteUrl = getWhatsAppQuoteUrl;
 
-/* -----------------------------
-   Brand Icons & Vector Avatars Engine
-   ----------------------------- */
+/* ------------------------------------------------------------
+   3-Tier Product Card Avatar & Icon Engine
+   Tier 1: High-Res Domain Edge Favicons (128px) & SimpleIcons
+   Tier 2: Category-Specific Cyber Vector SVG Fallbacks
+   Tier 3: Automatic onerror Image Replacement Binding
+   ------------------------------------------------------------ */
+
+const DOMAIN_ICONS = [
+  // User-specified niche tools
+  { match: /(higgsfield)/i, domain: 'higgsfield.ai' },
+  { match: /(bolt\.new|bolt\s*ai)/i, domain: 'bolt.new' },
+  { match: /(lovable)/i, domain: 'lovable.dev' },
+  { match: /(v0(\.dev)?\b|vercel)/i, domain: 'v0.dev' },
+  { match: /(midjourney)/i, domain: 'midjourney.com' },
+  { match: /(runway(\s*ml)?|gen-3)/i, domain: 'runwayml.com' },
+  { match: /(kling\s*ai|kling)/i, domain: 'klingai.com' },
+  { match: /(suno\s*ai|suno)/i, domain: 'suno.com' },
+  { match: /(elevenlabs)/i, domain: 'elevenlabs.io' },
+  { match: /(heygen)/i, domain: 'heygen.com' },
+  { match: /(leonardo\s*ai|leonardo)/i, domain: 'leonardo.ai' },
+  { match: /(ideogram)/i, domain: 'ideogram.ai' },
+  { match: /(poe(\.com)?\b)/i, domain: 'poe.com' },
+  { match: /(quillbot)/i, domain: 'quillbot.com' },
+  { match: /(turnitin)/i, domain: 'turnitin.com' },
+  { match: /(capcut)/i, domain: 'capcut.com' },
+  { match: /(placeit)/i, domain: 'placeit.net' },
+  { match: /(motion\s*array)/i, domain: 'motionarray.com' },
+  { match: /(storyblocks)/i, domain: 'storyblocks.com' },
+  { match: /(epidemic\s*sound)/i, domain: 'epidemicsound.com' },
+  { match: /(ahrefs)/i, domain: 'ahrefs.com' },
+  { match: /(moz\s*pro|moz)/i, domain: 'moz.com' },
+  { match: /(ubersuggest)/i, domain: 'neilpatel.com' },
+  { match: /(wp\s*rocket)/i, domain: 'wp-rocket.me' },
+  { match: /(rankmath|rank\s*math)/i, domain: 'rankmath.com' },
+  { match: /(astra(\s*pro)?)/i, domain: 'wpastra.com' },
+  { match: /(generatepress)/i, domain: 'generatepress.com' },
+  { match: /(divi|elegant\s*themes)/i, domain: 'elegantthemes.com' },
+  { match: /(surfshark)/i, domain: 'surfshark.com' },
+  { match: /(expressvpn)/i, domain: 'expressvpn.com' },
+  { match: /(internet\s*download\s*manager|\bidm\b)/i, domain: 'internetdownloadmanager.com' },
+  // Additional high-value catalog mappings
+  { match: /(recraft)/i, domain: 'recraft.ai' },
+  { match: /(taja\s*ai|taja)/i, domain: 'taja.ai' },
+  { match: /(invideo)/i, domain: 'invideo.io' },
+  { match: /(joggai|jogg\s*ai)/i, domain: 'jogg.ai' },
+  { match: /(filmora)/i, domain: 'wondershare.com' },
+  { match: /(beautiful\s*ai)/i, domain: 'beautiful.ai' },
+  { match: /(branalyzer)/i, domain: 'branalyzer.com' },
+  { match: /(chatprd)/i, domain: 'chatprd.ai' },
+  { match: /(descript)/i, domain: 'descript.com' },
+  { match: /(fireflies)/i, domain: 'fireflies.ai' },
+  { match: /(flexclip)/i, domain: 'flexclip.com' },
+  { match: /(flutterflow)/i, domain: 'flutterflow.io' },
+  { match: /(gamma\s*ai|gamma)/i, domain: 'gamma.app' },
+  { match: /(grok|supergrok)/i, domain: 'x.ai' },
+  { match: /(gumloop)/i, domain: 'gumloop.com' },
+  { match: /(faststone)/i, domain: 'faststone.org' },
+  { match: /(camscanner)/i, domain: 'camscanner.com' },
+  { match: /(autocad|autodesk)/i, domain: 'autodesk.com' },
+  { match: /(truecaller)/i, domain: 'truecaller.com' },
+  { match: /(kadence)/i, domain: 'kadencewp.com' },
+  { match: /(oceanwp)/i, domain: 'oceanwp.org' },
+  { match: /(woodmart)/i, domain: 'xtemos.com' },
+  { match: /(xstore)/i, domain: '8theme.com' },
+  { match: /(zakra)/i, domain: 'zakratheme.com' },
+  { match: /(woostify)/i, domain: 'woostify.com' },
+  { match: /(rishi)/i, domain: 'rishitheme.com' },
+  { match: /(crocoblock|jetplugins)/i, domain: 'crocoblock.com' },
+  { match: /(jetformbuilder)/i, domain: 'jetformbuilder.com' },
+  { match: /(imagify)/i, domain: 'imagify.io' },
+  { match: /(ewww)/i, domain: 'ewww.io' },
+  { match: /(cartflows)/i, domain: 'cartflows.com' },
+  { match: /(ninja\s*tables)/i, domain: 'ninjatables.com' },
+  { match: /(perfmatters)/i, domain: 'perfmatters.io' },
+  { match: /(pixelyoursite)/i, domain: 'pixelyoursite.com' },
+  { match: /(elementskit)/i, domain: 'wpmet.com' },
+  { match: /(happy\s*addons)/i, domain: 'happyaddons.com' },
+  { match: /(tutor\s*lms)/i, domain: 'themeum.com' },
+  { match: /(wcfm)/i, domain: 'wclovers.com' },
+  { match: /(woolentor)/i, domain: 'woolentor.com' },
+  { match: /(hide\s*my\s*wp)/i, domain: 'hidemywpghost.com' },
+  { match: /(acf\s*pro|advanced\s*custom\s*fields)/i, domain: 'advancedcustomfields.com' }
+];
+
 const BRAND_ICONS = [
   { match: /(chatgpt|openai|gpt-)/i, slug: 'openai', hex: '10a37f' },
   { match: /(claude|anthropic)/i, slug: 'anthropic', hex: 'd97757' },
@@ -359,55 +440,82 @@ const BRAND_ICONS = [
   { match: /(netflix)/i, slug: 'netflix', hex: 'e50914' },
   { match: /(youtube)/i, slug: 'youtube', hex: 'ff0000' },
   { match: /(elementor)/i, slug: 'elementor', hex: '92003b' },
-  { match: /(woocommerce|woolentor|shopengine)/i, slug: 'woocommerce', hex: '96588a' },
-  { match: /(wordpress|wp\s|wp-|astra|generatepress|divi|zakra|kadence|woodmart|woostify|rishi|oceanwp|gpl)/i, slug: 'wordpress', hex: '21759b' },
+  { match: /(woocommerce|shopengine)/i, slug: 'woocommerce', hex: '96588a' },
   { match: /(envato)/i, slug: 'envato', hex: '81b441' },
   { match: /(freepik)/i, slug: 'freepik', hex: '1273eb' },
   { match: /(grammarly)/i, slug: 'grammarly', hex: '15c39a' },
   { match: /(semrush)/i, slug: 'semrush', hex: 'ff642d' },
-  { match: /(nordvpn|expressvpn|vpn)/i, slug: 'nordvpn', hex: '4687ff' },
-  { match: /(windows|microsoft|office)/i, slug: 'microsoft', hex: '00a4ef' },
-  { match: /(gemini|google\sone|google\sai)/i, slug: 'googlegemini', hex: '8e75b2' },
+  { match: /(nordvpn)/i, slug: 'nordvpn', hex: '4687ff' },
+  { match: /(windows|microsoft|office|365)/i, slug: 'microsoft', hex: '00a4ef' },
+  { match: /(gemini|google\s*one|google\s*ai)/i, slug: 'googlegemini', hex: '8e75b2' },
   { match: /(adobe|illustrator|photoshop)/i, slug: 'adobe', hex: 'ff0000' },
   { match: /(coursera)/i, slug: 'coursera', hex: '0056d2' },
   { match: /(duolingo)/i, slug: 'duolingo', hex: '58cc02' },
   { match: /(bkash)/i, slug: 'bkash', hex: 'e2136e' },
+  { match: /(clickup)/i, slug: 'clickup', hex: '7b68ee' },
+  { match: /(wordpress|wp\s|wp-|gpl)/i, slug: 'wordpress', hex: '21759b' }
 ];
 
-function getCategoryFallbackSvg(category, title = '') {
-  const t = (title || '').toLowerCase();
-  if (/turnitin|quillbot|autocad|truecaller|faststone|camscanner|ghost|ssl|security/i.test(t)) {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
+function getCategoryFallbackSVG(category = '') {
+  const cat = (category || '').toLowerCase();
+  if (cat.includes('ai')) {
+    return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L14.8 8.5L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.5L12 2Z"/><circle cx="12" cy="12" r="3" fill="rgba(0,242,254,0.3)"/></svg>`;
   }
-  if (/capcut|filmora|invideo|joggai|descript|flexclip|video|flyer|templates/i.test(t)) {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ff007a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2m0 14v-2M8 9h2m10 0h2m-4.2 2.8L19 13M15 9h0m2.8-2.8L19 5M3 21l9-9m0.2-5.8L11 5"/></svg>`;
+  if (cat.includes('theme')) {
+    return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`;
   }
-  if (/midjourney|higgsfield|bolt|ideogram|devin|grok|runway|recraft|elevenlabs|heygen|ai/i.test(t) || category === 'ai') {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2z"/><path d="M19 16l1.2 2.8L23 20l-2.8 1.2L19 24l-1.2-2.8L15 20l2.8-1.2L19 16z"/></svg>`;
+  if (cat.includes('plugin')) {
+    return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1 1.705-.707c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg>`;
   }
-  if (category === 'themes' || category === 'plugins') {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f5a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+  if (cat.includes('software') || cat.includes('security') || cat.includes('os')) {
+    return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
   }
-  if (category === 'graphic') {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ff007a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2m0 14v-2M8 9h2m10 0h2m-4.2 2.8L19 13M15 9h0m2.8-2.8L19 5M3 21l9-9m0.2-5.8L11 5"/></svg>`;
+  if (cat.includes('graphic') || cat.includes('video') || cat.includes('design') || cat.includes('media')) {
+    return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>`;
   }
-  if (category === 'software') {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
+  if (cat.includes('entertainment') || cat.includes('ebook') || cat.includes('tutorial') || cat.includes('course') || cat.includes('stream')) {
+    return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/><circle cx="12" cy="12" r="9" stroke="rgba(244,63,94,0.3)"/></svg>`;
   }
-  if (category === 'tutorials' || category === 'ebooks') {
-    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`;
-  }
-  return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>`;
+  return `<svg class="category-fallback-svg" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
 }
+window.getCategoryFallbackSVG = getCategoryFallbackSVG;
+window.getCategoryFallbackSvg = getCategoryFallbackSVG;
+
+function handleBrandLogoError(img) {
+  if (!img) return;
+  const cat = img.getAttribute('data-cat') || 'ai';
+  const svgMarkup = getCategoryFallbackSVG(cat);
+  const container = document.createElement('div');
+  container.innerHTML = svgMarkup.trim();
+  const svgEl = container.firstElementChild;
+  if (svgEl) {
+    img.replaceWith(svgEl);
+  } else {
+    img.style.display = 'none';
+  }
+}
+window.handleBrandLogoError = handleBrandLogoError;
 
 function getBrandAvatar(title, category = 'ai') {
-  const match = BRAND_ICONS.find(b => b.match.test(title));
-  const fallbackSvg = getCategoryFallbackSvg(category, title);
-  if (match) {
-    const safeTitle = (title || '').replace(/"/g, '&quot;');
-    return `<img src="https://cdn.simpleicons.org/${match.slug}/${match.hex}" alt="${safeTitle}" width="28" height="28" loading="lazy" onerror="this.onerror=null;this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='inline-flex';"><span style="display:none;" aria-hidden="true">${fallbackSvg}</span>`;
+  const safeTitle = (title || '').replace(/"/g, '&quot;');
+  const catSafe = (category || 'ai').toLowerCase();
+
+  // Tier 1A: Check Domain Map for Niche Tools (Google high-res 128px favicon edge API)
+  const domainMatch = DOMAIN_ICONS.find(d => d.match.test(title));
+  if (domainMatch) {
+    const iconUrl = `https://www.google.com/s2/favicons?domain=${domainMatch.domain}&sz=128`;
+    return `<img class="product-brand-logo" src="${iconUrl}" alt="${safeTitle}" width="28" height="28" loading="lazy" data-cat="${catSafe}" onerror="if(window.handleBrandLogoError){window.handleBrandLogoError(this);}else{this.style.display='none';}">`;
   }
-  return fallbackSvg;
+
+  // Tier 1B: Check Standard SimpleIcons Vector Slug
+  const brandMatch = BRAND_ICONS.find(b => b.match.test(title));
+  if (brandMatch) {
+    const iconUrl = `https://cdn.simpleicons.org/${brandMatch.slug}/${brandMatch.hex}`;
+    return `<img class="product-brand-logo" src="${iconUrl}" alt="${safeTitle}" width="28" height="28" loading="lazy" data-cat="${catSafe}" onerror="if(window.handleBrandLogoError){window.handleBrandLogoError(this);}else{this.style.display='none';}">`;
+  }
+
+  // Tier 2: Category-Specific Cyber Vector SVG Fallback
+  return getCategoryFallbackSVG(catSafe);
 }
 window.getBrandAvatar = getBrandAvatar;
 
@@ -797,10 +905,11 @@ function initQuickPreviewModal() {
 
     const imgContainer = $('#quickModalImg', modal);
     const imgCfg = imageConfigFor(product);
+    const avatarHtml = `<div class="product-card__avatar" style="width:68px;height:68px;margin:auto;">${getBrandAvatar(product.title, product.category)}</div>`;
     if (imgCfg) {
-      imgContainer.innerHTML = `<img src="${imgCfg.src}" alt="${product.title.replace(/"/g, '&quot;')}" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">`;
+      imgContainer.innerHTML = `<img src="${imgCfg.src}" alt="${product.title.replace(/"/g, '&quot;')}" style="width:100%;height:100%;object-fit:cover;" onerror="this.onerror=null;this.parentElement.innerHTML=this.dataset.fallback" data-fallback="${avatarHtml.replace(/"/g, '&quot;')}">`;
     } else {
-      imgContainer.innerHTML = `<div class="product-card__avatar" style="width:68px;height:68px;margin:auto;">${getBrandAvatar(product.title, product.category)}</div>`;
+      imgContainer.innerHTML = avatarHtml;
     }
 
     const actionsContainer = $('#quickModalActions', modal);
