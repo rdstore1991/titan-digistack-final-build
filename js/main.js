@@ -22,19 +22,20 @@ const STORE_CONFIG = {
   bkash: {
     name: "bKash",
     type: "Personal (Send Money)",
-    number: "017XXXXXXXX", // Replace with active bKash number
+    number: "01711280684",
     color: "#e2136e"
   },
   nagad: {
     name: "Nagad",
     type: "Personal (Send Money)",
-    number: "017XXXXXXXX", // Replace with active Nagad number
+    number: "01711280684",
     color: "#f7941d"
   },
   binance: {
-    name: "Binance Pay / USDT",
-    payId: "YOUR_BINANCE_PAY_ID",
-    walletAddress: "YOUR_USDT_WALLET_ADDRESS",
+    name: "BinancePay ID (0% Fee)",
+    payId: "570493144",
+    walletAddress: "0xB0cEEbb2C11288fE37148ceCfFcc8A215A9cef15",
+    network: "BNB Smart Chain",
     usdtRate: 0.0083,
     color: "#f3ba2f"
   }
@@ -1278,7 +1279,7 @@ function initCheckoutModal() {
       if (accountLabelEl) accountLabelEl.textContent = 'bKash Personal (Send Money)';
       if (accountValEl) accountValEl.textContent = PAYMENT_CONFIG.bkash.number;
       if (senderLabelEl) senderLabelEl.textContent = 'Sender bKash Number *';
-      if (senderInputEl) senderInputEl.placeholder = 'e.g., 017XXXXXXXX';
+      if (senderInputEl) senderInputEl.placeholder = 'e.g., 01711280684';
       if (trxLabelEl) trxLabelEl.textContent = 'bKash Transaction ID (TrxID) *';
       if (trxInputEl) trxInputEl.placeholder = 'e.g., BJI84K92LM';
       if (cryptoRowEl) cryptoRowEl.hidden = true;
@@ -1287,17 +1288,21 @@ function initCheckoutModal() {
       if (accountLabelEl) accountLabelEl.textContent = 'Nagad Personal (Send Money)';
       if (accountValEl) accountValEl.textContent = PAYMENT_CONFIG.nagad.number;
       if (senderLabelEl) senderLabelEl.textContent = 'Sender Nagad Number *';
-      if (senderInputEl) senderInputEl.placeholder = 'e.g., 017XXXXXXXX';
+      if (senderInputEl) senderInputEl.placeholder = 'e.g., 01711280684';
       if (trxLabelEl) trxLabelEl.textContent = 'Nagad Transaction ID (TrxID) *';
       if (trxInputEl) trxInputEl.placeholder = 'e.g., BJI84K92LM';
       if (cryptoRowEl) cryptoRowEl.hidden = true;
     } else if (method === 'binance') {
       if (instructionEl) instructionEl.textContent = PAYMENT_CONFIG.binance.instructions;
-      if (accountLabelEl) accountLabelEl.textContent = 'Binance Pay ID (0% Fee)';
+      if (accountLabelEl) accountLabelEl.textContent = 'BinancePay ID (0% Fee)';
       if (accountValEl) accountValEl.textContent = PAYMENT_CONFIG.binance.payId;
+      if (cryptoRowEl) {
+        const cryptoLabelEl = cryptoRowEl.querySelector('.payment-copy-label');
+        if (cryptoLabelEl) cryptoLabelEl.textContent = 'USDT Wallet (BNB Smart Chain)';
+      }
       if (cryptoValEl) cryptoValEl.textContent = PAYMENT_CONFIG.binance.walletAddress;
       if (senderLabelEl) senderLabelEl.textContent = 'Your Binance ID / Wallet *';
-      if (senderInputEl) senderInputEl.placeholder = 'e.g., Pay ID or Wallet Address';
+      if (senderInputEl) senderInputEl.placeholder = 'e.g., 570493144 or 0x...';
       if (trxLabelEl) trxLabelEl.textContent = 'Binance Order ID / TxHash *';
       if (trxInputEl) trxInputEl.placeholder = 'e.g., 294810482 or TxHash';
       if (cryptoRowEl) cryptoRowEl.hidden = false;

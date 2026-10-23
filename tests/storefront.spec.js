@@ -287,7 +287,7 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     // Switch to Binance tab
     await page.locator('.payment-tab[data-method="binance"]').click();
     await expect(page.locator('.payment-tab[data-method="binance"]')).toHaveClass(/is-active/);
-    await expect(page.locator('#paymentAccountLabel')).toHaveText('Binance Pay ID (0% Fee)');
+    await expect(page.locator('#paymentAccountLabel')).toHaveText(/Binance\s*Pay ID \(0% Fee\)/);
     await expect(page.locator('#cryptoWalletRow')).toBeVisible();
     await expect(page.locator('#senderAccountLabel')).toHaveText('Your Binance ID / Wallet *');
     await expect(page.locator('#trxIdLabel')).toHaveText('Binance Order ID / TxHash *');
