@@ -1,0 +1,15 @@
+{
+  "name": "titan-digistack-ongoing",
+  "version": "1.0.0",
+  "description": "A fully hand-coded digital marketplace storefront. No CMS, no page builder, no JS frameworks, no CSS frameworks. Just HTML5, CSS3, and vanilla ES6+.",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5"
+  }
+}

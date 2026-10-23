@@ -1,0 +1,570 @@
+/* ============================================================
+   Titan DigiStack — style.css
+   Prismatic Cyber-Luxe & Chromatic Gestural Design System
+   ============================================================ */
+
+:root {
+  /* Core Base Palette — Deep Space Cosmic Obsidian */
+  --color-bg-primary: #080a14;
+  --color-bg-secondary: #0f1325;
+  --color-bg-card: #151b34;
+  --color-bg-surface: #1d2547;
+  --color-bg-glass: rgba(15, 19, 37, 0.72);
+  --color-bg-glass-card: rgba(21, 27, 52, 0.65);
+
+  /* Primary Chromatic Accent — Luminous Electric Cyan */
+  --color-accent-primary: #00F2FE;
+  --color-accent-hover: #38f9d7;
+  --color-accent-glow: rgba(0, 242, 254, 0.35);
+  --color-accent-grad: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+
+  /* Secondary Chromatic Accent — Hot Cyber Pink */
+  --color-accent-secondary: #FF007A;
+  --color-accent-sec-hover: #ff4097;
+  --color-accent-sec-glow: rgba(255, 0, 122, 0.35);
+  --color-accent-sec-grad: linear-gradient(135deg, #FF007A 0%, #FF5E3A 100%);
+
+  /* Tertiary Accent — Radiant Amber Gold */
+  --color-accent-tertiary: #FFB300;
+  --color-accent-tert-glow: rgba(255, 179, 0, 0.35);
+  --color-accent-tert-grad: linear-gradient(135deg, #FFB300 0%, #FF5E3A 100%);
+
+  /* Emerald Mint Accent */
+  --color-accent-emerald: #00F5A0;
+  --color-accent-eme-glow: rgba(0, 245, 160, 0.35);
+
+  /* Electric Teal Accent */
+  --color-accent-teal: #06B6D4;
+  --color-accent-teal-glow: rgba(6, 182, 212, 0.35);
+
+  /* Category Chromatic Glow Signatures */
+  --cat-ai: #8A2BE2;
+  --cat-ai-glow: rgba(138, 43, 226, 0.35);
+  --cat-themes: #00D2FF;
+  --cat-themes-glow: rgba(0, 210, 255, 0.35);
+  --cat-plugins: #00F5A0;
+  --cat-plugins-glow: rgba(0, 245, 160, 0.35);
+  --cat-graphic: #FF007A;
+  --cat-graphic-glow: rgba(255, 0, 122, 0.35);
+  --cat-software: #38BDF8;
+  --cat-software-glow: rgba(56, 189, 248, 0.35);
+  --cat-tutorials: #FFB300;
+  --cat-tutorials-glow: rgba(255, 179, 0, 0.35);
+  --cat-services: #06B6D4;
+  --cat-services-glow: rgba(6, 182, 212, 0.35);
+  --cat-ebooks: #FF5757;
+  --cat-ebooks-glow: rgba(255, 87, 87, 0.35);
+
+  /* Typography Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #8898aa;
+
+  /* Borders & Highlights */
+  --color-border: rgba(0, 242, 254, 0.18);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(0, 242, 254, 0.55);
+  --color-border-glare: rgba(255, 255, 255, 0.25);
+
+  /* Status & Badges */
+  --color-price: #00F5A0;
+  --color-badge-new: #00F2FE;
+  --color-badge-sale: #FF007A;
+  --color-badge-free: #00F5A0;
+  --color-badge-call: #FFB300;
+
+  /* Typography */
+  --font-primary: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radii & Gestures */
+  --border-radius-xs: 6px;
+  --border-radius-sm: 10px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
+  --border-radius-pill: 9999px;
+
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-speed: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  --shadow-elev: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 242, 254, 0.15);
+  --shadow-glow: 0 0 30px var(--color-accent-glow);
+  --shadow-glow-pink: 0 0 30px var(--color-accent-sec-glow);
+
+  /* Layout */
+  --container-max: 1340px;
+  --container-pad: clamp(16px, 4vw, 36px);
+  --header-height: 285px;
+}
+
+/* ============================================================
+   Live Colorway Presets
+   ============================================================ */
+
+/* 1. Solar Flare Colorway (Warm Ember, Coral, Amber) */
+[data-colorway="solar"] {
+  --color-bg-primary: #0c0a12;
+  --color-bg-secondary: #171221;
+  --color-bg-card: #20192e;
+  --color-bg-surface: #2b223d;
+  --color-bg-glass: rgba(23, 18, 33, 0.75);
+  --color-bg-glass-card: rgba(32, 25, 46, 0.68);
+
+  --color-accent-primary: #FFB300;
+  --color-accent-hover: #ffd066;
+  --color-accent-glow: rgba(255, 179, 0, 0.35);
+  --color-accent-grad: linear-gradient(135deg, #FFB300 0%, #FF5E3A 100%);
+
+  --color-accent-secondary: #FF4B4B;
+  --color-accent-sec-hover: #ff7575;
+  --color-accent-sec-glow: rgba(255, 75, 75, 0.35);
+  --color-accent-sec-grad: linear-gradient(135deg, #FF4B4B 0%, #FF007A 100%);
+
+  --color-border: rgba(255, 179, 0, 0.22);
+  --color-border-hover: rgba(255, 179, 0, 0.6);
+  --color-price: #FFB300;
+}
+
+/* 2. Emerald Matrix Colorway (Cyber Lime, Neon Mint) */
+[data-colorway="matrix"] {
+  --color-bg-primary: #050d0a;
+  --color-bg-secondary: #0a1813;
+  --color-bg-card: #10241d;
+  --color-bg-surface: #173329;
+  --color-bg-glass: rgba(10, 24, 19, 0.75);
+  --color-bg-glass-card: rgba(16, 36, 29, 0.68);
+
+  --color-accent-primary: #00F5A0;
+  --color-accent-hover: #5cffc0;
+  --color-accent-glow: rgba(0, 245, 160, 0.35);
+  --color-accent-grad: linear-gradient(135deg, #00F5A0 0%, #00D2FF 100%);
+
+  --color-accent-secondary: #A3E635;
+  --color-accent-sec-hover: #bef264;
+  --color-accent-sec-glow: rgba(163, 230, 53, 0.35);
+  --color-accent-sec-grad: linear-gradient(135deg, #A3E635 0%, #00F5A0 100%);
+
+  --color-border: rgba(0, 245, 160, 0.22);
+  --color-border-hover: rgba(0, 245, 160, 0.6);
+  --color-price: #00F5A0;
+}
+
+/* 3. Crystal Light Theme (Vibrant Prismatic White) */
+[data-theme="light"],
+[data-colorway="crystal"] {
+  --color-bg-primary: #f6f8fd;
+  --color-bg-secondary: #edf2fc;
+  --color-bg-card: #ffffff;
+  --color-bg-surface: #e2ecfc;
+  --color-bg-glass: rgba(255, 255, 255, 0.85);
+  --color-bg-glass-card: rgba(255, 255, 255, 0.75);
+
+  --color-accent-primary: #0284c7;
+  --color-accent-hover: #0369a1;
+  --color-accent-glow: rgba(2, 132, 199, 0.25);
+  --color-accent-grad: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+
+  --color-accent-secondary: #db2777;
+  --color-accent-sec-hover: #be185d;
+  --color-accent-sec-glow: rgba(219, 39, 119, 0.25);
+  --color-accent-sec-grad: linear-gradient(135deg, #db2777 0%, #0284c7 100%);
+
+  --color-accent-tertiary: #d97706;
+  --color-accent-tert-glow: rgba(217, 119, 6, 0.25);
+
+  --color-text-primary: #09101d;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+
+  --color-border: rgba(2, 132, 199, 0.20);
+  --color-border-subtle: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(2, 132, 199, 0.5);
+  --color-border-glare: rgba(255, 255, 255, 0.8);
+
+  --color-price: #059669;
+  --color-badge-new: #0284c7;
+  --color-badge-sale: #db2777;
+  --color-badge-free: #059669;
+  --color-badge-call: #d97706;
+
+  --shadow-card: 0 8px 30px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  --shadow-elev: 0 20px 50px rgba(15, 23, 42, 0.15), 0 0 25px rgba(2, 132, 199, 0.1);
+}
+
+/* Skip link for keyboard accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 1000;
+  background: var(--color-accent-primary);
+  color: #06080d;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-xs);
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Background Ambient Lighting Mesh */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 15% 15%, var(--color-accent-glow) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, var(--color-accent-sec-glow) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+  transition: background-image 0.6s ease;
+}
+
+/* Typography scale with high-impact tracking */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-size: clamp(2.3rem, 5.2vw, 4rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: var(--color-text-secondary);
+}
+
+/* Focus styles — visible & accessible */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 3px;
+  border-radius: var(--border-radius-xs);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ============================================================
+   Glassmorphism & Chromatic Utilities
+   ============================================================ */
+
+.glass-panel {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--color-border);
+  box-shadow: inset 0 1px 0 var(--color-border-glare), var(--shadow-card);
+}
+
+.glass-capsule {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-pill);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--color-border-glare);
+}
+
+.chromatic-gradient-text {
+  background: var(--color-accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.chromatic-gradient-text-sec {
+  background: var(--color-accent-sec-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+  margin-bottom: 0.75rem;
+  padding: 4px 12px;
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  border-radius: var(--border-radius-pill);
+}
+
+.eyebrow--secondary {
+  color: var(--color-accent-secondary);
+  background: rgba(255, 0, 122, 0.08);
+  border-color: rgba(255, 0, 122, 0.25);
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+}
+
+.text-accent {
+  color: var(--color-accent-primary);
+}
+
+.text-accent-pink {
+  color: var(--color-accent-secondary);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Section heads */
+.section-head {
+  margin-bottom: 2.4rem;
+  position: relative;
+}
+
+.section-head h2 {
+  margin-bottom: 0.6rem;
+}
+
+.section-head p {
+  max-width: 65ch;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.section-head--row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-accent-primary);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  padding: 6px 14px;
+  border-radius: var(--border-radius-pill);
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.link-arrow:hover {
+  background: rgba(0, 242, 254, 0.15);
+  border-color: var(--color-accent-primary);
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+}
+
+/* Reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Ambient Cursor Aura Light (Follows Pointer) */
+.cursor-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, rgba(255, 0, 122, 0.12) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+
+body:hover .cursor-aura {
+  opacity: 1;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cursor-aura {
+    display: none !important;
+  }
+}

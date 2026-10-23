@@ -1,0 +1,139 @@
+// @ts-check
+import { test, expect } from '@playwright/test';
+import path from 'path';
+import url from 'url';
+
+const indexUrl = url.pathToFileURL(path.resolve('index.html')).href;
+const shopUrl = url.pathToFileURL(path.resolve('pages/shop.html')).href;
+const cartUrl = url.pathToFileURL(path.resolve('pages/cart.html')).href;
+const contactUrl = url.pathToFileURL(path.resolve('pages/contact.html')).href;
+
+test.describe('Titan DigiStack E2E Test Suite', () => {
+
+  test('Homepage loads with valid header, branding row, and zero console errors', async ({ page }) => {
+    /** @type {string[]} */
+    const consoleErrors = [];
+    page.on('console', msg => {
+      if (msg.type() === 'error' && !msg.text().includes('ERR_FILE_NOT_FOUND') && !msg.text().includes('Failed to load resource') && !msg.text().includes('Not allowed to load local resource')) {
+        consoleErrors.push(msg.text());
+      }
+    });
+
+    await page.goto(indexUrl);
+
+    // Expect page title
+    await expect(page).toHaveTitle(/Titan DigiStack/);
+
+    // Verify Header Layout & Branding Row
+    const headerCard = page.locator('.site-header__card');
+    await expect(headerCard).toBeVisible();
+
+    const brandingRow = page.locator('.header-branding-row');
+    await expect(brandingRow).toBeVisible();
+
+    // Verify Left Logo Card (180px)
+    const logoCard = page.locator('.header-left');
+    await expect(logoCard).toBeVisible();
+    const logoBox = await logoCard.boundingBox();
+    expect(logoBox?.width).toBeCloseTo(180, 1);
+    expect(logoBox?.height).toBeCloseTo(180, 1);
+
+    // Verify Company Banner Frame
+    const brandContainer = page.locator('.header-brand-container');
+    await expect(brandContainer).toBeVisible();
+    const bannerImg = page.locator('.header-brand-img');
+    await expect(bannerImg).toBeVisible();
+
+    // Check console errors
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test('Navigation anchors jump to existing sections correctly', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    // Click EXPLORE
+    const exploreLink = page.locator('.header-nav a[href="#catTabs"]');
+    await expect(exploreLink).toBeVisible();
+    await exploreLink.click();
+    const catTabs = page.locator('#catTabs');
+    await expect(catTabs).toBeVisible();
+
+    // Click PRICING
+    const pricingLink = page.locator('.header-nav a[href="#offerBanner"]');
+    await expect(pricingLink).toBeVisible();
+    await pricingLink.click();
+    const offerBanner = page.locator('#offerBanner');
+    await expect(offerBanner).toBeVisible();
+  });
+
+  test('Live search dropdown and card filtering works', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    const searchInput = page.locator('#siteSearch');
+    await searchInput.fill('Elementor');
+
+    // Dropdown should be visible with options
+    const dropdown = page.locator('#searchResults');
+    await expect(dropdown).toBeVisible();
+    const results = dropdown.locator('li[role="option"]');
+    await expect(results.first()).toBeVisible();
+
+    // Products in grid should be filtered
+    const visibleCards = page.locator('.product-card:not(.is-hidden)');
+    const count = await visibleCards.count();
+    expect(count).toBeGreaterThan(0);
+  });
+
+  test('Add to cart interaction updates badge and displays toast', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    const cartBadge = page.locator('#cartCount');
+    await expect(cartBadge).toHaveText('0');
+
+    // Click Add button on hero card
+    const addBtn = page.locator('.hero__showcase button[data-add-to-cart]').first();
+    await addBtn.click();
+
+    // Cart badge should increment
+    await expect(cartBadge).toHaveText('1');
+
+    // Cart toast notification should become visible
+    const toast = page.locator('#cartToast');
+    await expect(toast).toHaveClass(/is-visible/);
+  });
+
+  test('Subpages (Shop, Cart, Contact) render cleanly', async ({ page }) => {
+    for (const subUrl of [shopUrl, cartUrl, contactUrl]) {
+      await page.goto(subUrl);
+      await expect(page.locator('.site-header__card')).toBeVisible();
+      await expect(page.locator('.header-branding-row')).toBeVisible();
+      await expect(page.locator('main')).toBeVisible();
+    }
+  });
+
+  test('Colorway dropdown menu opens above adjacent page sections with elevated z-index', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    // Toggle colorway menu
+    const toggleBtn = page.locator('#colorwayToggle');
+    await expect(toggleBtn).toBeVisible();
+    await toggleBtn.click();
+
+    // Menu should be visible
+    const menu = page.locator('#colorwayMenu');
+    await expect(menu).toBeVisible();
+
+    // Verify computed styles
+    const menuZIndex = await menu.evaluate(el => window.getComputedStyle(el).zIndex);
+    const headerZIndex = await page.locator('.site-header').evaluate(el => window.getComputedStyle(el).zIndex);
+    const headerPosition = await page.locator('.site-header').evaluate(el => window.getComputedStyle(el).position);
+    const switcherPosition = await page.locator('.colorway-switcher').evaluate(el => window.getComputedStyle(el).position);
+
+    expect(Number(menuZIndex)).toBe(1000);
+    expect(Number(headerZIndex)).toBe(100);
+    expect(headerPosition).toBe('relative');
+    expect(switcherPosition).toBe('relative');
+  });
+
+});
+
