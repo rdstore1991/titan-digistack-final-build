@@ -22,121 +22,124 @@ window.TITAN_CONFIG = {
    ----------------------------- */
 const PRODUCTS = [
   /* ----- WordPress Themes ----- */
-  { id: 'th-001', title: 'Digital Product Selling Website Template', price: 0,    badge: 'free', category: 'themes' },
+  { id: 'th-001', title: 'Digital Product Selling Website Template', price: 0,    cycle: 'Lifetime', badge: 'free', category: 'themes' },
   { id: 'th-002', title: 'KitNinja – Ultimate Ecommerce Template',   price: null, badge: 'call', category: 'themes' },
-  { id: 'th-003', title: '100+ Bangla Landing Page Templates',       price: 100,  badge: 'new',  category: 'themes' },
-  { id: 'th-004', title: '1000+ Elementor Landing Page Templates',   price: 150,                category: 'themes' },
-  { id: 'th-005', title: 'Astra Pro WP Theme',                       price: 450,                category: 'themes' },
-  { id: 'th-006', title: 'GeneratePress Premium',                    price: 450,  priceMax: 750, category: 'themes' },
-  { id: 'th-007', title: 'Rishi Theme Agency Pack Lifetime',         price: 600,                category: 'themes' },
-  { id: 'th-008', title: 'OceanWP Theme Premium',                    price: 600,                category: 'themes' },
-  { id: 'th-009', title: 'Divi WordPress Theme',                     price: 650,                category: 'themes' },
-  { id: 'th-010', title: 'Zakra Theme Lifetime',                     price: 660,                category: 'themes' },
-  { id: 'th-011', title: 'Kadence Theme',                            price: 720,                category: 'themes' },
-  { id: 'th-012', title: 'XStore WordPress Theme',                   price: 780,                category: 'themes' },
-  { id: 'th-013', title: 'Woodmart WordPress Theme',                 price: 960,                category: 'themes' },
-  { id: 'th-014', title: 'GPL WordPress Theme & Plugin Membership',  price: 1050, badge: 'sale', category: 'themes' },
-  { id: 'th-015', title: 'Woostify Theme Lifetime',                  price: 1250,               category: 'themes' },
+  { id: 'th-003', title: '100+ Bangla Landing Page Templates',       price: 100,  cycle: 'Lifetime', badge: 'new',  category: 'themes' },
+  { id: 'th-004', title: '1000+ Elementor Landing Page Templates',   price: 150,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-005', title: 'Astra Pro / GeneratePress',                price: 599,  cycle: 'Lifetime', badge: 'sale', category: 'themes' },
+  { id: 'th-006', title: 'GeneratePress Premium',                    price: 599,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-007', title: 'Rishi Theme Agency Pack Lifetime',         price: 600,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-008', title: 'OceanWP Theme Premium',                    price: 600,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-009', title: 'Divi WordPress Theme',                     price: 650,  cycle: '/ yr', category: 'themes' },
+  { id: 'th-010', title: 'Zakra Theme Lifetime',                     price: 660,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-011', title: 'Kadence Theme',                            price: 720,  cycle: '/ yr', category: 'themes' },
+  { id: 'th-012', title: 'XStore WordPress Theme',                   price: 780,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-013', title: 'Woodmart WordPress Theme',                 price: 960,  cycle: 'Lifetime', category: 'themes' },
+  { id: 'th-014', title: 'GPL WordPress Theme & Plugin Membership',  price: 1050, cycle: '/ yr', badge: 'sale', category: 'themes' },
+  { id: 'th-015', title: 'Woostify Theme Lifetime',                  price: 1250, cycle: 'Lifetime', category: 'themes' },
 
   /* ----- WordPress Plugins ----- */
-  { id: 'pl-001', title: 'ACF Pro',                                    price: 450,   category: 'plugins' },
-  { id: 'pl-002', title: 'All-in-One WP Migration Unlimited',          price: 120,   category: 'plugins' },
-  { id: 'pl-003', title: 'bKash Sandbox API Test Plugin',              price: 0,     badge: 'free', category: 'plugins' },
-  { id: 'pl-004', title: 'Cartflows Pro License',                      price: 750,   category: 'plugins' },
-  { id: 'pl-005', title: 'Elementor Agency One Plan',                  price: 450,   category: 'plugins' },
-  { id: 'pl-006', title: 'Elementor Pro',                              price: 450,   badge: 'sale', category: 'plugins' },
-  { id: 'pl-007', title: 'ElementsKit Premium',                        price: 720,   category: 'plugins' },
-  { id: 'pl-008', title: 'EWWW Image Optimizer',                       price: 950,   category: 'plugins' },
-  { id: 'pl-009', title: 'Happy Addons for Elementor',                 price: 750,   category: 'plugins' },
-  { id: 'pl-010', title: 'Hide My WP Ghost',                           price: 1600,  category: 'plugins' },
-  { id: 'pl-011', title: 'Imagify API Image Optimization',             price: 660,   category: 'plugins' },
-  { id: 'pl-012', title: 'JetFormBuilder PRO',                         price: 600,   category: 'plugins' },
-  { id: 'pl-013', title: 'JetPlugins by Crocoblock',                   price: 700,   category: 'plugins' },
-  { id: 'pl-014', title: 'Ninja Tables',                               price: null,  badge: 'call', category: 'plugins' },
-  { id: 'pl-015', title: 'Perfmatters Plugin',                         price: 480,   category: 'plugins' },
-  { id: 'pl-016', title: 'Piotnet Addons For Elementor',               price: 400,   category: 'plugins' },
-  { id: 'pl-017', title: 'PixelYourSite Pro',                          price: 1750,  category: 'plugins' },
-  { id: 'pl-018', title: 'PowerPack Addons for Elementor',             price: 360,   category: 'plugins' },
-  { id: 'pl-019', title: 'Premium Addons Pro for Elementor',           price: 360,   category: 'plugins' },
-  { id: 'pl-020', title: 'Rank Math Pro',                              price: 650,   badge: 'new', category: 'plugins' },
-  { id: 'pl-021', title: 'Royal Elementor Addons',                     price: 3600,  category: 'plugins' },
-  { id: 'pl-022', title: 'ShopEngine – WooCommerce Builder',           price: 480,   category: 'plugins' },
-  { id: 'pl-023', title: 'The Plus Addons For Elementor',              price: 420,   category: 'plugins' },
-  { id: 'pl-024', title: 'Tutor LMS',                                  price: 550,   category: 'plugins' },
-  { id: 'pl-025', title: 'Unlimited Addons for Elementor',             price: 600,   category: 'plugins' },
-  { id: 'pl-026', title: 'WCFM Marketplace',                           price: 840,   category: 'plugins' },
-  { id: 'pl-027', title: 'WooLentor Elementor Addon',                  price: 720,   category: 'plugins' },
-  { id: 'pl-028', title: 'WP All Import and Export Plugin',            price: 1650,  category: 'plugins' },
-  { id: 'pl-029', title: 'WP Encryption SSL Solution',                 price: 720,   category: 'plugins' },
-  { id: 'pl-030', title: 'WP Funnels Pro',                             price: 600,   category: 'plugins' },
+  { id: 'pl-001', title: 'ACF Pro',                                    price: 450,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-002', title: 'All-in-One WP Migration Unlimited',          price: 120,  cycle: 'Lifetime', category: 'plugins' },
+  { id: 'pl-003', title: 'bKash Sandbox API Test Plugin',              price: 0,    cycle: 'Lifetime', badge: 'free', category: 'plugins' },
+  { id: 'pl-004', title: 'Cartflows Pro License',                      price: 750,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-005', title: 'Elementor Agency One Plan',                  price: 450,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-006', title: 'Elementor Pro',                              price: 499,  cycle: '/ yr', badge: 'sale', category: 'plugins' },
+  { id: 'pl-007', title: 'ElementsKit Premium',                        price: 720,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-008', title: 'EWWW Image Optimizer',                       price: 950,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-009', title: 'Happy Addons for Elementor',                 price: 750,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-010', title: 'Hide My WP Ghost',                           price: 1600, cycle: 'Lifetime', category: 'plugins' },
+  { id: 'pl-011', title: 'Imagify API Image Optimization',             price: 660,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-012', title: 'JetFormBuilder PRO',                         price: 600,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-013', title: 'JetPlugins by Crocoblock',                   price: 700,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-014', title: 'Ninja Tables',                               price: null, badge: 'call', category: 'plugins' },
+  { id: 'pl-015', title: 'Perfmatters Plugin',                         price: 480,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-016', title: 'Piotnet Addons For Elementor',               price: 400,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-017', title: 'PixelYourSite Pro',                          price: 1750, cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-018', title: 'PowerPack Addons for Elementor',             price: 360,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-019', title: 'Premium Addons Pro for Elementor',           price: 360,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-020', title: 'WP Rocket / RankMath Pro',                   price: 399,  cycle: '/ yr', badge: 'new', category: 'plugins' },
+  { id: 'pl-021', title: 'Royal Elementor Addons',                     price: 3600, cycle: 'Lifetime', category: 'plugins' },
+  { id: 'pl-022', title: 'ShopEngine – WooCommerce Builder',           price: 480,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-023', title: 'The Plus Addons For Elementor',              price: 420,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-024', title: 'Tutor LMS',                                  price: 550,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-025', title: 'Unlimited Addons for Elementor',             price: 600,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-026', title: 'WCFM Marketplace',                           price: 840,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-027', title: 'WooLentor Elementor Addon',                  price: 720,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-028', title: 'WP All Import and Export Plugin',            price: 1650, cycle: 'Lifetime', category: 'plugins' },
+  { id: 'pl-029', title: 'WP Encryption SSL Solution',                 price: 720,  cycle: '/ yr', category: 'plugins' },
+  { id: 'pl-030', title: 'WP Funnels Pro',                             price: 600,  cycle: '/ yr', category: 'plugins' },
 
   /* ----- Graphic Tools ----- */
-  { id: 'gr-001', title: '20,000+ PSD & CDR Flyer Templates',          price: 50,    badge: 'sale', category: 'graphic' },
-  { id: 'gr-002', title: 'Freepik Official Subscription',              price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-003', title: 'Runway ML Subscription',                     price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-004', title: 'Midjourney AI Subscription',                 price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-005', title: 'Recraft AI Subscription & Credits',          price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-006', title: 'Ideogram AI',                                price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-007', title: 'ElevenLabs Creator Plan',                    price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-008', title: 'Taja AI – Video Content Automation',         price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-009', title: 'HeyGen Official Subscription',               price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-010', title: 'InVideo Official Subscription',              price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-011', title: 'JoggAI – AI Video Generator',                price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-012', title: 'Envato Elements Subscription',               price: 450,   category: 'graphic' },
-  { id: 'gr-013', title: 'Filmora 14 Lifetime',                        price: 350,   priceMax: 550, category: 'graphic' },
-  { id: 'gr-014', title: 'Adobe Creative Cloud Official',              price: null,  badge: 'call', category: 'graphic' },
-  { id: 'gr-015', title: 'CapCut Pro',                                 price: 350,   category: 'graphic' },
-  { id: 'gr-016', title: 'Google AI Pro (Gemini Veo 3)',               price: 700,   badge: 'new',  category: 'graphic' },
-  { id: 'gr-017', title: 'Canva Premium',                              price: 500,   category: 'graphic' },
-  { id: 'gr-018', title: 'Canva Pro',                                  price: 60,    badge: 'sale', category: 'graphic' },
-  { id: 'gr-019', title: 'Adobe Master Collection 2025',               price: 99,    badge: 'new',  category: 'graphic' },
-  { id: 'gr-020', title: 'Adobe Master Collection 2024',               price: 99,    category: 'graphic' },
+  { id: 'gr-001', title: '20,000+ PSD & CDR Flyer Templates',          price: 50,   cycle: 'Lifetime', badge: 'sale', category: 'graphic' },
+  { id: 'gr-002', title: 'Freepik Premium',                            price: 280,  cycle: '/ mo', badge: 'sale', category: 'graphic' },
+  { id: 'gr-003', title: 'Runway ML Subscription',                     price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-004', title: 'Midjourney Pro',                             price: 550,  cycle: '/ mo', badge: 'sale', category: 'graphic' },
+  { id: 'gr-005', title: 'Recraft AI Subscription & Credits',          price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-006', title: 'Ideogram AI',                                price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-007', title: 'ElevenLabs Creator Plan',                    price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-008', title: 'Taja AI – Video Content Automation',         price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-009', title: 'HeyGen Official Subscription',               price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-010', title: 'InVideo Official Subscription',              price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-011', title: 'JoggAI – AI Video Generator',                price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-012', title: 'Envato Elements',                            price: 299,  cycle: '/ mo', category: 'graphic' },
+  { id: 'gr-013', title: 'Filmora 14 Lifetime',                        price: 350,  cycle: 'Lifetime', category: 'graphic' },
+  { id: 'gr-014', title: 'Adobe Creative Cloud Official',              price: null, badge: 'call', category: 'graphic' },
+  { id: 'gr-015', title: 'CapCut Pro',                                 price: 250,  cycle: '/ mo', category: 'graphic' },
+  { id: 'gr-016', title: 'Google One / Gemini Advanced',               price: 350,  cycle: '/ mo', badge: 'new',  category: 'graphic' },
+  { id: 'gr-017', title: 'Canva Premium',                              price: 500,  cycle: '/ yr', category: 'graphic' },
+  { id: 'gr-018', title: 'Canva Pro',                                  price: 199,  cycle: '/ yr', badge: 'sale', category: 'graphic' },
+  { id: 'gr-019', title: 'Adobe Master Collection 2025',               price: 99,   cycle: 'Lifetime', badge: 'new',  category: 'graphic' },
+  { id: 'gr-020', title: 'Adobe Master Collection 2024',               price: 99,   cycle: 'Lifetime', category: 'graphic' },
 
   /* ----- AI Tools & Subscriptions ----- */
-  { id: 'ai-001', title: 'Higgsfield AI – Video & Image Generator',    price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-002', title: 'Beautiful AI',                               price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-003', title: 'Bolt AI Builder',                            price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-004', title: 'Branalyzer AI – Brand Analysis',             price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-005', title: 'LinkedIn Premium',                           price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-006', title: 'Spotify Premium',                            price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-007', title: 'ChatGPT Go',                                 price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-008', title: 'ChatGPT Plus',                               price: 350,   badge: 'sale', category: 'ai' },
-  { id: 'ai-009', title: 'ChatPRD AI',                                 price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-010', title: 'Claude AI and API',                          price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-011', title: 'ClickUp AI',                                 price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-012', title: 'Cloud AI Pro',                               price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-013', title: 'CorelDRAW Subscription',                     price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-014', title: 'Coursera Plus',                              price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-015', title: 'DataCamp Subscription',                      price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-016', title: 'Descript – AI Video Editing',                price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-017', title: 'Devin AI',                                   price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-018', title: 'Duolingo Subscription',                      price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-019', title: 'Figma Professional Plan',                    price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-020', title: 'Fireflies AI',                               price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-021', title: 'FlexClip AI',                                price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-022', title: 'Flutterflow Subscription',                   price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-023', title: 'Foxly URL Shortener',                        price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-024', title: 'Gamma AI – Presentation Builder',            price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-025', title: 'GitHub Pro / Team / Enterprise',             price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-026', title: 'Grammarly Premium',                          price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-027', title: 'Gravitec Push Notifications',                price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-028', title: 'Grok AI SuperGrok',                          price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-029', title: 'Group Buy SEO Tools',                        price: null,  badge: 'call', category: 'ai' },
-  { id: 'ai-030', title: 'Gumloop AI Automation',                      price: null,  badge: 'call', category: 'ai' },
+  { id: 'ai-001', title: 'Higgsfield AI – Video & Image Generator',    price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-002', title: 'Beautiful AI',                               price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-003', title: 'Bolt AI Builder',                            price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-004', title: 'Branalyzer AI – Brand Analysis',             price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-005', title: 'LinkedIn Premium',                           price: 999,  cycle: '/ mo', badge: 'sale', category: 'ai' },
+  { id: 'ai-006', title: 'Spotify Premium',                            price: 180,  cycle: '/ mo', category: 'ai' },
+  { id: 'ai-007', title: 'ChatGPT Go',                                 price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-008', title: 'ChatGPT Plus',                               price: 350,  cycle: '/ mo', badge: 'sale', category: 'ai' },
+  { id: 'ai-009', title: 'ChatPRD AI',                                 price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-010', title: 'Claude Pro',                                 price: 450,  cycle: '/ mo', badge: 'sale', category: 'ai' },
+  { id: 'ai-011', title: 'ClickUp AI',                                 price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-012', title: 'Perplexity Pro',                             price: 299,  cycle: '/ mo', badge: 'new', category: 'ai' },
+  { id: 'ai-013', title: 'CorelDRAW Subscription',                     price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-014', title: 'Coursera Plus',                              price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-015', title: 'DataCamp Subscription',                      price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-016', title: 'Descript – AI Video Editing',                price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-017', title: 'Cursor Pro',                                 price: 650,  cycle: '/ mo', badge: 'new', category: 'ai' },
+  { id: 'ai-018', title: 'Duolingo Subscription',                      price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-019', title: 'Figma Professional',                         price: 499,  cycle: '/ yr', badge: 'sale', category: 'ai' },
+  { id: 'ai-020', title: 'Fireflies AI',                               price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-021', title: 'FlexClip AI',                                price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-022', title: 'Flutterflow Subscription',                   price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-023', title: 'Foxly URL Shortener',                        price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-024', title: 'Gamma AI – Presentation Builder',            price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-025', title: 'GitHub Copilot',                             price: 399,  cycle: '/ mo', badge: 'sale', category: 'ai' },
+  { id: 'ai-026', title: 'Grammarly Premium',                          price: 199,  cycle: '/ mo', badge: 'sale', category: 'ai' },
+  { id: 'ai-027', title: 'Gravitec Push Notifications',                price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-028', title: 'Grok AI SuperGrok',                          price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-029', title: 'Semrush Pro',                                price: 399,  cycle: '/ mo', badge: 'sale', category: 'ai' },
+  { id: 'ai-030', title: 'Gumloop AI Automation',                      price: null, badge: 'call', category: 'ai' },
+  { id: 'ai-031', title: 'QuillBot Premium',                           price: 180,  cycle: '/ mo', badge: 'new',  category: 'ai' },
+  { id: 'ai-032', title: 'Turnitin Student',                           price: 350,  cycle: '/ 6 mo', badge: 'new', category: 'ai' },
 
   /* ----- Software & Apps ----- */
-  { id: 'sw-001', title: 'Truecaller Premium (Android & iOS)',         price: 250,   priceMax: 2150, category: 'software' },
+  { id: 'sw-001', title: 'Truecaller Premium (Android & iOS)',         price: 250,   cycle: '/ yr', category: 'software' },
   { id: 'sw-002', title: 'Microsoft Office Professional 2019/2021/2024', price: null, badge: 'call', category: 'software' },
   { id: 'sw-003', title: 'Microsoft Office Professional 2010/2013/2016', price: null, badge: 'call', category: 'software' },
-  { id: 'sw-004', title: 'Microsoft Office 365 – Lifetime',            price: 450,   badge: 'sale', category: 'software' },
-  { id: 'sw-005', title: 'FastStone Capture – Official License',       price: 10,    category: 'software' },
-  { id: 'sw-006', title: 'Fast Screen Recorder – Lifetime',            price: 10,    category: 'software' },
-  { id: 'sw-007', title: 'Duplicate Cleaner',                          price: 0,     badge: 'free', category: 'software' },
-  { id: 'sw-008', title: 'CamScanner Premium',                         price: 350,   category: 'software' },
-  { id: 'sw-009', title: 'Windows 7/8/10/11 Retail Key',               price: 500,   priceMax: 550, category: 'software' },
+  { id: 'sw-004', title: 'Microsoft 365',                              price: 399,   cycle: '/ yr', badge: 'sale', category: 'software' },
+  { id: 'sw-005', title: 'FastStone Capture – Official License',       price: 10,    cycle: 'Lifetime', category: 'software' },
+  { id: 'sw-006', title: 'Fast Screen Recorder – Lifetime',            price: 10,    cycle: 'Lifetime', category: 'software' },
+  { id: 'sw-007', title: 'Duplicate Cleaner',                          price: 0,     cycle: 'Lifetime', badge: 'free', category: 'software' },
+  { id: 'sw-008', title: 'CamScanner Premium',                         price: 350,   cycle: '/ yr', category: 'software' },
+  { id: 'sw-009', title: 'Windows 11 Pro Key',                         price: 450,   cycle: 'Lifetime', badge: 'sale', category: 'software' },
   { id: 'sw-010', title: 'AutoCAD with Activator & Serial Keys',       price: null,  badge: 'call', category: 'software' },
-  { id: 'sw-011', title: 'AnyChat Live Chat Platform',                 price: 850,   category: 'software' },
-  { id: 'sw-012', title: '100+ Premium Android Apps Bundle',           price: 0,     badge: 'free', category: 'software' },
+  { id: 'sw-011', title: 'AnyChat Live Chat Platform',                 price: 850,   cycle: 'Lifetime', category: 'software' },
+  { id: 'sw-012', title: '100+ Premium Android Apps Bundle',           price: 0,     cycle: 'Lifetime', badge: 'free', category: 'software' },
+  { id: 'sw-013', title: 'NordVPN / ExpressVPN',                       price: 199,   cycle: '/ mo', badge: 'sale', category: 'software' },
 
   /* ----- Tutorials ----- */
   { id: 'tu-001', title: 'Visa Processing Course',                     price: 0, badge: 'free', category: 'tutorials' },
@@ -155,16 +158,19 @@ const PRODUCTS = [
   { id: 'sv-006', title: 'Facebook Page Review',                       price: null,   badge: 'call', category: 'services' },
 
   /* ----- eBooks & Entertainment ----- */
-  { id: 'eb-001', title: '1400+ ChatGPT Prompts Library',                                  price: 0,  badge: 'free', category: 'ebooks' },
-  { id: 'eb-002', title: 'গোড়া থেকে ডিজিটাল মার্কেটিং (Gora Theke Digital Marketing)', price: 10, category: 'ebooks' },
-  { id: 'eb-003', title: 'Uddoktader Prothom Thikana eBook',                               price: 10, category: 'ebooks' },
-  { id: 'eb-004', title: '5K Bangla eBook Bundle Collection',                              price: 99, badge: 'sale', category: 'ebooks' },
-  { id: 'eb-005', title: 'Learn English Easily eBooks',                                    price: 0,  badge: 'free', category: 'ebooks' },
-  { id: 'eb-006', title: 'Bangla Comics eBook Collection 85+',                             price: 0,  badge: 'free', category: 'ebooks' },
-  { id: 'eb-007', title: 'Bangla Islamic Books PDF Collection 1300+',                      price: 0,  badge: 'free', category: 'ebooks' },
-  { id: 'eb-008', title: '100+ Muhammed Zafar Iqbal Books PDF',                            price: 25, category: 'ebooks' },
-  { id: 'eb-009', title: '200+ Tin Goyenda Books PDF',                                     price: 25, category: 'ebooks' },
-  { id: 'eb-010', title: '300+ Masud Rana eBooks PDF',                                     price: 25, category: 'ebooks' },
+  { id: 'eb-001', title: '1400+ ChatGPT Prompts Library',                                  price: 0,   badge: 'free', category: 'ebooks' },
+  { id: 'eb-002', title: 'গোড়া থেকে ডিজিটাল মার্কেটিং (Gora Theke Digital Marketing)', price: 10,  category: 'ebooks' },
+  { id: 'eb-003', title: 'Uddoktader Prothom Thikana eBook',                               price: 10,  category: 'ebooks' },
+  { id: 'eb-004', title: '5K Bangla eBook Bundle Collection',                              price: 99,  badge: 'sale', category: 'ebooks' },
+  { id: 'eb-005', title: 'Learn English Easily eBooks',                                    price: 0,   badge: 'free', category: 'ebooks' },
+  { id: 'eb-006', title: 'Bangla Comics eBook Collection 85+',                             price: 0,   badge: 'free', category: 'ebooks' },
+  { id: 'eb-007', title: 'Bangla Islamic Books PDF Collection 1300+',                      price: 0,   badge: 'free', category: 'ebooks' },
+  { id: 'eb-008', title: '100+ Muhammed Zafar Iqbal Books PDF',                            price: 25,  category: 'ebooks' },
+  { id: 'eb-009', title: '200+ Tin Goyenda Books PDF',                                     price: 25,  category: 'ebooks' },
+  { id: 'eb-010', title: '300+ Masud Rana eBooks PDF',                                     price: 25,  category: 'ebooks' },
+  { id: 'eb-011', title: 'YouTube Premium',                                                price: 160, cycle: '/ mo', badge: 'sale', category: 'ebooks' },
+  { id: 'eb-012', title: 'Netflix UHD 4K',                                                 price: 320, cycle: '/ mo', badge: 'sale', category: 'ebooks' },
+  { id: 'eb-013', title: 'Prime Video',                                                    price: 150, cycle: '/ mo', category: 'ebooks' },
 ];
 
 window.PRODUCTS = PRODUCTS;
@@ -220,16 +226,42 @@ function imageConfigFor(product) {
 window.imageConfigFor = imageConfigFor;
 window.defaultImageFor = (p) => { const c = imageConfigFor(p); return c ? c.src : null; };
 
+const CURRENCY_RATES = {
+  BDT: { symbol: '৳', rate: 1, format: (bdt) => (bdt === 0 ? 'Free' : `৳${Math.round(bdt).toLocaleString('en-BD')}`) },
+  INR: { symbol: '₹', rate: 0.70, format: (bdt) => (bdt === 0 ? 'Free' : `₹${Math.round(bdt * 0.70).toLocaleString('en-IN')}`) },
+  USD: { symbol: '$', rate: 0.0083, format: (bdt) => (bdt === 0 ? 'Free' : `$${(bdt * 0.0083).toFixed(2)}`) },
+};
+
+function getActiveCurrency() {
+  try {
+    return localStorage.getItem('titan_currency') || 'BDT';
+  } catch {
+    return 'BDT';
+  }
+}
+window.getActiveCurrency = getActiveCurrency;
+
+function convertPrice(bdt, currency = getActiveCurrency()) {
+  if (bdt === null || bdt === undefined || bdt === 'call') return null;
+  if (bdt === 0) return 'Free';
+  const num = Number(bdt);
+  if (isNaN(num)) return bdt;
+  const cfg = CURRENCY_RATES[currency] || CURRENCY_RATES.BDT;
+  return cfg.format(num);
+}
+window.convertPrice = convertPrice;
+
 function formatPrice(p) {
-  if (p === null || p === undefined || p === 'call') return null;
-  if (p === 0) return 'Free';
-  return `৳${p.toLocaleString('en-BD')}`;
+  return convertPrice(p);
 }
 
-function priceLabel(product) {
-  if (product.price === null) return '📞 Call for Price';
-  const lo = formatPrice(product.price);
-  if (product.priceMax) return `৳${product.price.toLocaleString('en-BD')}–৳${product.priceMax.toLocaleString('en-BD')}`;
+function priceLabel(product, currency = getActiveCurrency()) {
+  if (product.price === null || product.price === undefined) return '📞 Call for Price';
+  const lo = convertPrice(product.price, currency);
+  if (product.priceMax) {
+    const hi = convertPrice(product.priceMax, currency);
+    return `${lo}–${hi}`;
+  }
   return lo;
 }
 
@@ -246,17 +278,136 @@ function placeholderInitials(title) {
   return words.slice(0, 2).map(w => w[0]).join('').toUpperCase() || 'TD';
 }
 
-function callForPriceHref(product) {
-  const cfg = window.TITAN_CONFIG;
-  const text = encodeURIComponent(`Hi Titan DigiStack, I'd like a quote for "${product.title}" (ID: ${product.id}).`);
-  return `https://wa.me/${cfg.whatsappNumber}?text=${text}`;
+function callForPriceHref(product, curr = getActiveCurrency()) {
+  const cfg = window.TITAN_CONFIG || { whatsappNumber: '8801700000000' };
+  const title = typeof product === 'string' ? product : product.title;
+  const text = `Hi Titan DigiStack! I want an instant quote for ${title} in ${curr}.`;
+  return `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(text)}`;
+}
+window.callForPriceHref = callForPriceHref;
+
+function getWhatsAppQuoteUrl(title, curr = getActiveCurrency()) {
+  return callForPriceHref({ title }, curr);
+}
+window.getWhatsAppQuoteUrl = getWhatsAppQuoteUrl;
+
+/* -----------------------------
+   Brand Icons & Vector Avatars Engine
+   ----------------------------- */
+const BRAND_ICONS = [
+  { match: /(chatgpt|openai|gpt-)/i, slug: 'openai', hex: '10a37f' },
+  { match: /(claude|anthropic)/i, slug: 'anthropic', hex: 'd97757' },
+  { match: /(perplexity)/i, slug: 'perplexity', hex: '20b8cd' },
+  { match: /(cursor)/i, slug: 'cursor', hex: '00f2fe' },
+  { match: /(copilot|github)/i, slug: 'githubcopilot', hex: 'ffffff' },
+  { match: /(canva)/i, slug: 'canva', hex: '00c4cc' },
+  { match: /(figma)/i, slug: 'figma', hex: 'f24e1e' },
+  { match: /(linkedin)/i, slug: 'linkedin', hex: '0a66c2' },
+  { match: /(spotify)/i, slug: 'spotify', hex: '1ed760' },
+  { match: /(netflix)/i, slug: 'netflix', hex: 'e50914' },
+  { match: /(youtube)/i, slug: 'youtube', hex: 'ff0000' },
+  { match: /(elementor)/i, slug: 'elementor', hex: '92003b' },
+  { match: /(woocommerce|woolentor|shopengine)/i, slug: 'woocommerce', hex: '96588a' },
+  { match: /(wordpress|wp\s|wp-|astra|generatepress|divi|zakra|kadence|woodmart|woostify|rishi|oceanwp|gpl)/i, slug: 'wordpress', hex: '21759b' },
+  { match: /(envato)/i, slug: 'envato', hex: '81b441' },
+  { match: /(freepik)/i, slug: 'freepik', hex: '1273eb' },
+  { match: /(grammarly)/i, slug: 'grammarly', hex: '15c39a' },
+  { match: /(semrush)/i, slug: 'semrush', hex: 'ff642d' },
+  { match: /(nordvpn|expressvpn|vpn)/i, slug: 'nordvpn', hex: '4687ff' },
+  { match: /(windows|microsoft|office)/i, slug: 'microsoft', hex: '00a4ef' },
+  { match: /(gemini|google\sone|google\sai)/i, slug: 'googlegemini', hex: '8e75b2' },
+  { match: /(adobe|illustrator|photoshop)/i, slug: 'adobe', hex: 'ff0000' },
+  { match: /(coursera)/i, slug: 'coursera', hex: '0056d2' },
+  { match: /(duolingo)/i, slug: 'duolingo', hex: '58cc02' },
+  { match: /(bkash)/i, slug: 'bkash', hex: 'e2136e' },
+];
+
+function getCategoryFallbackSvg(category, title = '') {
+  const t = (title || '').toLowerCase();
+  if (/turnitin|quillbot|autocad|truecaller|faststone|camscanner|ghost|ssl|security/i.test(t)) {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
+  }
+  if (/capcut|filmora|invideo|joggai|descript|flexclip|video|flyer|templates/i.test(t)) {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ff007a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2m0 14v-2M8 9h2m10 0h2m-4.2 2.8L19 13M15 9h0m2.8-2.8L19 5M3 21l9-9m0.2-5.8L11 5"/></svg>`;
+  }
+  if (/midjourney|higgsfield|bolt|ideogram|devin|grok|runway|recraft|elevenlabs|heygen|ai/i.test(t) || category === 'ai') {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2z"/><path d="M19 16l1.2 2.8L23 20l-2.8 1.2L19 24l-1.2-2.8L15 20l2.8-1.2L19 16z"/></svg>`;
+  }
+  if (category === 'themes' || category === 'plugins') {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f5a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+  }
+  if (category === 'graphic') {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ff007a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2m0 14v-2M8 9h2m10 0h2m-4.2 2.8L19 13M15 9h0m2.8-2.8L19 5M3 21l9-9m0.2-5.8L11 5"/></svg>`;
+  }
+  if (category === 'software') {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
+  }
+  if (category === 'tutorials' || category === 'ebooks') {
+    return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`;
+  }
+  return `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>`;
+}
+
+function getBrandAvatar(title, category = 'ai') {
+  const match = BRAND_ICONS.find(b => b.match.test(title));
+  const fallbackSvg = getCategoryFallbackSvg(category, title);
+  if (match) {
+    const safeTitle = (title || '').replace(/"/g, '&quot;');
+    return `<img src="https://cdn.simpleicons.org/${match.slug}/${match.hex}" alt="${safeTitle}" width="28" height="28" loading="lazy" onerror="this.onerror=null;this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='inline-flex';"><span style="display:none;" aria-hidden="true">${fallbackSvg}</span>`;
+  }
+  return fallbackSvg;
+}
+window.getBrandAvatar = getBrandAvatar;
+
+/* -----------------------------
+   Currency Switcher State & Engine
+   ----------------------------- */
+function setCurrency(curr) {
+  const allowed = ['BDT', 'INR', 'USD'];
+  const currency = allowed.includes(curr) ? curr : 'BDT';
+  try {
+    localStorage.setItem('titan_currency', currency);
+  } catch {}
+
+  // Update switcher button active state
+  $$('.currency-btn').forEach(btn => {
+    btn.classList.toggle('is-active', btn.getAttribute('data-currency') === currency);
+  });
+
+  // Convert all [data-price-bdt] elements
+  $$('[data-price-bdt]').forEach(el => {
+    const bdt = parseFloat(el.getAttribute('data-price-bdt'));
+    if (!isNaN(bdt)) {
+      el.textContent = convertPrice(bdt, currency);
+    }
+  });
+
+  // Update quote buttons href with current currency
+  $$('[data-quote-btn]').forEach(btn => {
+    const title = btn.getAttribute('data-quote-title') || 'Product';
+    btn.href = getWhatsAppQuoteUrl(title, currency);
+  });
+}
+window.setCurrency = setCurrency;
+
+function initCurrencySwitcher() {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-currency]');
+    if (!btn) return;
+    e.preventDefault();
+    const curr = btn.getAttribute('data-currency');
+    if (curr) setCurrency(curr);
+  });
+
+  // Initialize with persisted currency
+  setCurrency(getActiveCurrency());
 }
 
 /* -----------------------------
    Product card render with 3D Tilt & Quick-View
    ----------------------------- */
 function renderCard(product) {
-  const isCall = product.price === null;
+  const isCall = product.price === null || product.price === undefined;
   const isFree = product.price === 0;
   const [c1, c2] = placeholderColors(product.id);
 
@@ -268,13 +419,47 @@ function renderCard(product) {
     return '';
   })();
 
-  const priceHtml = isCall
-    ? `<div class="card-price call-price">📞 Call for Price</div>`
-    : `<div class="card-price">${priceLabel(product)}</div>`;
+  const avatarMarkup = `
+    <div class="product-card__avatar" aria-hidden="true">
+      ${getBrandAvatar(product.title, product.category)}
+    </div>
+  `;
 
-  const ctaHtml = isCall
-    ? `<a class="btn-cart call" href="${callForPriceHref(product)}" target="_blank" rel="noopener" aria-label="Get a quote on WhatsApp for ${product.title}">Get Price</a>`
-    : `<button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Add ${product.title} to cart">Add to Cart</button>`;
+  let priceHtml;
+  let ctaHtml;
+
+  if (isCall) {
+    priceHtml = `
+      <span class="price-badge price-badge--quote">
+        <span class="pulse-dot"></span> Instant Quote
+      </span>
+    `;
+    ctaHtml = `
+      <a class="btn-cart call" data-quote-btn data-quote-title="${product.title.replace(/"/g, '&quot;')}" href="${callForPriceHref(product)}" target="_blank" rel="noopener" aria-label="Instant quote on WhatsApp for ${product.title.replace(/"/g, '&quot;')}">Get Quote</a>
+    `;
+  } else if (isFree) {
+    priceHtml = `
+      <div class="product-card__price-wrap">
+        <span class="product-price" data-price-bdt="0">Free</span>
+      </div>
+    `;
+    ctaHtml = `
+      <button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Get ${product.title.replace(/"/g, '&quot;')}">Buy Now</button>
+    `;
+  } else {
+    const cycle = product.cycle ? ` <span class="price-cycle">${product.cycle}</span>` : ' <span class="price-cycle">/ mo</span>';
+    const currentPriceText = convertPrice(product.price);
+    priceHtml = `
+      <div class="product-card__price-wrap">
+        <span class="price-prefix">From</span>
+        <span class="product-price" data-price-bdt="${product.price}">${currentPriceText}</span>
+        ${cycle}
+      </div>
+    `;
+    ctaHtml = `
+      <button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Buy ${product.title.replace(/"/g, '&quot;')}">Buy Now</button>
+    `;
+  }
 
   const imgCfg   = imageConfigFor(product);
   const fitClass  = product.imageFit === 'contain' ? ' card-image__photo--contain' : '';
@@ -293,16 +478,16 @@ function renderCard(product) {
   return `
     <article class="product-card reveal" data-id="${product.id}" data-title="${product.title.toLowerCase()}" data-category="${product.category}">
       <div class="card-image" style="--ph-a:${c1};--ph-b:${c2};">
-        <div class="placeholder" aria-hidden="true">${placeholderInitials(product.title)}</div>
+        ${avatarMarkup}
         ${photoHtml}
         ${badgeHtml}
         <div class="card-quick-overlay">
-          <button class="btn-quick-preview" type="button" data-quick-view="${product.id}" aria-label="Quick view ${product.title}">Quick View</button>
+          <button class="btn-quick-preview" type="button" data-quick-view="${product.id}" aria-label="Quick view ${product.title.replace(/"/g, '&quot;')}">Quick View</button>
         </div>
       </div>
       <div class="card-body">
         <span class="card-cat">${CATEGORY_LABELS[product.category] || ''}</span>
-        <h3 class="card-title" title="${product.title}">${product.title}</h3>
+        <h3 class="card-title" title="${product.title.replace(/"/g, '&quot;')}">${product.title}</h3>
         ${priceHtml}
         <div class="card-actions">${ctaHtml}</div>
       </div>
@@ -477,17 +662,19 @@ function initQuickPreviewModal() {
     modal.id = 'quickPreviewModal';
     modal.className = 'quick-modal-backdrop';
     modal.setAttribute('aria-hidden', 'true');
+    modal.hidden = true;
+    modal.style.display = 'none';
     modal.innerHTML = `
       <div class="quick-modal-card" role="dialog" aria-modal="true" aria-labelledby="quickModalTitle">
         <button class="quick-modal-close" id="quickModalClose" aria-label="Close preview">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.3 5.71L12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.88 18.3 9.17 12 2.88 5.71 4.3 4.29l6.29 6.3 6.3-6.3z"/></svg>
         </button>
         <div class="quick-modal__grid">
-          <div class="quick-modal__img" id="quickModalImg">TD</div>
+          <div class="quick-modal__img" id="quickModalImg"></div>
           <div class="quick-modal__details">
             <span class="eyebrow" id="quickModalCat">CATEGORY</span>
             <h2 id="quickModalTitle" style="font-size: 1.35rem; margin-block: 4px 6px;">Product Title</h2>
-            <div id="quickModalPrice" style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800; color: var(--color-price);">৳0.00</div>
+            <div id="quickModalPrice" style="margin-block: 6px 12px;"></div>
             <div class="quick-modal__features">
               <div class="quick-modal__feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/></svg>
@@ -514,6 +701,8 @@ function initQuickPreviewModal() {
   const closeModal = () => {
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
+    modal.hidden = true;
+    modal.style.display = 'none';
     document.body.style.overflow = '';
   };
 
@@ -535,34 +724,51 @@ function initQuickPreviewModal() {
     // Populate modal
     $('#quickModalCat', modal).textContent = CATEGORY_LABELS[product.category] || product.category;
     $('#quickModalTitle', modal).textContent = product.title;
-    $('#quickModalPrice', modal).textContent = priceLabel(product);
+
+    const priceEl = $('#quickModalPrice', modal);
+    if (product.price === null || product.price === undefined) {
+      priceEl.innerHTML = `<span class="price-badge price-badge--quote"><span class="pulse-dot"></span> Instant Quote</span>`;
+    } else if (product.price === 0) {
+      priceEl.innerHTML = `<div class="product-card__price-wrap"><span class="product-price" data-price-bdt="0">Free</span></div>`;
+    } else {
+      const cycle = product.cycle ? ` <span class="price-cycle">${product.cycle}</span>` : ' <span class="price-cycle">/ mo</span>';
+      priceEl.innerHTML = `
+        <div class="product-card__price-wrap">
+          <span class="price-prefix">From</span>
+          <span class="product-price" data-price-bdt="${product.price}">${convertPrice(product.price)}</span>
+          ${cycle}
+        </div>
+      `;
+    }
 
     const imgContainer = $('#quickModalImg', modal);
     const imgCfg = imageConfigFor(product);
     if (imgCfg) {
-      imgContainer.innerHTML = `<img src="${imgCfg.src}" alt="${product.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">`;
+      imgContainer.innerHTML = `<img src="${imgCfg.src}" alt="${product.title.replace(/"/g, '&quot;')}" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">`;
     } else {
-      imgContainer.textContent = placeholderInitials(product.title);
+      imgContainer.innerHTML = `<div class="product-card__avatar" style="width:68px;height:68px;margin:auto;">${getBrandAvatar(product.title, product.category)}</div>`;
     }
 
     const actionsContainer = $('#quickModalActions', modal);
-    if (product.price === null) {
+    if (product.price === null || product.price === undefined) {
       actionsContainer.innerHTML = `
-        <a class="btn btn--primary btn--block" href="${callForPriceHref(product)}" target="_blank" rel="noopener">
+        <a class="btn btn--primary btn--block" data-quote-btn data-quote-title="${product.title.replace(/"/g, '&quot;')}" href="${callForPriceHref(product)}" target="_blank" rel="noopener">
           WhatsApp Instant Quote
         </a>
       `;
     } else {
       actionsContainer.innerHTML = `
         <button class="btn btn--primary" type="button" data-add-to-cart data-id="${product.id}" style="flex: 1;">
-          Add to Cart
+          Buy Now
         </button>
-        <a class="btn btn--ghost" href="${callForPriceHref(product)}" target="_blank" rel="noopener" style="flex: 1;">
-          Buy via WhatsApp
+        <a class="btn btn--ghost" data-quote-btn data-quote-title="${product.title.replace(/"/g, '&quot;')}" href="${callForPriceHref(product)}" target="_blank" rel="noopener" style="flex: 1;">
+          WhatsApp Buy
         </a>
       `;
     }
 
+    modal.hidden = false;
+    modal.style.display = 'flex';
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -877,6 +1083,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
   initThemeToggle();
   initColorwaySwitcher();
+  initCurrencySwitcher();
   initFilterPills();
   initCategoryTabs();
   initTiltGestures();

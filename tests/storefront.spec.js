@@ -176,6 +176,55 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(headerCard).toBeVisible();
   });
 
+  test('Product cards render official brand vector avatars with squircle styling', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    const avatars = page.locator('.product-card__avatar');
+    await expect(avatars.first()).toBeVisible();
+    
+    // Check squircle dimensions (52x52)
+    const box = await avatars.first().boundingBox();
+    expect(box?.width).toBeCloseTo(52, 1);
+    expect(box?.height).toBeCloseTo(52, 1);
+  });
+
+  test('Interactive currency switcher converts prices accurately across BDT, INR, and USD', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    // Initial price for ChatGPT Plus in BDT
+    const chatGptPrice = page.locator('.product-card[data-id="ai-008"] .product-price');
+    await expect(chatGptPrice).toHaveText('৳350');
+
+    // Switch to INR
+    const inrBtn = page.locator('button[data-currency="INR"]').first();
+    await inrBtn.click();
+    await expect(chatGptPrice).toHaveText('₹245'); // 350 * 0.70 = 245
+
+    // Switch to USD
+    const usdBtn = page.locator('button[data-currency="USD"]').first();
+    await usdBtn.click();
+    await expect(chatGptPrice).toHaveText('$2.91'); // (350 * 0.0083).toFixed(2) = 2.91
+
+    // Switch back to BDT
+    const bdtBtn = page.locator('button[data-currency="BDT"]').first();
+    await bdtBtn.click();
+    await expect(chatGptPrice).toHaveText('৳350');
+  });
+
+  test('Bento grid contains encrypted payment trust pills and quick-view modal remains hidden when closed', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    // Verify trust pills
+    await expect(page.locator('.trust-pill--bkash')).toHaveText('bKash');
+    await expect(page.locator('.trust-pill--nagad')).toHaveText('Nagad');
+    await expect(page.locator('.trust-pill--card')).toHaveText('Visa/MC');
+    await expect(page.locator('.trust-pill--binance')).toHaveText('Binance Pay (USDT)');
+
+    // Verify quick-preview modal is hidden by default and not leaking into page layout
+    const modal = page.locator('#quickPreviewModal');
+    await expect(modal).toBeHidden();
+  });
+
 });
 
 

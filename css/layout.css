@@ -100,7 +100,7 @@
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 auto !important;
-  padding: 6px 12px !important; /* Minimized outer padding */
+  padding: 8px 14px !important;
   box-sizing: border-box;
 }
 
@@ -135,12 +135,11 @@
   display: flex !important;
   align-items: center !important;
   width: 100% !important;
-  max-width: 100% !important;
+  height: 180px !important;
+  min-height: 180px !important;
+  gap: 12px !important;
   margin: 0 !important;
   padding: 0 !important;
-  gap: 10px !important; /* Compact gap between logo card and banner */
-  height: 180px; /* Adjust height baseline as needed */
-  min-height: 180px;
 }
 
 /* 3. Left Logo Card (Compact Footprint) */
@@ -174,23 +173,18 @@
 .site-header .header-logo-img {
   width: 100% !important;
   height: 100% !important;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
   object-fit: cover !important;
-  border-radius: 12px !important;
-  border: 2px solid rgba(0, 242, 254, 0.5);
-  box-shadow: 0 0 32px rgba(0, 242, 254, 0.4), 0 0 18px rgba(255, 179, 0, 0.25);
-  margin: 0 !important;
+  border-radius: 14px !important;
+  border: 2px solid rgba(0, 242, 254, 0.5) !important;
+  box-shadow: 0 0 28px rgba(0, 242, 254, 0.35), 0 0 14px rgba(255, 179, 0, 0.25) !important;
   display: block !important;
   transition: transform var(--transition-speed), filter var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
 }
 
 .header-logo-link:hover .header-logo-img,
 .header-logo-link:hover .brand__mark {
-  border-color: rgba(0, 242, 254, 0.85);
-  box-shadow: 0 0 38px rgba(0, 242, 254, 0.7), 0 0 22px rgba(255, 179, 0, 0.5);
+  border-color: rgba(0, 242, 254, 0.85) !important;
+  box-shadow: 0 0 38px rgba(0, 242, 254, 0.7), 0 0 22px rgba(255, 179, 0, 0.5) !important;
   transform: scale(1.02) rotate(-1deg);
 }
 
@@ -198,28 +192,20 @@
 .header-brand-container,
 .header-brand-link {
   flex: 1 1 0% !important;
-  min-width: 0 !important;
   width: 100% !important;
-  height: 100% !important;
-  min-height: 180px;
+  height: 180px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  position: relative !important;
-  text-decoration: none !important;
   border-radius: 14px !important;
   overflow: hidden !important;
-  
-  /* Match image edge background with a subtle ambient radial glow */
   background: 
     radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0, 180, 255, 0.12) 0%, transparent 80%),
     radial-gradient(circle at center, #061122 0%, #020610 85%) !important;
-  
   border: 1px solid rgba(0, 242, 254, 0.35) !important;
-  box-shadow: 
-    inset 0 0 24px rgba(0, 242, 254, 0.1),
-    0 0 20px rgba(0, 0, 0, 0.7) !important;
-  padding: 8px 16px !important;
+  box-shadow: inset 0 0 24px rgba(0, 242, 254, 0.1), 0 0 20px rgba(0, 0, 0, 0.7) !important;
+  padding: 6px 16px !important;
+  text-decoration: none !important;
   transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
@@ -258,35 +244,14 @@
 .site-header .header-brand-img {
   height: 92% !important;
   width: auto !important;
-  max-width: 90% !important;
+  max-width: 95% !important;
   max-height: 100% !important;
-  aspect-ratio: 1024 / 440 !important;
   object-fit: contain !important;
   object-position: center !important;
   margin: 0 auto !important;
   display: block !important;
-
-  /* Dissolve hard vertical boundary seams into the background */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.8) 4%,
-    black 12%,
-    black 88%,
-    rgba(0, 0, 0, 0.8) 96%,
-    transparent 100%
-  ) !important;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.8) 4%,
-    black 12%,
-    black 88%,
-    rgba(0, 0, 0, 0.8) 96%,
-    transparent 100%
-  ) !important;
-
-  /* Cybernetic glow enhancement */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.85) 5%, black 12%, black 88%, rgba(0,0,0,0.85) 95%, transparent 100%) !important;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.85) 5%, black 12%, black 88%, rgba(0,0,0,0.85) 95%, transparent 100%) !important;
   filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.5)) drop-shadow(0 0 10px rgba(255, 179, 0, 0.25)) !important;
   transform: none !important;
   transition: filter var(--transition-speed);
@@ -920,19 +885,20 @@
 }
 
 .why__item {
-  background: var(--color-bg-glass-card);
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  padding: 24px;
-  position: relative;
-  transition: all var(--transition-speed);
+  background: radial-gradient(circle at 20% 20%, rgba(0, 242, 254, 0.06), transparent 70%), rgba(8, 14, 28, 0.82) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(0, 242, 254, 0.22) !important;
+  border-radius: var(--border-radius-md) !important;
+  padding: 24px !important;
+  position: relative !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .why__item:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-accent-primary);
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 20px var(--color-accent-glow);
+  transform: translateY(-5px) !important;
+  border-color: rgba(0, 242, 254, 0.6) !important;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75), 0 0 24px rgba(0, 242, 254, 0.2) !important;
 }
 
 .why__icon {

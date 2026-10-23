@@ -180,7 +180,7 @@
           : '';
         thumb = `<div class="cart-row__img"><img src="${imgCfg.src}" alt="${(line.title || '').replace(/"/g, '&quot;')}" loading="lazy" ${chainAttrs} onerror="${errHandler}"></div>`;
       } else {
-        thumb = `<div class="cart-row__img" aria-hidden="true">${placeholderInitials(line.title)}</div>`;
+        thumb = `<div class="cart-row__img" aria-hidden="true">${typeof window.getBrandAvatar === 'function' ? window.getBrandAvatar(line.title, line.category) : placeholderInitials(line.title)}</div>`;
       }
       return `
       <div class="cart-row" data-id="${line.id}">

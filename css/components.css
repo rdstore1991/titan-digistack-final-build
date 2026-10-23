@@ -97,8 +97,8 @@
 .colorway-menu,
 #colorwayMenu {
   position: absolute !important;
-  top: calc(100% + 8px);
-  right: 0;
+  top: calc(100% + 8px) !important;
+  right: 0 !important;
   background: var(--color-bg-glass-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -114,6 +114,7 @@
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
+.site-header__container,
 .site-header__card,
 .header-bottom-row,
 .header-right {
@@ -419,6 +420,143 @@
     linear-gradient(135deg, var(--ph-a, #131b36), var(--ph-b, #080c1a));
 }
 
+/* Product Card Squircle Avatar */
+.product-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 242, 254, 0.16), rgba(8, 16, 32, 0.92));
+  border: 1px solid rgba(0, 242, 254, 0.32);
+  box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.12), 0 4px 14px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.product-card:hover .product-card__avatar {
+  transform: translateY(-2px) scale(1.05);
+  border-color: rgba(0, 242, 254, 0.7);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+}
+.product-card__avatar img,
+.product-card__avatar svg {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* Product Card Pricing Wrap */
+.product-card__price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-block: 6px 12px;
+}
+.product-card__price-wrap .price-prefix {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.product-card__price-wrap .product-price {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-price);
+  letter-spacing: -0.01em;
+}
+.product-card__price-wrap .price-cycle {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+/* Instant Quote Badge */
+.price-badge--quote {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 179, 0, 0.12);
+  border: 1px solid rgba(255, 179, 0, 0.35);
+  color: #ffb300;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-block: 6px 12px;
+}
+.price-badge--quote .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffb300;
+  box-shadow: 0 0 8px #ffb300;
+  animation: pulse-quote 1.8s infinite;
+}
+@keyframes pulse-quote {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.4); }
+}
+
+/* Top-Bar Currency Selector */
+.currency-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.22);
+  border-radius: var(--border-radius-pill);
+  padding: 2px 8px;
+}
+.currency-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.currency-btn:hover {
+  color: #00f2fe;
+}
+.currency-btn.is-active {
+  color: #00f2fe;
+  background: rgba(0, 242, 254, 0.18);
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+}
+.currency-sep {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.74rem;
+}
+
+/* Trust Pills (Encrypted Payments Bento Card) */
+.trust-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.trust-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+.trust-pill--bkash   { color: #ff3377; border-color: rgba(226, 19, 110, 0.4); background: rgba(226, 19, 110, 0.12); }
+.trust-pill--nagad   { color: #ff9933; border-color: rgba(247, 148, 29, 0.4); background: rgba(247, 148, 29, 0.12); }
+.trust-pill--card    { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.12); }
+.trust-pill--binance { color: #facc15; border-color: rgba(243, 186, 47, 0.4); background: rgba(243, 186, 47, 0.12); }
+
 /* Quick Action Overlay inside image */
 .card-quick-overlay {
   position: absolute;
@@ -563,7 +701,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 150;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -572,9 +710,17 @@
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.quick-modal-backdrop[hidden],
+.quick-modal-backdrop:not(.is-open) {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .quick-modal-backdrop.is-open {
-  opacity: 1;
-  pointer-events: auto;
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .quick-modal-card {
