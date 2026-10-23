@@ -18,6 +18,38 @@ window.TITAN_CONFIG = {
 };
 
 /* -----------------------------
+   Central Payment & Gateway Configuration
+   bKash, Nagad, Binance Pay & WhatsApp Verification Routing
+   ----------------------------- */
+const PAYMENT_CONFIG = {
+  whatsappAdmin: "+1 (672) 895-2770", // Replace with active WhatsApp number (no '+')
+  bkash: {
+    name: "bKash",
+    type: "Personal (Send Money)",
+    number: "017XXXXXXXX", // Replace with your bKash number
+    color: "#e2136e",
+    instructions: "Open your bKash App → Select 'Send Money' → Enter the number below and exact BDT amount → Copy the Transaction ID (TrxID)."
+  },
+  nagad: {
+    name: "Nagad",
+    type: "Personal (Send Money)",
+    number: "017XXXXXXXX", // Replace with your Nagad number
+    color: "#f7941d",
+    instructions: "Open your Nagad App → Select 'Send Money' → Enter the number below and exact BDT amount → Copy the Transaction ID (TrxID)."
+  },
+  binance: {
+    name: "Binance Pay / USDT",
+    type: "Binance Pay ID & USDT (TRC20 / Solana)",
+    payId: "YOUR_BINANCE_PAY_ID", // Replace with your Binance Pay UID
+    walletAddress: "YOUR_USDT_WALLET_ADDRESS", // Optional TRC20 or Solana USDT address
+    color: "#f3ba2f",
+    usdtRate: 0.0083, // 1 BDT to USDT conversion rate
+    instructions: "Open Binance App → Go to Binance Pay → Send the exact USDT amount to the Pay ID below (0% Fee) → Enter the Binance Order ID / TxID."
+  }
+};
+window.PAYMENT_CONFIG = PAYMENT_CONFIG;
+
+/* -----------------------------
    Catalog (129 verified products)
    ----------------------------- */
 const PRODUCTS = [
@@ -1075,6 +1107,254 @@ function initFilterPills() {
 }
 
 /* -----------------------------
+   Interactive Glassmorphic Checkout & Payment Verification Engine
+   ----------------------------- */
+function initCheckoutModal() {
+  const modal = $('#checkoutModal');
+  if (!modal) return;
+
+  const closeBtn = $('#closeCheckoutModal');
+  const nameEl = $('#checkoutProductName');
+  const cycleEl = $('#checkoutProductCycle');
+  const priceEl = $('#checkoutPayableAmount');
+  const usdtEl = $('#checkoutUsdtEquivalent');
+  const tabs = $$('.payment-tab', modal);
+  const instructionEl = $('#paymentInstructionText');
+  const accountLabelEl = $('#paymentAccountLabel');
+  const accountValEl = $('#paymentAccountValue');
+  const cryptoRowEl = $('#cryptoWalletRow');
+  const cryptoValEl = $('#cryptoWalletValue');
+  const copyAccountBtn = $('#copyPaymentAccountBtn');
+  const copyCryptoBtn = $('#copyCryptoWalletBtn');
+  const form = $('#trxVerificationForm');
+  const senderLabelEl = $('#senderAccountLabel');
+  const senderInputEl = $('#senderAccount');
+  const trxLabelEl = $('#trxIdLabel');
+  const trxInputEl = $('#transactionId');
+
+  let activeMethod = 'bkash';
+
+  const updateMethodDetails = (method) => {
+    activeMethod = method;
+    tabs.forEach(tab => {
+      const isActive = tab.getAttribute('data-method') === method;
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    if (method === 'bkash') {
+      if (instructionEl) instructionEl.textContent = PAYMENT_CONFIG.bkash.instructions;
+      if (accountLabelEl) accountLabelEl.textContent = 'bKash Personal (Send Money)';
+      if (accountValEl) accountValEl.textContent = PAYMENT_CONFIG.bkash.number;
+      if (senderLabelEl) senderLabelEl.textContent = 'Sender bKash Number *';
+      if (senderInputEl) senderInputEl.placeholder = 'e.g., 017XXXXXXXX';
+      if (trxLabelEl) trxLabelEl.textContent = 'bKash Transaction ID (TrxID) *';
+      if (trxInputEl) trxInputEl.placeholder = 'e.g., BJI84K92LM';
+      if (cryptoRowEl) cryptoRowEl.hidden = true;
+    } else if (method === 'nagad') {
+      if (instructionEl) instructionEl.textContent = PAYMENT_CONFIG.nagad.instructions;
+      if (accountLabelEl) accountLabelEl.textContent = 'Nagad Personal (Send Money)';
+      if (accountValEl) accountValEl.textContent = PAYMENT_CONFIG.nagad.number;
+      if (senderLabelEl) senderLabelEl.textContent = 'Sender Nagad Number *';
+      if (senderInputEl) senderInputEl.placeholder = 'e.g., 017XXXXXXXX';
+      if (trxLabelEl) trxLabelEl.textContent = 'Nagad Transaction ID (TrxID) *';
+      if (trxInputEl) trxInputEl.placeholder = 'e.g., BJI84K92LM';
+      if (cryptoRowEl) cryptoRowEl.hidden = true;
+    } else if (method === 'binance') {
+      if (instructionEl) instructionEl.textContent = PAYMENT_CONFIG.binance.instructions;
+      if (accountLabelEl) accountLabelEl.textContent = 'Binance Pay ID (0% Fee)';
+      if (accountValEl) accountValEl.textContent = PAYMENT_CONFIG.binance.payId;
+      if (cryptoValEl) cryptoValEl.textContent = PAYMENT_CONFIG.binance.walletAddress;
+      if (senderLabelEl) senderLabelEl.textContent = 'Your Binance ID / Wallet *';
+      if (senderInputEl) senderInputEl.placeholder = 'e.g., Pay ID or Wallet Address';
+      if (trxLabelEl) trxLabelEl.textContent = 'Binance Order ID / TxHash *';
+      if (trxInputEl) trxInputEl.placeholder = 'e.g., 294810482 or TxHash';
+      if (cryptoRowEl) cryptoRowEl.hidden = false;
+    }
+  };
+
+  const openModal = (productData) => {
+    if (!productData) return;
+    const priceBdt = Number(productData.priceBdt || 0);
+    const usdtAmount = (priceBdt * PAYMENT_CONFIG.binance.usdtRate).toFixed(2);
+
+    if (nameEl) nameEl.textContent = productData.name || 'ChatGPT Plus Subscription';
+    if (cycleEl) cycleEl.textContent = productData.cycle || '1 Month Access';
+    if (priceEl) {
+      priceEl.textContent = `৳${priceBdt.toLocaleString('en-BD')}`;
+      priceEl.setAttribute('data-base-bdt', String(priceBdt));
+    }
+    if (usdtEl) usdtEl.textContent = `≈ $${usdtAmount} USDT`;
+
+    // Restore form if success screen was showing
+    const successView = $('.checkout-success-view', modal);
+    if (successView) successView.remove();
+    if (form) {
+      form.hidden = false;
+      form.style.display = '';
+      form.reset();
+    }
+
+    updateMethodDetails(activeMethod || 'bkash');
+
+    modal.hidden = false;
+    modal.removeAttribute('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    modal.hidden = true;
+    modal.setAttribute('hidden', '');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  // Tab switcher
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const method = tab.getAttribute('data-method');
+      if (method) updateMethodDetails(method);
+    });
+  });
+
+  // Copy button handlers
+  const handleCopy = (btn, textFn) => {
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const val = textFn();
+      if (!val) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(val);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = val;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+        const span = $('span', btn) || btn;
+        const originalText = span.textContent;
+        span.textContent = 'Copied! ✓';
+        btn.classList.add('is-copied');
+        setTimeout(() => {
+          span.textContent = originalText;
+          btn.classList.remove('is-copied');
+        }, 1800);
+      } catch (err) {
+        console.error('Clipboard copy failed', err);
+      }
+    });
+  };
+
+  handleCopy(copyAccountBtn, () => accountValEl ? accountValEl.textContent.trim() : '');
+  handleCopy(copyCryptoBtn, () => cryptoValEl ? cryptoValEl.textContent.trim() : '');
+
+  // Form Submission & WhatsApp Order Verification Receipt
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const customerEmail = ($('#customerEmail', form)?.value || '').trim();
+      const senderAccount = ($('#senderAccount', form)?.value || '').trim();
+      const trxId = ($('#transactionId', form)?.value || '').trim();
+
+      if (!customerEmail || !senderAccount || !trxId) return;
+
+      const orderId = 'TDS-' + Math.floor(100000 + Math.random() * 900000);
+      const productName = (nameEl?.textContent || 'Digital Product').trim();
+      const productCycle = (cycleEl?.textContent || 'Access').trim();
+      const priceBdt = priceEl?.getAttribute('data-base-bdt') || priceEl?.textContent.replace(/[^\d]/g, '') || '0';
+      const usdtAmount = (Number(priceBdt) * PAYMENT_CONFIG.binance.usdtRate).toFixed(2);
+      const selectedMethod = activeMethod || 'bkash';
+
+      const message = `*⚡ NEW ORDER VERIFICATION — TITAN DIGISTACK*\n*Order ID:* #${orderId}\n*Product:* ${productName} (${productCycle})\n*Amount:* ৳${priceBdt} (${usdtAmount} USDT)\n*Payment Method:* ${selectedMethod.toUpperCase()}\n*Sender Account:* ${senderAccount}\n*TrxID / Order ID:* ${trxId}\n*Delivery Email:* ${customerEmail}`;
+
+      const adminPhone = (PAYMENT_CONFIG.whatsappAdmin || '').replace(/\D/g, '');
+      const waUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank', 'noopener');
+
+      // In-modal success confirmation view
+      form.hidden = true;
+      form.style.display = 'none';
+
+      let successView = $('.checkout-success-view', modal);
+      if (!successView) {
+        successView = document.createElement('div');
+        successView.className = 'checkout-success-view';
+        form.parentNode.insertBefore(successView, form.nextSibling);
+      }
+      successView.innerHTML = `
+        <div class="checkout-success-icon">✓</div>
+        <h4>Order Verification Dispatched!</h4>
+        <p>Your payment verification and TrxID have been submitted for automated license provisioning.</p>
+        <div class="checkout-order-chip">Order ID: #${orderId}</div>
+        <p style="font-size:0.8rem;color:rgba(255,255,255,0.65);margin-bottom:14px;">WhatsApp verification opened in a new tab. Instant digital key delivery will arrive via email at <strong>${customerEmail}</strong>.</p>
+        <button type="button" class="checkout-submit-btn" id="checkoutSuccessDoneBtn">
+          <span>Done &amp; Close</span>
+        </button>
+      `;
+
+      $('#checkoutSuccessDoneBtn', successView)?.addEventListener('click', closeModal);
+    });
+  }
+
+  // Close handlers
+  closeBtn?.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  // Global listener for "Buy Now" clicks across the app
+  document.addEventListener('click', (e) => {
+    const buyBtn = e.target.closest('button[data-add-to-cart], .btn-cart, .hero-preview-card button[data-add-to-cart]');
+    if (!buyBtn) return;
+
+    // Check if it's a quote / call button
+    if (buyBtn.classList.contains('call') || buyBtn.hasAttribute('data-quote-btn')) return;
+
+    const id = buyBtn.dataset.id || buyBtn.getAttribute('data-id');
+    let product = id ? (window.PRODUCTS || PRODUCTS).find(p => p.id === id) : null;
+
+    let price = null;
+    let title = null;
+    let cycle = null;
+
+    if (product) {
+      if (product.price === null || product.price === undefined) return; // Quote item
+      price = product.price;
+      title = product.title;
+      cycle = product.cycle 
+        ? (product.cycle.startsWith('/') ? '1 ' + product.cycle.replace('/', '').trim() + ' Access' : product.cycle + ' Access')
+        : '1 Month Access';
+    } else {
+      // Fallback: extract from closest card
+      const card = buyBtn.closest('.product-card, .hero-preview-card, .quick-modal');
+      if (!card) return;
+      const priceEl = card.querySelector('[data-price-bdt]');
+      if (!priceEl) return;
+      price = Number(priceEl.getAttribute('data-price-bdt'));
+      const titleEl = card.querySelector('.card-title, h3, #quickModalTitle');
+      title = titleEl ? titleEl.textContent.trim() : 'Digital Product Subscription';
+      cycle = '1 Month Access';
+    }
+
+    openModal({
+      name: title,
+      cycle: cycle,
+      priceBdt: price
+    });
+  });
+
+  window.openCheckoutModal = openModal;
+  window.closeCheckoutModal = closeModal;
+}
+
+/* -----------------------------
    Boot
    ----------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1090,6 +1370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMagneticButtons();
   initCursorAura();
   initQuickPreviewModal();
+  initCheckoutModal();
   initScrollReveal();
   initMobileNav();
   initFooterYear();

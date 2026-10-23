@@ -225,6 +225,82 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(modal).toBeHidden();
   });
 
+  test('Glassmorphic Checkout & Payment Verification Modal operates dynamically', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    // Mock clipboard writeText for cross-browser testing
+    await page.evaluate(() => {
+      if (!navigator.clipboard) {
+        // @ts-ignore
+        navigator.clipboard = {};
+      }
+      navigator.clipboard.writeText = async () => {};
+    });
+
+    const checkoutModal = page.locator('#checkoutModal');
+    await expect(checkoutModal).toBeHidden();
+
+    // Click Buy Now on ChatGPT Plus hero card
+    const heroBuyBtn = page.locator('.hero__showcase button[data-add-to-cart][data-id="ai-008"]').first();
+    await heroBuyBtn.click();
+
+    // Checkout modal should now be visible
+    await expect(checkoutModal).toBeVisible();
+
+    // Check populated fields
+    await expect(page.locator('#checkoutProductName')).toHaveText(/ChatGPT Plus/);
+    await expect(page.locator('#checkoutPayableAmount')).toHaveText('৳350');
+    await expect(page.locator('#checkoutUsdtEquivalent')).toContainText('USDT');
+
+    // Default tab is bKash
+    await expect(page.locator('.payment-tab[data-method="bkash"]')).toHaveClass(/is-active/);
+    await expect(page.locator('#paymentAccountLabel')).toHaveText('bKash Personal (Send Money)');
+    await expect(page.locator('#cryptoWalletRow')).toBeHidden();
+
+    // Switch to Nagad tab
+    await page.locator('.payment-tab[data-method="nagad"]').click();
+    await expect(page.locator('.payment-tab[data-method="nagad"]')).toHaveClass(/is-active/);
+    await expect(page.locator('#paymentAccountLabel')).toHaveText('Nagad Personal (Send Money)');
+    await expect(page.locator('#senderAccountLabel')).toHaveText('Sender Nagad Number *');
+    await expect(page.locator('#trxIdLabel')).toHaveText('Nagad Transaction ID (TrxID) *');
+    await expect(page.locator('#cryptoWalletRow')).toBeHidden();
+
+    // Switch to Binance tab
+    await page.locator('.payment-tab[data-method="binance"]').click();
+    await expect(page.locator('.payment-tab[data-method="binance"]')).toHaveClass(/is-active/);
+    await expect(page.locator('#paymentAccountLabel')).toHaveText('Binance Pay ID (0% Fee)');
+    await expect(page.locator('#cryptoWalletRow')).toBeVisible();
+    await expect(page.locator('#senderAccountLabel')).toHaveText('Your Binance ID / Wallet *');
+    await expect(page.locator('#trxIdLabel')).toHaveText('Binance Order ID / TxHash *');
+
+    // Test Copy button
+    const copyBtn = page.locator('#copyPaymentAccountBtn');
+    await copyBtn.click();
+    await expect(copyBtn).toContainText('Copied! ✓');
+
+    // Fill TrxID verification form
+    await page.locator('#customerEmail').fill('tester@example.com');
+    await page.locator('#senderAccount').fill('01711223344');
+    await page.locator('#transactionId').fill('BN89234KL1');
+
+    // Intercept window.open so popup doesn't block test
+    await page.evaluate(() => {
+      window.open = () => null;
+    });
+
+    // Submit form
+    await page.locator('#submitOrderBtn').click();
+
+    // Modal should show success view with Order ID
+    const successView = page.locator('.checkout-success-view');
+    await expect(successView).toBeVisible();
+    await expect(successView.locator('.checkout-order-chip')).toContainText('Order ID: #TDS-');
+
+    // Click Done & Close
+    await page.locator('#checkoutSuccessDoneBtn').click();
+    await expect(checkoutModal).toBeHidden();
+  });
+
 });
 
 

@@ -1260,3 +1260,357 @@
   top: -4px;
   right: -8px;
 }
+
+/* ============================================================
+   Checkout & TrxID Verification Modal
+   ============================================================ */
+.checkout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2, 6, 16, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.checkout-overlay[hidden] {
+  display: none !important;
+}
+
+.checkout-modal {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(165deg, rgba(10, 20, 38, 0.96) 0%, rgba(4, 9, 20, 0.98) 100%);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 242, 254, 0.15);
+  padding: 22px;
+  color: #ffffff;
+  animation: modalFadeUp 0.22s ease-out;
+  position: relative;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+@keyframes modalFadeUp {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.checkout-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.checkout-modal__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checkout-modal__brand .pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00f2fe;
+  box-shadow: 0 0 10px #00f2fe;
+}
+.checkout-modal__brand h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+.checkout-close-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.checkout-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #00f2fe;
+}
+
+/* Product Summary Bar */
+.checkout-product-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.checkout-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #00f2fe;
+  display: block;
+  margin-bottom: 2px;
+}
+.checkout-product-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.checkout-cycle {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+.checkout-price-box {
+  text-align: right;
+  flex-shrink: 0;
+}
+.checkout-price-label {
+  display: block;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+.checkout-price-box strong {
+  font-size: 1.35rem;
+  color: #00f2fe;
+  display: block;
+  line-height: 1.2;
+}
+.checkout-price-box small {
+  font-size: 0.75rem;
+  color: #f3ba2f;
+}
+
+/* Payment Method Tabs */
+.payment-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.payment-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.payment-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.payment-tab.is-active[data-method="bkash"] {
+  background: rgba(226, 19, 110, 0.16);
+  border-color: #e2136e;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(226, 19, 110, 0.35);
+}
+.payment-tab.is-active[data-method="nagad"] {
+  background: rgba(247, 148, 29, 0.16);
+  border-color: #f7941d;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(247, 148, 29, 0.35);
+}
+.payment-tab.is-active[data-method="binance"] {
+  background: rgba(243, 186, 47, 0.16);
+  border-color: #f3ba2f;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(243, 186, 47, 0.35);
+}
+.payment-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.payment-dot--bkash { background: #e2136e; }
+.payment-dot--nagad { background: #f7941d; }
+.payment-dot--binance { background: #f3ba2f; }
+
+/* Instructions & Copy Box */
+.payment-instructions-card {
+  background: rgba(4, 10, 22, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+.payment-step-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 10px 0;
+  line-height: 1.45;
+}
+.payment-copy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(0, 242, 254, 0.35);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  gap: 8px;
+}
+.payment-copy-row[hidden] {
+  display: none !important;
+}
+.payment-copy-info {
+  overflow: hidden;
+}
+.payment-copy-label {
+  display: block;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.payment-copy-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #00f2fe;
+  word-break: break-all;
+}
+.copy-chip-btn {
+  background: rgba(0, 242, 254, 0.14);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  color: #00f2fe;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.copy-chip-btn:hover {
+  background: #00f2fe;
+  color: #020610;
+}
+
+/* Form Styles */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 500px) {
+  .form-grid-2 { grid-template-columns: 1fr; }
+}
+.form-group {
+  margin-bottom: 12px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 0.88rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #00f2fe;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.25);
+}
+.trx-input {
+  text-transform: uppercase;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.checkout-submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+  color: #020610;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.checkout-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(0, 242, 254, 0.65);
+}
+.checkout-trust-note {
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 10px 0 0 0;
+}
+
+/* Success State in Modal */
+.checkout-success-view {
+  text-align: center;
+  padding: 18px 8px;
+}
+.checkout-success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(0, 245, 160, 0.15);
+  border: 2px solid #00f5a0;
+  color: #00f5a0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 14px;
+  box-shadow: 0 0 20px rgba(0, 245, 160, 0.3);
+}
+.checkout-success-view h4 {
+  font-size: 1.25rem;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+.checkout-success-view p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+.checkout-order-chip {
+  display: inline-block;
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  color: #00f2fe;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}

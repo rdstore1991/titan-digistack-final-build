@@ -244,6 +244,19 @@
 
   document.getElementById('checkoutBtn')?.addEventListener('click', (e) => {
     if (!totalCount()) { e.preventDefault(); return; }
+    if (typeof window.openCheckoutModal === 'function') {
+      e.preventDefault();
+      const cartItems = items();
+      const bundleName = cartItems.length === 1 
+        ? cartItems[0].title 
+        : `${cartItems[0].title} + ${cartItems.length - 1} more items`;
+      window.openCheckoutModal({
+        name: bundleName,
+        cycle: `${totalCount()} Item(s) in Stack`,
+        priceBdt: totalAmount()
+      });
+      return;
+    }
     const num = (window.TITAN_CONFIG && window.TITAN_CONFIG.whatsappNumber) || '8801700000000';
     const lines = items().map(l => `• ${l.title} × ${l.qty} = ৳${((l.price||0)*l.qty).toLocaleString('en-BD')}`).join('\n');
     const total = totalAmount();
