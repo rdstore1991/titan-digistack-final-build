@@ -167,8 +167,9 @@ Format: `YYYY-MM-DDTHH:mm:ss` in the visitor's local time. Append `Z` for UTC. T
 `js/main.js` exposes a config block at the top:
 
 ```js
-window.TITAN_CONFIG = {
-  whatsappNumber: '8801700000000',  // E.164 without +
+window.STORE_CONFIG = {
+  whatsappNumber: '16728952770',  // +1 (672) 895-2770 (E.164 without +)
+  whatsappDisplay: '+1 (672) 895-2770',
   contactEmail:   'hello@titandigistack.com',
 };
 ```

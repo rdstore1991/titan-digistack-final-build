@@ -12,8 +12,38 @@
    Configurable contact endpoints
    Update these for "Call for Price" CTAs.
    ----------------------------- */
+/* -----------------------------
+   Global Store & Payment Configuration
+   Official WhatsApp: +1 (672) 895-2770 (16728952770)
+   ----------------------------- */
+const STORE_CONFIG = {
+  whatsappNumber: "16728952770", // +1 (672) 895-2770
+  whatsappDisplay: "+1 (672) 895-2770",
+  bkash: {
+    name: "bKash",
+    type: "Personal (Send Money)",
+    number: "017XXXXXXXX", // Replace with active bKash number
+    color: "#e2136e"
+  },
+  nagad: {
+    name: "Nagad",
+    type: "Personal (Send Money)",
+    number: "017XXXXXXXX", // Replace with active Nagad number
+    color: "#f7941d"
+  },
+  binance: {
+    name: "Binance Pay / USDT",
+    payId: "YOUR_BINANCE_PAY_ID",
+    walletAddress: "YOUR_USDT_WALLET_ADDRESS",
+    usdtRate: 0.0083,
+    color: "#f3ba2f"
+  }
+};
+window.STORE_CONFIG = STORE_CONFIG;
+
 window.TITAN_CONFIG = {
-  whatsappNumber: '8801700000000', // E.164 without + ; opens via wa.me/<number>
+  whatsappNumber: STORE_CONFIG.whatsappNumber,
+  whatsappDisplay: STORE_CONFIG.whatsappDisplay,
   contactEmail:   'hello@titandigistack.com',
 };
 
@@ -22,28 +52,18 @@ window.TITAN_CONFIG = {
    bKash, Nagad, Binance Pay & WhatsApp Verification Routing
    ----------------------------- */
 const PAYMENT_CONFIG = {
-  whatsappAdmin: "+1 (672) 895-2770", // Replace with active WhatsApp number (no '+')
+  whatsappAdmin: STORE_CONFIG.whatsappDisplay,
+  whatsappNumber: STORE_CONFIG.whatsappNumber,
   bkash: {
-    name: "bKash",
-    type: "Personal (Send Money)",
-    number: "017XXXXXXXX", // Replace with your bKash number
-    color: "#e2136e",
+    ...STORE_CONFIG.bkash,
     instructions: "Open your bKash App → Select 'Send Money' → Enter the number below and exact BDT amount → Copy the Transaction ID (TrxID)."
   },
   nagad: {
-    name: "Nagad",
-    type: "Personal (Send Money)",
-    number: "017XXXXXXXX", // Replace with your Nagad number
-    color: "#f7941d",
+    ...STORE_CONFIG.nagad,
     instructions: "Open your Nagad App → Select 'Send Money' → Enter the number below and exact BDT amount → Copy the Transaction ID (TrxID)."
   },
   binance: {
-    name: "Binance Pay / USDT",
-    type: "Binance Pay ID & USDT (TRC20 / Solana)",
-    payId: "YOUR_BINANCE_PAY_ID", // Replace with your Binance Pay UID
-    walletAddress: "YOUR_USDT_WALLET_ADDRESS", // Optional TRC20 or Solana USDT address
-    color: "#f3ba2f",
-    usdtRate: 0.0083, // 1 BDT to USDT conversion rate
+    ...STORE_CONFIG.binance,
     instructions: "Open Binance App → Go to Binance Pay → Send the exact USDT amount to the Pay ID below (0% Fee) → Enter the Binance Order ID / TxID."
   }
 };
@@ -311,10 +331,10 @@ function placeholderInitials(title) {
 }
 
 function callForPriceHref(product, curr = getActiveCurrency()) {
-  const cfg = window.TITAN_CONFIG || { whatsappNumber: '8801700000000' };
+  const num = (window.STORE_CONFIG && window.STORE_CONFIG.whatsappNumber) || (window.TITAN_CONFIG && window.TITAN_CONFIG.whatsappNumber) || '16728952770';
   const title = typeof product === 'string' ? product : product.title;
-  const text = `Hi Titan DigiStack! I want an instant quote for ${title} in ${curr}.`;
-  return `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(text)}`;
+  const text = `Hi Titan DigiStack! I want an instant quote / inquiry for ${title} in ${curr}.`;
+  return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
 }
 window.callForPriceHref = callForPriceHref;
 
@@ -419,6 +439,8 @@ function setCurrency(curr) {
     const title = btn.getAttribute('data-quote-title') || 'Product';
     btn.href = getWhatsAppQuoteUrl(title, currency);
   });
+
+  document.dispatchEvent(new CustomEvent('titan:currency-changed', { detail: { currency } }));
 }
 window.setCurrency = setCurrency;
 
@@ -1271,7 +1293,7 @@ function initCheckoutModal() {
 
       const message = `*⚡ NEW ORDER VERIFICATION — TITAN DIGISTACK*\n*Order ID:* #${orderId}\n*Product:* ${productName} (${productCycle})\n*Amount:* ৳${priceBdt} (${usdtAmount} USDT)\n*Payment Method:* ${selectedMethod.toUpperCase()}\n*Sender Account:* ${senderAccount}\n*TrxID / Order ID:* ${trxId}\n*Delivery Email:* ${customerEmail}`;
 
-      const adminPhone = (PAYMENT_CONFIG.whatsappAdmin || '').replace(/\D/g, '');
+      const adminPhone = (window.STORE_CONFIG && window.STORE_CONFIG.whatsappNumber) || (PAYMENT_CONFIG.whatsappAdmin || '').replace(/\D/g, '') || '16728952770';
       const waUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
       window.open(waUrl, '_blank', 'noopener');
 
@@ -1309,45 +1331,35 @@ function initCheckoutModal() {
     if (e.key === 'Escape' && !modal.hidden) closeModal();
   });
 
-  // Global listener for "Buy Now" clicks across the app
+  // Global listener for "Pay in Advance" and TrxID Verification triggers
   document.addEventListener('click', (e) => {
-    const buyBtn = e.target.closest('button[data-add-to-cart], .btn-cart, .hero-preview-card button[data-add-to-cart]');
-    if (!buyBtn) return;
+    const trigger = e.target.closest('#openAdvancePayModalBtn, [data-open-checkout-modal], #footerVerifyTrxLink');
+    if (!trigger) return;
+    e.preventDefault();
 
-    // Check if it's a quote / call button
-    if (buyBtn.classList.contains('call') || buyBtn.hasAttribute('data-quote-btn')) return;
-
-    const id = buyBtn.dataset.id || buyBtn.getAttribute('data-id');
-    let product = id ? (window.PRODUCTS || PRODUCTS).find(p => p.id === id) : null;
-
-    let price = null;
-    let title = null;
-    let cycle = null;
-
-    if (product) {
-      if (product.price === null || product.price === undefined) return; // Quote item
-      price = product.price;
-      title = product.title;
-      cycle = product.cycle 
-        ? (product.cycle.startsWith('/') ? '1 ' + product.cycle.replace('/', '').trim() + ' Access' : product.cycle + ' Access')
-        : '1 Month Access';
-    } else {
-      // Fallback: extract from closest card
-      const card = buyBtn.closest('.product-card, .hero-preview-card, .quick-modal');
-      if (!card) return;
-      const priceEl = card.querySelector('[data-price-bdt]');
-      if (!priceEl) return;
-      price = Number(priceEl.getAttribute('data-price-bdt'));
-      const titleEl = card.querySelector('.card-title, h3, #quickModalTitle');
-      title = titleEl ? titleEl.textContent.trim() : 'Digital Product Subscription';
-      cycle = '1 Month Access';
+    if (typeof window.closeCartDrawer === 'function') {
+      window.closeCartDrawer();
     }
 
-    openModal({
-      name: title,
-      cycle: cycle,
-      priceBdt: price
-    });
+    const cart = window.TitanCart;
+    const count = cart && cart.totalCount ? cart.totalCount() : 0;
+    if (count > 0) {
+      const cartItems = cart.items();
+      const bundleName = cartItems.length === 1
+        ? cartItems[0].title
+        : `${cartItems[0].title} + ${cartItems.length - 1} more items`;
+      openModal({
+        name: bundleName,
+        cycle: `${count} Item(s) in Stack`,
+        priceBdt: cart.totalAmount()
+      });
+    } else {
+      openModal({
+        name: 'Direct License Key Order',
+        cycle: 'Instant 1 Month Access',
+        priceBdt: 350
+      });
+    }
   });
 
   window.openCheckoutModal = openModal;

@@ -225,7 +225,7 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(modal).toBeHidden();
   });
 
-  test('Glassmorphic Checkout & Payment Verification Modal operates dynamically', async ({ page }) => {
+  test('Cart-First checkout drawer and Payment Verification Modal operate dynamically', async ({ page }) => {
     await page.goto(indexUrl);
 
     // Mock clipboard writeText for cross-browser testing
@@ -237,14 +237,23 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
       navigator.clipboard.writeText = async () => {};
     });
 
+    const cartDrawer = page.locator('#cartDrawer');
     const checkoutModal = page.locator('#checkoutModal');
+    await expect(cartDrawer).toBeHidden();
     await expect(checkoutModal).toBeHidden();
 
     // Click Buy Now on ChatGPT Plus hero card
     const heroBuyBtn = page.locator('.hero__showcase button[data-add-to-cart][data-id="ai-008"]').first();
     await heroBuyBtn.click();
 
-    // Checkout modal should now be visible
+    // Cart Drawer should open first (Cart-First architecture)
+    await expect(cartDrawer).toBeVisible();
+    await expect(page.locator('#whatsappCheckoutBtn')).toBeVisible();
+    await expect(page.locator('#openAdvancePayModalBtn')).toBeVisible();
+
+    // Clicking 'Pay in Advance' closes cart drawer and opens checkout modal
+    await page.locator('#openAdvancePayModalBtn').click();
+    await expect(cartDrawer).toBeHidden();
     await expect(checkoutModal).toBeVisible();
 
     // Check populated fields

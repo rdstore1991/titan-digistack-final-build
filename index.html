@@ -538,78 +538,106 @@
       </div>
     </section>
 
-    <!-- 15. NEWSLETTER -->
-    <section class="newsletter" aria-labelledby="newsTitle">
-      <div class="container newsletter__inner" style="max-width: 800px; text-align: center;">
-        <span class="eyebrow">INSIDER DROPS</span>
-        <h2 id="newsTitle">Subscribe for Instant License Drops &amp; Discounts</h2>
-        <p style="margin-bottom: 1.8rem;">Join 10,000+ developers and creators getting early access to new digital
-          licenses and exclusive promo codes.</p>
-        <form class="newsletter__form" style="max-width: 520px; margin: 0 auto;"
-          onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
-          <label for="newsEmail" class="visually-hidden">Email address</label>
-          <input id="newsEmail" type="email" required placeholder="Enter your developer or creator email..." />
-          <button type="submit" class="btn btn--primary">Subscribe</button>
-        </form>
+    <!-- 15. INTEGRATED NEWSLETTER CTA CARD -->
+    <section class="newsletter-wrap" aria-labelledby="newsTitle">
+      <div class="container">
+        <div class="newsletter-section">
+          <div class="newsletter-copy">
+            <span class="newsletter-badge">⚡ VIP RESTOCK &amp; FLASH DEALS</span>
+            <h2 id="newsTitle">Unlock Exclusive AI Tool Drops &amp; Instant Key Discounts</h2>
+            <p>Join 10,000+ engineers and creators. No spam—only verified license deals and price-drop alerts.</p>
+          </div>
+          <form class="newsletter-form__pill" onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='Subscribed ✓'; b.disabled=true;">
+            <input id="newsEmail" type="email" required placeholder="Enter your developer or creator email..." aria-label="Email address for discounts" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- 16. FOOTER -->
+  <!-- 16. ENTERPRISE 4-COLUMN SITE FOOTER -->
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
+    <div class="footer-glow-divider" aria-hidden="true"></div>
+    <div class="container site-footer__grid">
+      <!-- Column 1 — Brand & System Status (Span 1.5x) -->
+      <div class="site-footer__col-brand">
         <a href="index.html" class="brand brand--footer" aria-label="Titan DigiStack home">
-          <img src="assets/prime-logo.png" alt="Titan DigiStack Prime Logo" class="brand__mark" width="50"
-            height="50" />
-          <img src="assets/company-banner.png" alt="Titan DigiStack - Premium Digital Tools &amp; AI Infrastructure"
-            class="brand__text" width="112" height="48" />
+          <img src="assets/prime-logo.png" alt="Titan DigiStack Prime Logo" class="brand__mark" width="42" height="42" />
+          <span class="site-footer__brand-title">TITAN DIGISTACK</span>
         </a>
         <p class="site-footer__about">
-          South Asia's trusted engine for premium digital tools, verified licenses, and AI infrastructure. Instant
-          delivery, encrypted checkout.
+          Premier infrastructure for 100% genuine software licenses, AI subscriptions, and developer tools with instant automated key dispatch.
         </p>
+        <div class="system-status-pill">
+          <span class="pulse-dot"></span>
+          <span>Key Dispatch Engine: <strong>99.9% Operational</strong></span>
+        </div>
       </div>
 
+      <!-- Column 2 — Digital Catalog -->
       <div class="footer-col">
-        <h4>Categories</h4>
+        <h4>Digital Catalog</h4>
         <ul>
           <li><a href="#ai">AI Subscriptions</a></li>
           <li><a href="#themes">WordPress Themes</a></li>
-          <li><a href="#plugins">WordPress Plugins</a></li>
-          <li><a href="#graphic">Graphic &amp; Video</a></li>
-          <li><a href="#software">Software Keys</a></li>
-          <li><a href="#ebooks">eBooks &amp; Prompts</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
+          <li><a href="#plugins">PRO Plugins</a></li>
+          <li><a href="#software">OS &amp; Office Keys</a></li>
           <li><a href="pages/shop.html">Full Catalog</a></li>
-          <li><a href="pages/cart.html">Cart Summary</a></li>
-          <li><a href="pages/contact.html">Support &amp; WhatsApp</a></li>
-          <li><a href="pages/contact.html#privacy">Privacy Policy</a></li>
-          <li><a href="pages/contact.html#terms">Terms of Service</a></li>
         </ul>
       </div>
 
+      <!-- Column 3 — Support & Verification -->
       <div class="footer-col">
-        <h4>Contact</h4>
-        <ul style="color: var(--color-text-secondary); font-size: 0.9rem; display: grid; gap: 8px;">
+        <h4>Support &amp; Verification</h4>
+        <ul>
+          <li><a href="pages/contact.html">24/7 WhatsApp Support</a></li>
+          <li><a href="javascript:void(0)" id="footerVerifyTrxLink" data-open-checkout-modal>Instant TrxID Verification</a></li>
+          <li><a href="pages/contact.html#warranty">Replacement Warranty</a></li>
+          <li><a href="pages/contact.html#bulk">Bulk &amp; Agency Licensing</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 — Direct WhatsApp Hotline & Hours -->
+      <div class="footer-col">
+        <h4>Direct WhatsApp Hotline</h4>
+        <a href="https://wa.me/16728952770" target="_blank" rel="noopener" class="footer-hotline-card">
+          <div class="footer-hotline-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+          </div>
+          <div>
+            <span class="footer-hotline-label">Direct WhatsApp Hotline</span>
+            <strong class="footer-hotline-number">+1 (672) 895-2770</strong>
+          </div>
+        </a>
+        <ul class="footer-contact-details">
           <li>📧 <a href="mailto:hello@titandigistack.com">hello@titandigistack.com</a></li>
-          <li>📞 <a href="tel:+8801700000000">+880 1700 000 000</a></li>
-          <li>📍 Dhaka, Bangladesh</li>
+          <li>⚡ Instant Key Delivery: <strong>24/7/365</strong></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="container"
-        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <p>© <span id="year"></span> Titan DigiStack. All rights reserved.</p>
-        <p class="mono-tag" style="color: var(--color-accent-emerald); font-weight: 700;">● SYSTEM STATUS: 100%
-          OPERATIONAL</p>
+    <!-- Footer Bottom Bar & Verified Payment Badges -->
+    <div class="site-footer__bottom">
+      <div class="container site-footer__bottom-inner">
+        <div class="site-footer__legal">
+          <p>© <span id="year">2026</span> Titan DigiStack. All rights reserved.</p>
+          <div class="site-footer__legal-links">
+            <a href="pages/contact.html#privacy">Privacy Policy</a>
+            <span>·</span>
+            <a href="pages/contact.html#terms">Terms of Service</a>
+            <span>·</span>
+            <a href="pages/contact.html#refund">Refund Policy</a>
+          </div>
+        </div>
+
+        <div class="footer-payment-badges" aria-label="Verified payment gateways">
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#25d366;"></span> WhatsApp Instant Order</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#e2136e;"></span> bKash</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#f7941d;"></span> Nagad</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#f3ba2f;"></span> Binance Pay (USDT)</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#00f2fe;"></span> Visa / Mastercard</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -634,7 +662,7 @@
       </svg>
       <span>Shop</span>
     </a>
-    <a href="pages/cart.html" class="mobile-bottom-bar__link" aria-label="View Cart">
+    <a href="pages/cart.html" class="mobile-bottom-bar__link" aria-label="View Cart" data-open-cart>
       <div class="mobile-bottom-bar__icon-wrapper">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path
@@ -646,6 +674,39 @@
       <span>Cart</span>
     </a>
   </nav>
+
+  <!-- SLIDE-OVER CART DRAWER -->
+  <div class="cart-drawer-overlay" id="cartDrawer" hidden aria-hidden="true">
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
+      <div class="cart-drawer__header">
+        <div class="cart-drawer__title-wrap">
+          <span class="pulse-dot"></span>
+          <h3 id="cartDrawerTitle">Your Digital Stack (<span id="cartDrawerCount">0</span>)</h3>
+        </div>
+        <button type="button" class="cart-drawer__close" id="closeCartDrawer" aria-label="Close cart">&times;</button>
+      </div>
+
+      <div class="cart-drawer__body" id="cartDrawerList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="cart-drawer__footer">
+        <div class="cart-drawer__summary">
+          <span class="cart-drawer__summary-label">Total Payable:</span>
+          <strong class="cart-drawer__summary-total" id="cartDrawerTotal">৳0</strong>
+        </div>
+
+        <button type="button" class="btn-whatsapp-checkout" id="whatsappCheckoutBtn">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+          <span>Checkout via WhatsApp (Instant Order)</span>
+        </button>
+
+        <button type="button" class="btn-advance-pay" id="openAdvancePayModalBtn">
+          <span>⚡ Pay in Advance (Submit TrxID)</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- 7. INSTANT AUTOMATED CHECKOUT & PAYMENT VERIFICATION MODAL -->
   <div class="checkout-overlay" id="checkoutModal" hidden aria-hidden="true">
