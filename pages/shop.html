@@ -408,7 +408,7 @@
   </nav>
 
   <!-- SLIDE-OVER CART DRAWER -->
-  <div class="cart-drawer-overlay" id="cartDrawer" hidden aria-hidden="true">
+  <div class="cart-drawer-overlay" id="cartDrawer" hidden aria-hidden="true" style="display: none;">
     <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
       <div class="cart-drawer__header">
         <div class="cart-drawer__title-wrap">
@@ -441,7 +441,7 @@
   </div>
 
   <!-- INSTANT AUTOMATED CHECKOUT & PAYMENT VERIFICATION MODAL -->
-  <div class="checkout-overlay" id="checkoutModal" hidden aria-hidden="true">
+  <div class="checkout-overlay" id="checkoutModal" hidden aria-hidden="true" style="display: none;">
     <div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
       
       <!-- Modal Header -->
@@ -539,6 +539,38 @@
         </p>
       </form>
 
+    </div>
+  </div>
+
+  <!-- QUICK-VIEW MODAL SKELETON -->
+  <div class="quick-modal-backdrop" id="quickPreviewModal" hidden aria-hidden="true" style="display: none;">
+    <div class="quick-modal-card" role="dialog" aria-modal="true" aria-labelledby="quickModalTitle">
+      <button class="quick-modal-close" id="quickModalClose" aria-label="Close preview">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.3 5.71L12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.88 18.3 9.17 12 2.88 5.71 4.3 4.29l6.29 6.3 6.3-6.3z"/></svg>
+      </button>
+      <div class="quick-modal__grid">
+        <div class="quick-modal__img" id="quickModalImg"></div>
+        <div class="quick-modal__details">
+          <span class="eyebrow" id="quickModalCat">CATEGORY</span>
+          <h2 id="quickModalTitle" style="font-size: 1.35rem; margin-block: 4px 6px;">Product Title</h2>
+          <div id="quickModalPrice" style="margin-block: 6px 12px;">৳0.00</div>
+          <div class="quick-modal__features">
+            <div class="quick-modal__feature-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/></svg>
+              <span>100% Verified Authentic License</span>
+            </div>
+            <div class="quick-modal__feature-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/></svg>
+              <span>Automated Instant Key / Account Dispatch</span>
+            </div>
+            <div class="quick-modal__feature-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/></svg>
+              <span>Lifetime Updates &amp; Direct Setup Support</span>
+            </div>
+          </div>
+          <div id="quickModalActions" style="display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;"></div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

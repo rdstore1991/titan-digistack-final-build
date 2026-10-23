@@ -149,6 +149,7 @@
     renderCartDrawer();
     drawer.hidden = false;
     drawer.removeAttribute('hidden');
+    drawer.style.display = 'flex';
     drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
@@ -158,6 +159,7 @@
     if (!drawer) return;
     drawer.hidden = true;
     drawer.setAttribute('hidden', '');
+    drawer.style.display = 'none';
     drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }

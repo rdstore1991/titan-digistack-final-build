@@ -1330,6 +1330,7 @@ function initCheckoutModal() {
 
     modal.hidden = false;
     modal.removeAttribute('hidden');
+    modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   };
@@ -1337,6 +1338,7 @@ function initCheckoutModal() {
   const closeModal = () => {
     modal.hidden = true;
     modal.setAttribute('hidden', '');
+    modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   };
