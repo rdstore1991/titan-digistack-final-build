@@ -1,0 +1,15 @@
+# Wrangler Ignore List
+node_modules/
+.git/
+.github/
+.vscode/
+.agents/
+tests/
+test-results/
+playwright-report/
+playwright/.cache/
+playwright/.auth/
+playwright.config.js
+package.json
+package-lock.json
+README.md

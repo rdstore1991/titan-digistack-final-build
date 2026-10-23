@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "A fully hand-coded digital marketplace storefront. No CMS, no page builder, no JS frameworks, no CSS frameworks. Just HTML5, CSS3, and vanilla ES6+.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "node -e \"try { require('fs').rmSync('node_modules', { recursive: true, force: true }); console.log('Pruned node_modules for Cloudflare assets'); } catch(e){}\"",
+    "test": "playwright test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
