@@ -122,17 +122,258 @@
         </div>
       </div>
     </section>
+
+    <!-- INTEGRATED NEWSLETTER CTA CARD -->
+    <section class="newsletter-wrap" aria-labelledby="newsTitle">
+      <div class="container">
+        <div class="newsletter-section">
+          <div class="newsletter-copy">
+            <span class="newsletter-badge">⚡ VIP RESTOCK &amp; FLASH DEALS</span>
+            <h2 id="newsTitle">Unlock Exclusive AI Tool Drops &amp; Instant Key Discounts</h2>
+            <p>Join 10,000+ engineers and creators. No spam—only verified license deals and price-drop alerts.</p>
+          </div>
+          <form class="newsletter-form__pill" onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='Subscribed ✓'; b.disabled=true;">
+            <input id="newsEmail" type="email" required placeholder="Enter your developer or creator email..." aria-label="Email address for discounts" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- 4. FOOTER -->
+  <!-- ENTERPRISE 4-COLUMN SITE FOOTER -->
   <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <div class="site-footer__bottom">
-        <p class="site-footer__copyright">
-          &copy; <span id="currentYear">2026</span> Titan DigiStack. All rights reserved.
+    <div class="footer-glow-divider" aria-hidden="true"></div>
+    <div class="container site-footer__grid">
+      <!-- Column 1 — Brand & System Status (Span 1.5x) -->
+      <div class="site-footer__col-brand">
+        <a href="index.html" class="brand brand--footer" aria-label="Titan DigiStack home">
+          <img src="assets/prime-logo.png" alt="Titan DigiStack Prime Logo" class="brand__mark" width="42" height="42" />
+          <span class="site-footer__brand-title">TITAN DIGISTACK</span>
+        </a>
+        <p class="site-footer__about">
+          Premier infrastructure for 100% genuine software licenses, AI subscriptions, and developer tools with instant automated key dispatch.
         </p>
+        <div class="system-status-pill">
+          <span class="pulse-dot"></span>
+          <span>Key Dispatch Engine: <strong>99.9% Operational</strong></span>
+        </div>
+      </div>
+
+      <!-- Column 2 — Digital Catalog -->
+      <div class="footer-col">
+        <h4>Digital Catalog</h4>
+        <ul>
+          <li><a href="index.html#ai">AI Subscriptions</a></li>
+          <li><a href="index.html#themes">WordPress Themes</a></li>
+          <li><a href="index.html#plugins">PRO Plugins</a></li>
+          <li><a href="index.html#software">OS &amp; Office Keys</a></li>
+          <li><a href="pages/shop.html">Full Catalog</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 — Support & Verification -->
+      <div class="footer-col">
+        <h4>Support &amp; Verification</h4>
+        <ul>
+          <li><a href="pages/contact.html">24/7 WhatsApp Support</a></li>
+          <li><a href="javascript:void(0)" id="footerVerifyTrxLink" data-open-checkout-modal>Instant TrxID Verification</a></li>
+          <li><a href="pages/contact.html#warranty">Replacement Warranty</a></li>
+          <li><a href="pages/contact.html#bulk">Bulk &amp; Agency Licensing</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 — Direct WhatsApp Hotline & Hours -->
+      <div class="footer-col">
+        <h4>Direct WhatsApp Hotline</h4>
+        <a href="https://wa.me/16728952770" target="_blank" rel="noopener" class="footer-hotline-card">
+          <div class="footer-hotline-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+          </div>
+          <div>
+            <span class="footer-hotline-label">Direct WhatsApp Hotline</span>
+            <strong class="footer-hotline-number">+1 (672) 895-2770</strong>
+          </div>
+        </a>
+        <ul class="footer-contact-details">
+          <li>📧 <a href="mailto:hello@titandigistack.com">hello@titandigistack.com</a></li>
+          <li>⚡ Instant Key Delivery: <strong>24/7/365</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer Bottom Bar & Verified Payment Badges -->
+    <div class="site-footer__bottom">
+      <div class="container site-footer__bottom-inner">
+        <div class="site-footer__legal">
+          <p>© <span id="year">2026</span> Titan DigiStack. All rights reserved.</p>
+          <div class="site-footer__legal-links">
+            <a href="pages/contact.html#privacy">Privacy Policy</a>
+            <span>·</span>
+            <a href="pages/contact.html#terms">Terms of Service</a>
+            <span>·</span>
+            <a href="pages/contact.html#refund">Refund Policy</a>
+          </div>
+        </div>
+
+        <div class="footer-payment-badges" aria-label="Verified payment gateways">
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#25d366;"></span> WhatsApp Instant Order</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#e2136e;"></span> bKash</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#f7941d;"></span> Nagad</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#f3ba2f;"></span> Binance Pay (USDT)</span>
+          <span class="footer-payment-badge"><span class="badge-dot" style="background:#00f2fe;"></span> Visa / Mastercard</span>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- MOBILE BOTTOM BAR (Thumb-Zone Navigation) -->
+  <nav class="mobile-bottom-bar" aria-label="Quick mobile navigation">
+    <a href="index.html" class="mobile-bottom-bar__link" aria-label="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="index.html#catTabs" class="mobile-bottom-bar__link" aria-label="Categories">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" fill="currentColor"/></svg>
+      <span>Categories</span>
+    </a>
+    <a href="pages/shop.html" class="mobile-bottom-bar__link" aria-label="Shop Catalog">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l-5.5 9h11zM12 22a4 4 0 100-8 4 4 0 000 8zm-7-9h6v6H5z" fill="currentColor"/></svg>
+      <span>Shop</span>
+    </a>
+    <a href="pages/cart.html" class="mobile-bottom-bar__link" aria-label="View Cart" data-open-cart>
+      <div class="mobile-bottom-bar__icon-wrapper">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4h-2l-1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-11.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1h-14.21l-.94-2h-1zm0 16a2 2 0 104 0 2 2 0 00-4 0zm10 0a2 2 0 104 0 2 2 0 00-4 0z" fill="currentColor"/></svg>
+        <span class="cart-badge mobile-cart-badge" id="mobileCartCount" aria-live="polite">0</span>
+      </div>
+      <span>Cart</span>
+    </a>
+  </nav>
+
+  <!-- SLIDE-OVER CART DRAWER -->
+  <div class="cart-drawer-overlay" id="cartDrawer" hidden aria-hidden="true">
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
+      <div class="cart-drawer__header">
+        <div class="cart-drawer__title-wrap">
+          <span class="pulse-dot"></span>
+          <h3 id="cartDrawerTitle">Your Digital Stack (<span id="cartDrawerCount">0</span>)</h3>
+        </div>
+        <button type="button" class="cart-drawer__close" id="closeCartDrawer" aria-label="Close cart">&times;</button>
+      </div>
+
+      <div class="cart-drawer__body" id="cartDrawerList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="cart-drawer__footer">
+        <div class="cart-drawer__summary">
+          <span class="cart-drawer__summary-label">Total Payable:</span>
+          <strong class="cart-drawer__summary-total" id="cartDrawerTotal">৳0</strong>
+        </div>
+
+        <button type="button" class="btn-whatsapp-checkout" id="whatsappCheckoutBtn">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+          <span>Checkout via WhatsApp (Instant Order)</span>
+        </button>
+
+        <button type="button" class="btn-advance-pay" id="openAdvancePayModalBtn">
+          <span>⚡ Pay in Advance (Submit TrxID)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTANT AUTOMATED CHECKOUT & PAYMENT VERIFICATION MODAL -->
+  <div class="checkout-overlay" id="checkoutModal" hidden aria-hidden="true">
+    <div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <div class="checkout-modal__header">
+        <div class="checkout-modal__brand">
+          <span class="pulse-dot"></span>
+          <h3 id="checkoutTitle">Instant Automated Checkout</h3>
+        </div>
+        <button type="button" class="checkout-close-btn" id="closeCheckoutModal" aria-label="Close checkout">&times;</button>
+      </div>
+
+      <div class="checkout-product-summary">
+        <div class="checkout-product-info">
+          <span class="checkout-badge">VERIFIED DIGITAL LICENSE</span>
+          <h4 id="checkoutProductName">ChatGPT Plus Subscription</h4>
+          <span id="checkoutProductCycle" class="checkout-cycle">1 Month Access</span>
+        </div>
+        <div class="checkout-price-box">
+          <span class="checkout-price-label">Total Payable</span>
+          <strong id="checkoutPayableAmount" data-base-bdt="350">৳350</strong>
+          <small id="checkoutUsdtEquivalent">≈ $2.91 USDT</small>
+        </div>
+      </div>
+
+      <div class="payment-tabs" role="tablist">
+        <button type="button" class="payment-tab is-active" data-method="bkash" role="tab" aria-selected="true">
+          <span class="payment-dot payment-dot--bkash"></span>
+          <span>bKash</span>
+        </button>
+        <button type="button" class="payment-tab" data-method="nagad" role="tab" aria-selected="false">
+          <span class="payment-dot payment-dot--nagad"></span>
+          <span>Nagad</span>
+        </button>
+        <button type="button" class="payment-tab" data-method="binance" role="tab" aria-selected="false">
+          <span class="payment-dot payment-dot--binance"></span>
+          <span>Binance Pay (USDT)</span>
+        </button>
+      </div>
+
+      <div class="payment-instructions-card" id="paymentDetailsBox">
+        <p class="payment-step-text" id="paymentInstructionText">
+          Open your bKash App → Select 'Send Money' → Enter the number below and exact BDT amount → Copy the Transaction ID (TrxID).
+        </p>
+
+        <div class="payment-copy-row">
+          <div class="payment-copy-info">
+            <span class="payment-copy-label" id="paymentAccountLabel">bKash Personal (Send Money)</span>
+            <code class="payment-copy-value" id="paymentAccountValue">017XXXXXXXX</code>
+          </div>
+          <button type="button" class="copy-chip-btn" id="copyPaymentAccountBtn">
+            <span>Copy</span>
+          </button>
+        </div>
+
+        <div class="payment-copy-row" id="cryptoWalletRow" hidden>
+          <div class="payment-copy-info">
+            <span class="payment-copy-label">USDT Wallet (TRC20 / Solana)</span>
+            <code class="payment-copy-value" id="cryptoWalletValue">YOUR_USDT_WALLET_ADDRESS</code>
+          </div>
+          <button type="button" class="copy-chip-btn" id="copyCryptoWalletBtn">
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <form id="trxVerificationForm" class="checkout-form">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="customerEmail">Delivery Email Address *</label>
+            <input type="email" id="customerEmail" required placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="senderAccount" id="senderAccountLabel">Sender bKash Number *</label>
+            <input type="text" id="senderAccount" required placeholder="e.g., 017XXXXXXXX">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="transactionId" id="trxIdLabel">Transaction ID (TrxID) *</label>
+          <input type="text" id="transactionId" required placeholder="e.g., BJI84K92LM" class="trx-input">
+        </div>
+
+        <button type="submit" class="checkout-submit-btn" id="submitOrderBtn">
+          <span>Verify Payment & Dispatch Key</span>
+        </button>
+
+        <p class="checkout-trust-note">
+          🔒 256-Bit Encrypted Verification · Instant Key Delivery via Email & WhatsApp
+        </p>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
