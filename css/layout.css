@@ -188,93 +188,191 @@
   transform: scale(1.02) rotate(-1deg);
 }
 
-/* 4. Company Banner Frame (Expands Across All Remaining Space) */
-.header-brand-container,
-.header-brand-link {
+/* 4. Live Cyber-Metallic & Neon Brand Banner */
+.header-brand-container {
   flex: 1 1 0% !important;
   width: 100% !important;
   height: 180px !important;
   min-height: 180px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
   border-radius: 14px !important;
   overflow: hidden !important;
-  background: radial-gradient(circle at center, #07152b 0%, #020610 100%) !important;
-  border: 1px solid rgba(0, 242, 254, 0.4) !important;
-  box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.12), 0 0 20px rgba(0, 0, 0, 0.7) !important;
   position: relative !important;
-  text-decoration: none !important;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, #0a1931 0%, #030812 100%) !important;
+  border: 1px solid rgba(0, 242, 254, 0.4) !important;
+  box-shadow: 
+    inset 0 0 35px rgba(0, 242, 254, 0.14),
+    0 8px 28px rgba(0, 0, 0, 0.65) !important;
+  padding: 0 !important;
   transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-.header-brand-container:hover,
-.header-brand-link:hover,
-.header-branding-row>.header-brand-link:hover {
-  border-color: rgba(0, 242, 254, 0.65) !important;
+.header-brand-container:hover {
+  border-color: rgba(0, 242, 254, 0.75) !important;
   box-shadow: 
-    inset 0 0 32px rgba(0, 242, 254, 0.2), 
-    0 0 24px rgba(0, 242, 254, 0.25) !important;
+    inset 0 0 45px rgba(0, 242, 254, 0.22),
+    0 10px 32px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(0, 242, 254, 0.3) !important;
 }
 
-/* Reset nested link inside container to prevent duplicate borders and padding */
-.header-brand-container .header-brand-link {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  min-height: auto !important;
+.header-brand-link {
   width: 100% !important;
   height: 100% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  text-decoration: none !important;
+  position: relative !important;
+  padding: 12px 24px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   transform: none !important;
-  transition: none;
 }
 
 .header-brand-link:hover {
   transform: none !important;
 }
 
-/* 2. Brand Image - Seamless Radial Feather & Prominent Scale */
-.header-brand-img,
-.site-header .header-brand-link .brand__text,
-.site-header .header-brand-img {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  aspect-ratio: auto !important;
-  object-fit: cover !important;
-  object-position: center 48% !important;
-  transform: scale(0.92) !important; /* Zooms out slightly from cover so top/bottom text never clips */
-  margin: 0 auto !important;
-  display: block !important;
+/* Subtle Tech Grid + Radial Horizon Glow */
+.cyber-banner__bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.16) 0%, transparent 65%),
+    linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px, 24px 24px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 1;
+}
 
-  /* Smoothly feather the outer edges into the dark container background */
-  -webkit-mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 75%, transparent 100%) !important;
-  mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 75%, transparent 100%) !important;
+/* Animated Neon Laser Scanline across banner */
+.cyber-banner__bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 242, 254, 0.04) 40%,
+    rgba(0, 242, 254, 0.2) 70%,
+    rgba(255, 255, 255, 0.35) 90%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  z-index: 2;
+  animation: cyberScanline 7s ease-in-out infinite;
+}
 
-  filter: drop-shadow(0 0 22px rgba(0, 242, 254, 0.5)) drop-shadow(0 0 10px rgba(255, 179, 0, 0.25)) !important;
+@keyframes cyberScanline {
+  0% { left: -100%; }
+  32%, 100% { left: 220%; }
+}
+
+.cyber-banner__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  user-select: none;
+}
+
+/* Main Title Row — Scales fluidly across the full box width */
+.cyber-banner__title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  width: 100%;
+  line-height: 1;
+}
+
+/* "TITAN" — 3D Chrome Steel with Gold/Cyan Specular Highlights */
+.cyber-banner__titan {
+  font-family: 'Orbitron', 'Rajdhani', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 4.1rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #cbd5e1 28%,
+    #475569 50%,
+    #f8fafc 54%,
+    #94a3b8 82%,
+    #f59e0b 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0px #0f172a) drop-shadow(0 0 18px rgba(0, 242, 254, 0.35));
   transition: filter var(--transition-speed);
 }
 
-@media (min-width: 1100px) {
-  .header-brand-img,
-  .site-header .header-brand-link .brand__text {
-    object-fit: contain !important;
-    transform: scale(1.38) !important; /* Enlarges the central logo artwork by 38% to eliminate the tiny look */
-  }
+/* "DIGISTACK" — Electric Neon Cyan Glow */
+.cyber-banner__digistack {
+  font-family: 'Orbitron', 'Rajdhani', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 4.1rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #e0faff 0%, #00f2fe 55%, #0284c7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.65)) drop-shadow(0 0 28px rgba(2, 132, 199, 0.45));
+  transition: filter var(--transition-speed);
 }
 
-.header-brand-link:hover .header-brand-img,
-.header-brand-link:hover .brand__text,
-.site-header .header-brand-link:hover .header-brand-img,
-.site-header .header-brand-link:hover .brand__text {
-  filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.8)) drop-shadow(0 0 14px rgba(255, 179, 0, 0.45)) !important;
+.header-brand-container:hover .cyber-banner__titan {
+  filter: drop-shadow(0 2px 0px #0f172a) drop-shadow(0 0 26px rgba(0, 242, 254, 0.65)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.5));
+}
+
+.header-brand-container:hover .cyber-banner__digistack {
+  filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.95)) drop-shadow(0 0 38px rgba(2, 132, 199, 0.7));
+}
+
+/* Bottom Tagline Bar */
+.cyber-banner__tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: clamp(0.68rem, 1.05vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 999px;
+  background: rgba(2, 8, 20, 0.65);
+  border: 1px solid rgba(0, 242, 254, 0.22);
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.1);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.header-brand-container:hover .cyber-banner__tagline {
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 0 22px rgba(0, 242, 254, 0.25);
+}
+
+.cyber-banner__tagline .cyber-dot {
+  color: #00f2fe;
+  text-shadow: 0 0 8px #00f2fe;
 }
 
 /* 3. Divider & Bottom Row Alignment */

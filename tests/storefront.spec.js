@@ -42,8 +42,8 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     // Verify Company Banner Frame
     const brandContainer = page.locator('.header-brand-container');
     await expect(brandContainer).toBeVisible();
-    const bannerImg = page.locator('.header-brand-img');
-    await expect(bannerImg).toBeVisible();
+    const banner = page.locator('.cyber-banner__content, .header-brand-img');
+    await expect(banner).toBeVisible();
 
     // Check console errors
     expect(consoleErrors).toEqual([]);

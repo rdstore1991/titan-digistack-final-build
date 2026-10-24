@@ -65,20 +65,18 @@
     flex: 0 0 82px !important;
   }
   .header-brand-container {
-    height: 82px !important;
-    min-height: 82px !important;
+    height: 110px !important;
+    min-height: 110px !important;
     padding: 0 !important;
   }
-  .header-brand-img,
-  .site-header .header-brand-link .brand__text {
-    height: 100% !important;
-    width: 100% !important;
-    max-height: 100% !important;
-    max-width: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    margin: 0 auto !important;
-    transform: none !important;
+  .cyber-banner__titan,
+  .cyber-banner__digistack {
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem) !important;
+  }
+  .cyber-banner__tagline {
+    font-size: clamp(0.55rem, 0.9vw, 0.75rem) !important;
+    padding: 3px 12px !important;
+    gap: 8px !important;
   }
   .header-bottom-row {
     gap: 12px;
@@ -117,46 +115,56 @@
   .site-header__card { padding: 10px 14px 8px; border-radius: 14px; }
   .header-branding-row {
     height: auto !important;
-    min-height: 48px !important;
+    min-height: 90px !important;
     gap: 10px !important;
     align-items: center !important;
   }
   .header-left {
-    flex: 0 0 48px !important;
-    width: 48px !important;
-    height: 48px !important;
+    flex: 0 0 90px !important;
+    width: 90px !important;
+    height: 90px !important;
   }
   .header-logo-link {
-    width: 48px !important;
-    height: 48px !important;
+    width: 90px !important;
+    height: 90px !important;
   }
   .header-left .header-logo-img,
   .site-header .header-logo-link .brand__mark {
-    width: 48px !important;
-    height: 48px !important;
-    min-width: 48px !important;
-    min-height: 48px !important;
-    flex: 0 0 48px !important;
+    width: 90px !important;
+    height: 90px !important;
+    min-width: 90px !important;
+    min-height: 90px !important;
+    flex: 0 0 90px !important;
     border-radius: 9px !important;
   }
   .header-brand-container {
     flex: 1 1 0% !important;
     min-width: 0 !important;
-    height: 48px !important;
-    min-height: 48px !important;
+    height: 90px !important;
+    min-height: 90px !important;
     padding: 0 !important;
     border-radius: 10px !important;
   }
-  .header-brand-img,
-  .site-header .header-brand-link .brand__text {
-    height: 100% !important;
-    width: 100% !important;
-    max-height: 100% !important;
-    max-width: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    margin: 0 auto !important;
-    transform: none !important;
+  .header-brand-link {
+    padding: 6px 12px !important;
+  }
+  .cyber-banner__content {
+    gap: 4px !important;
+  }
+  .cyber-banner__title-row {
+    font-size: 1.3rem !important;
+    gap: 0.25em !important;
+  }
+  .cyber-banner__titan,
+  .cyber-banner__digistack {
+    font-size: clamp(1.1rem, 3.6vw, 1.6rem) !important;
+    letter-spacing: 0.08em !important;
+  }
+  .cyber-banner__tagline {
+    letter-spacing: 0.08em !important;
+    font-size: clamp(0.46rem, 1.8vw, 0.6rem) !important;
+    padding: 2px 8px !important;
+    gap: 4px !important;
   }
   .header-bottom-row {
     display: flex;
