@@ -194,17 +194,18 @@
   flex: 1 1 0% !important;
   width: 100% !important;
   height: 180px !important;
+  min-height: 180px !important;
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   border-radius: 14px !important;
   overflow: hidden !important;
-  background: 
-    radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0, 180, 255, 0.12) 0%, transparent 80%),
-    radial-gradient(circle at center, #061122 0%, #020610 85%) !important;
-  border: 1px solid rgba(0, 242, 254, 0.35) !important;
-  box-shadow: inset 0 0 24px rgba(0, 242, 254, 0.1), 0 0 20px rgba(0, 0, 0, 0.7) !important;
-  padding: 6px 16px !important;
+  background: radial-gradient(circle at center, #07152b 0%, #020610 100%) !important;
+  border: 1px solid rgba(0, 242, 254, 0.4) !important;
+  box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.12), 0 0 20px rgba(0, 0, 0, 0.7) !important;
+  position: relative !important;
   text-decoration: none !important;
   transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
@@ -238,30 +239,41 @@
   transform: none !important;
 }
 
-/* 2. Brand Image - Seamless Edge Dissolve & Aspect Ratio Lock */
+/* 2. Brand Image - Seamless Radial Feather & Prominent Scale */
 .header-brand-img,
 .site-header .header-brand-link .brand__text,
 .site-header .header-brand-img {
-  height: 92% !important;
-  width: auto !important;
-  max-width: 95% !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
   max-height: 100% !important;
-  object-fit: contain !important;
-  object-position: center !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  object-position: center 48% !important;
+  transform: scale(0.92) !important; /* Zooms out slightly from cover so top/bottom text never clips */
   margin: 0 auto !important;
   display: block !important;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.85) 5%, black 12%, black 88%, rgba(0,0,0,0.85) 95%, transparent 100%) !important;
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.85) 5%, black 12%, black 88%, rgba(0,0,0,0.85) 95%, transparent 100%) !important;
-  filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.5)) drop-shadow(0 0 10px rgba(255, 179, 0, 0.25)) !important;
-  transform: none !important;
+
+  /* Smoothly feather the outer edges into the dark container background */
+  -webkit-mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 75%, transparent 100%) !important;
+  mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 75%, transparent 100%) !important;
+
+  filter: drop-shadow(0 0 22px rgba(0, 242, 254, 0.5)) drop-shadow(0 0 10px rgba(255, 179, 0, 0.25)) !important;
   transition: filter var(--transition-speed);
+}
+
+@media (min-width: 1100px) {
+  .header-brand-img,
+  .site-header .header-brand-link .brand__text {
+    object-fit: contain !important;
+    transform: scale(1.38) !important; /* Enlarges the central logo artwork by 38% to eliminate the tiny look */
+  }
 }
 
 .header-brand-link:hover .header-brand-img,
 .header-brand-link:hover .brand__text,
 .site-header .header-brand-link:hover .header-brand-img,
 .site-header .header-brand-link:hover .brand__text {
-  transform: none !important;
   filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.8)) drop-shadow(0 0 14px rgba(255, 179, 0, 0.45)) !important;
 }
 
