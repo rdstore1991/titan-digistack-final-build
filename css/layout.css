@@ -995,6 +995,8 @@
 }
 
 .why__item {
+  display: flex !important;
+  flex-direction: column !important;
   background: radial-gradient(circle at 20% 20%, rgba(0, 242, 254, 0.06), transparent 70%), rgba(8, 14, 28, 0.82) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -1039,6 +1041,15 @@
 
 .why__item h3 {
   margin-bottom: 8px;
+}
+
+.why__item p {
+  flex-grow: 1;
+}
+
+.why__item .trust-pills {
+  margin-top: auto;
+  padding-top: 14px;
 }
 
 /* ============================================================

@@ -176,25 +176,26 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(headerCard).toBeVisible();
   });
 
-  test('Product cards render official brand vector avatars with squircle styling and 3-tier fallbacks', async ({ page }) => {
+  test('Product cards render local assets images with squircle avatar styling', async ({ page }) => {
     await page.goto(indexUrl);
 
     const avatars = page.locator('.product-card__avatar');
     await expect(avatars.first()).toBeVisible();
     
-    // Check squircle dimensions (52x52)
+    // Check squircle dimensions (56x56)
     const box = await avatars.first().boundingBox();
-    expect(box?.width).toBeCloseTo(52, 1);
-    expect(box?.height).toBeCloseTo(52, 1);
+    expect(box?.width).toBeCloseTo(56, 1);
+    expect(box?.height).toBeCloseTo(56, 1);
 
-    // Verify 3-tier icon engine produces Google favicons, SimpleIcons, or category SVGs (zero text initials)
+    // Verify local image routing points to assets/products/
     const cardAvatars = await page.locator('.product-card__avatar').all();
     expect(cardAvatars.length).toBeGreaterThan(0);
 
     for (const avatar of cardAvatars.slice(0, 10)) {
-      const hasLogo = await avatar.locator('.product-brand-logo').count();
-      const hasSvg = await avatar.locator('.category-fallback-svg, svg').count();
-      expect(hasLogo > 0 || hasSvg > 0).toBeTruthy();
+      const img = avatar.locator('img');
+      await expect(img).toBeVisible();
+      const src = await img.getAttribute('src');
+      expect(src).toMatch(/assets\/products\/.+\.(jpg|png|webp)/);
     }
   });
 
@@ -224,11 +225,20 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
   test('Bento grid contains encrypted payment trust pills and quick-view modal remains hidden when closed', async ({ page }) => {
     await page.goto(indexUrl);
 
-    // Verify trust pills
+    // Verify encrypted payment trust pills
     await expect(page.locator('.trust-pill--bkash')).toHaveText('bKash');
     await expect(page.locator('.trust-pill--nagad')).toHaveText('Nagad');
     await expect(page.locator('.trust-pill--card')).toHaveText('Visa/MC');
     await expect(page.locator('.trust-pill--binance')).toHaveText('Binance Pay (USDT)');
+
+    // Verify all 6 why__items contain dedicated trust pills
+    const whyItems = page.locator('.why__item');
+    await expect(whyItems).toHaveCount(6);
+    for (let i = 0; i < 6; i++) {
+      await expect(whyItems.nth(i).locator('.trust-pills')).toBeVisible();
+      const count = await whyItems.nth(i).locator('.trust-pill').count();
+      expect(count).toBeGreaterThanOrEqual(3);
+    }
 
     // Verify quick-preview modal is hidden by default and not leaking into page layout
     const modal = page.locator('#quickPreviewModal');

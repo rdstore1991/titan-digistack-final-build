@@ -420,26 +420,31 @@
     linear-gradient(135deg, var(--ph-a, #131b36), var(--ph-b, #080c1a));
 }
 
-/* Product Card Squircle Avatar with Cyber-Grid Backdrop */
-.product-card__avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  position: relative;
+/* Product Card Avatar for Local Images */
+.product-card__avatar,
+.card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
   overflow: hidden;
-  background-color: #060b19;
-  background-image:
-    radial-gradient(circle at 30% 30%, rgba(0, 242, 254, 0.22), rgba(6, 11, 25, 0.94)),
-    linear-gradient(rgba(0, 242, 254, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 242, 254, 0.08) 1px, transparent 1px);
-  background-size: 100% 100%, 8px 8px, 8px 8px;
-  border: 1px solid rgba(0, 242, 254, 0.35);
-  box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.15), 0 4px 14px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  background: rgba(8, 16, 32, 0.9);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 0; /* Remove restrictive 11px icon padding so full images fit cleanly */
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-image .badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
 }
 
 /* Category-matched border glow & tint */
@@ -478,23 +483,12 @@
 }
 
 .product-card__avatar img,
-.product-card__avatar svg,
-.product-brand-logo,
-.category-fallback-svg {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+.card-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* Use 'contain' if transparent PNG logos, or 'cover' for full thumbnails */
+  border-radius: inherit;
   display: block;
-}
-
-.product-brand-logo {
-  border-radius: 6px;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
-  transition: transform 0.2s ease;
-}
-
-.category-fallback-svg {
-  filter: drop-shadow(0 0 8px currentColor);
 }
 
 /* Product Card Pricing Wrap */
@@ -587,7 +581,7 @@
   font-size: 0.74rem;
 }
 
-/* Trust Pills (Encrypted Payments Bento Card) */
+/* Trust Pills (Encrypted Payments & Why Us Bento Cards) */
 .trust-pills {
   display: flex;
   gap: 6px;
@@ -602,11 +596,22 @@
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
 }
-.trust-pill--bkash   { color: #ff3377; border-color: rgba(226, 19, 110, 0.4); background: rgba(226, 19, 110, 0.12); }
-.trust-pill--nagad   { color: #ff9933; border-color: rgba(247, 148, 29, 0.4); background: rgba(247, 148, 29, 0.12); }
-.trust-pill--card    { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.12); }
-.trust-pill--binance { color: #facc15; border-color: rgba(243, 186, 47, 0.4); background: rgba(243, 186, 47, 0.12); }
+.trust-pill:hover {
+  transform: translateY(-1px);
+}
+.trust-pill--bkash     { color: #ff3377; border-color: rgba(226, 19, 110, 0.4); background: rgba(226, 19, 110, 0.12); }
+.trust-pill--nagad     { color: #ff9933; border-color: rgba(247, 148, 29, 0.4); background: rgba(247, 148, 29, 0.12); }
+.trust-pill--card      { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.12); }
+.trust-pill--binance   { color: #facc15; border-color: rgba(243, 186, 47, 0.4); background: rgba(243, 186, 47, 0.12); }
+.trust-pill--genuine   { color: #00F2FE; border-color: rgba(0, 242, 254, 0.4); background: rgba(0, 242, 254, 0.12); }
+.trust-pill--instant   { color: #00F5A0; border-color: rgba(0, 245, 160, 0.4); background: rgba(0, 245, 160, 0.12); }
+.trust-pill--support   { color: #06B6D4; border-color: rgba(6, 182, 212, 0.4); background: rgba(6, 182, 212, 0.12); }
+.trust-pill--updates   { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.12); }
+.trust-pill--guarantee { color: #FFB300; border-color: rgba(255, 179, 0, 0.4); background: rgba(255, 179, 0, 0.12); }
 
 /* Quick Action Overlay inside image */
 .card-quick-overlay {

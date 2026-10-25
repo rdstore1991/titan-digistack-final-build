@@ -208,9 +208,10 @@
     listEl.innerHTML = lines.map(line => {
       const lineTotal = (line.price || 0) * line.qty;
       const priceText = fmtActiveCurrency(lineTotal);
-      const avatar = (typeof window.getBrandAvatar === 'function')
-        ? window.getBrandAvatar(line.title, line.category)
-        : ((typeof window.getCategoryFallbackSVG === 'function') ? window.getCategoryFallbackSVG(line.category) : '');
+      const imgCfg = (typeof window.imageConfigFor === 'function') ? window.imageConfigFor(line) : null;
+      const avatar = imgCfg
+        ? `<img src="${imgCfg.src}" alt="${(line.title || '').replace(/"/g, '&quot;')}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" onerror="this.style.display='none'">`
+        : '';
 
       return `
         <div class="cart-drawer__item" data-id="${line.id}">
@@ -271,14 +272,14 @@
       let thumb;
       if (imgCfg) {
         const errHandler = imgCfg.chain
-          ? `this.src!==this.dataset.imgBase+'.webp'?window.tryNextImageExt(this):this.closest('.cart-row__img').dataset.fallback='1'`
+          ? `window.tryNextImageExt(this)`
           : `this.remove()`;
         const chainAttrs = imgCfg.chain
           ? `data-img-base="${imgCfg.base}" data-ext-idx="0"`
           : '';
         thumb = `<div class="cart-row__img"><img src="${imgCfg.src}" alt="${(line.title || '').replace(/"/g, '&quot;')}" loading="lazy" ${chainAttrs} onerror="${errHandler}"></div>`;
       } else {
-        thumb = `<div class="cart-row__img" aria-hidden="true">${typeof window.getBrandAvatar === 'function' ? window.getBrandAvatar(line.title, line.category) : ((typeof window.getCategoryFallbackSVG === 'function') ? window.getCategoryFallbackSVG(line.category) : '')}</div>`;
+        thumb = `<div class="cart-row__img" aria-hidden="true"></div>`;
       }
       return `
       <div class="cart-row" data-id="${line.id}">
