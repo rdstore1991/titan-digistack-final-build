@@ -135,7 +135,7 @@ const PRODUCTS = [
   { id: 'gr-009', title: 'HeyGen Official Subscription', price: 699, cycle: '/ mo', badge: 'sale', category: 'graphic' },
   { id: 'gr-010', title: 'InVideo Official Subscription', price: 450, cycle: '/ mo', category: 'graphic' },
   { id: 'gr-011', title: 'JoggAI – AI Video Generator', price: 499, cycle: '/ mo', category: 'graphic' },
-  { id: 'gr-012', title: 'Envato Elements', price: 299, cycle: '/ mo', category: 'graphic' },
+  { id: 'gr-012', title: 'Envato Elements', price: 299, cycle: '/ mo', badge: 'sale', category: 'graphic' },
   { id: 'gr-013', title: 'Filmora 14 Lifetime', price: 350, cycle: 'Lifetime', category: 'graphic' },
   { id: 'gr-014', title: 'Adobe Creative Cloud Official', price: 799, cycle: '/ mo', badge: 'sale', category: 'graphic' },
   { id: 'gr-015', title: 'CapCut Pro', price: 250, cycle: '/ mo', category: 'graphic' },
@@ -151,7 +151,7 @@ const PRODUCTS = [
   { id: 'ai-003', title: 'Bolt AI Builder', price: 599, cycle: '/ mo', badge: 'new', category: 'ai' },
   { id: 'ai-004', title: 'Branalyzer AI – Brand Analysis', price: 450, cycle: '/ mo', category: 'ai' },
   { id: 'ai-005', title: 'LinkedIn Premium', price: 999, cycle: '/ mo', badge: 'sale', category: 'ai' },
-  { id: 'ai-006', title: 'Spotify Premium', price: 180, cycle: '/ mo', category: 'ai' },
+  { id: 'ai-006', title: 'Spotify Premium', price: 180, cycle: '/ mo', badge: 'sale', category: 'ai' },
   { id: 'ai-007', title: 'ChatGPT Go', price: 199, cycle: '/ mo', badge: 'sale', category: 'ai' },
   { id: 'ai-008', title: 'ChatGPT Plus', price: 350, cycle: '/ mo', badge: 'sale', category: 'ai' },
   { id: 'ai-009', title: 'ChatPRD AI', price: 399, cycle: '/ mo', category: 'ai' },
@@ -314,7 +314,7 @@ function formatPrice(p) {
 }
 
 function priceLabel(product, currency = getActiveCurrency()) {
-  if (product.price === null || product.price === undefined) return '📞 Call for Price';
+  if (product.price === null || product.price === undefined) return 'Instant Quote';
   const lo = convertPrice(product.price, currency);
   if (product.priceMax) {
     const hi = convertPrice(product.priceMax, currency);
@@ -432,22 +432,20 @@ function renderCard(product) {
   })();
 
   const imgCfg = imageConfigFor(product);
-  const initials = placeholderInitials(product.title);
+  const safeTitle = product.title.replace(/"/g, '&quot;');
   const avatarMarkup = imgCfg
-    ? `<div class="product-card__avatar" hidden aria-hidden="true"><span class="avatar-initials">${initials}</span></div>`
-    : `<div class="product-card__avatar" aria-hidden="true"><span class="avatar-initials">${initials}</span></div>`;
+    ? `<div class="product-card__avatar" hidden aria-hidden="true"><img src="${imgCfg.src}" alt="${safeTitle}" loading="lazy"></div>`
+    : '';
 
   let priceHtml;
   let ctaHtml;
 
   if (isCall) {
     priceHtml = `
-      <span class="price-badge price-badge--quote">
-        <span class="pulse-dot"></span> Instant Quote
-      </span>
+      <span class="price-badge price-badge--quote"><span class="pulse-dot"></span> Instant Quote</span>
     `;
     ctaHtml = `
-      <a class="btn-cart call" data-quote-btn data-quote-title="${product.title.replace(/"/g, '&quot;')}" href="${callForPriceHref(product)}" target="_blank" rel="noopener" aria-label="Instant quote on WhatsApp for ${product.title.replace(/"/g, '&quot;')}">Get Quote</a>
+      <a class="btn-cart call" data-quote-btn data-quote-title="${safeTitle}" href="${callForPriceHref(product)}" target="_blank" rel="noopener" aria-label="Instant quote on WhatsApp for ${safeTitle}">Instant Quote</a>
     `;
   } else if (isFree) {
     priceHtml = `
@@ -456,7 +454,7 @@ function renderCard(product) {
       </div>
     `;
     ctaHtml = `
-      <button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Get ${product.title.replace(/"/g, '&quot;')}">Buy Now</button>
+      <button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Get ${safeTitle}">Buy Now</button>
     `;
   } else {
     const cycle = product.cycle ? ` <span class="price-cycle">${product.cycle}</span>` : ' <span class="price-cycle">/ mo</span>';
@@ -469,7 +467,7 @@ function renderCard(product) {
       </div>
     `;
     ctaHtml = `
-      <button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Buy ${product.title.replace(/"/g, '&quot;')}">Buy Now</button>
+      <button class="btn-cart" type="button" data-add-to-cart data-id="${product.id}" aria-label="Buy ${safeTitle}">Buy Now</button>
     `;
   }
   const fitClass = product.imageFit === 'contain' ? ' card-image__photo--contain' : '';

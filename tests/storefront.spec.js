@@ -213,7 +213,20 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     for (const file of ['index.html', 'pages/shop.html']) {
       const rawHtml = fs.readFileSync(path.resolve(file), 'utf8');
       expect(rawHtml).not.toMatch(/Call for Price/i);
+      expect(rawHtml).not.toMatch(/Get Price/i);
+      expect(rawHtml).not.toContain('avatar-initials');
+      expect((rawHtml.match(/<article class="product-card/g) || []).length).toBe(135);
+      expect((rawHtml.match(/<div class="product-card__avatar"[^>]*><img src="[^"]*assets\/products\//g) || []).length).toBe(135);
       expect(rawHtml).toContain('class="product-price" data-price-bdt="350">৳350</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="999">৳999</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="180">৳180</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="450">৳450</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="499">৳499</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="199">৳199</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="399">৳399</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="160">৳160</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="320">৳320</span>');
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="299">৳299</span>');
       expect(rawHtml).toContain('Buy Now</button>');
       expect(rawHtml).toContain('property="og:image"');
       expect(rawHtml).toContain('application/ld+json');
