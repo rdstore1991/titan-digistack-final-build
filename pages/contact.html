@@ -25,7 +25,7 @@
   <!-- Twitter / X Large Summary Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="24/7 Live Support &amp; License Verification — Titan DigiStack" />
-  <meta name="twitter:description" content="Connect with Titan DigiStack live support on WhatsApp (+1 672-895-2770) or email hello@titandigistack.com." />
+  <meta name="twitter:description" content="Connect with Titan DigiStack live support on WhatsApp (+1 672-895-2770) or email support@bdexchz.live &amp; admin@bdexchz.live." />
   <meta name="twitter:image" content="https://rdstore1991.github.io/titan-digistack-final-build/assets/og-banner.jpg" />
 
   <!-- JSON-LD Structured Data: ContactPage & Organization -->
@@ -44,15 +44,24 @@
           "name": "Titan DigiStack",
           "url": "https://rdstore1991.github.io/titan-digistack-final-build/",
           "logo": "https://rdstore1991.github.io/titan-digistack-final-build/assets/prime-logo.png",
-          "email": "hello@titandigistack.com",
+          "email": "support@bdexchz.live",
           "telephone": "+1-672-895-2770",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+1-672-895-2770",
-            "contactType": "customer support",
-            "email": "hello@titandigistack.com",
-            "availableLanguage": ["English", "Bengali"]
-          }
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "telephone": "+1-672-895-2770",
+              "contactType": "customer support",
+              "email": "support@bdexchz.live",
+              "availableLanguage": ["English", "Bengali"]
+            },
+            {
+              "@type": "ContactPoint",
+              "telephone": "+1-672-895-2770",
+              "contactType": "billing support",
+              "email": "admin@bdexchz.live",
+              "availableLanguage": ["English", "Bengali"]
+            }
+          ]
         }
       }
     ]
@@ -312,7 +321,10 @@
             <textarea id="cMsg" name="message" rows="5" required></textarea>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--block" style="margin-top: 6px;">Dispatch Message via WhatsApp</button>
+          <div class="contact-form__actions">
+            <button type="submit" class="btn btn--primary btn--block">Dispatch Message via WhatsApp (+1 672-895-2770)</button>
+            <button type="button" id="contactEmailBtn" class="btn btn--ghost btn--block">Send via Official Email (support@bdexchz.live)</button>
+          </div>
           <div id="contactStatus" aria-live="polite" style="margin-top:10px; font-size:0.88rem; font-family: var(--font-mono);"></div>
         </form>
 
@@ -323,9 +335,14 @@
             <a href="https://wa.me/16728952770" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">+1 (672) 895-2770</a>
           </div>
           <div class="info-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-border); border-radius: var(--border-radius-md); padding: 24px;">
-            <h3>Email Desk</h3>
-            <p style="margin-block: 6px 14px; color: var(--color-text-secondary);">Official inquiries &amp; corporate invoices.</p>
-            <a href="mailto:hello@titandigistack.com" class="btn btn--ghost btn--sm">hello@titandigistack.com</a>
+            <h3>Customer Support &amp; Key Dispatch</h3>
+            <p style="margin-block: 6px 14px; color: var(--color-text-secondary);">24/7 order assistance, TrxID verification &amp; instant replacement warranty.</p>
+            <a href="mailto:support@bdexchz.live?subject=Order%20Support%20-%20Titan%20DigiStack" class="btn btn--ghost btn--sm">support@bdexchz.live</a>
+          </div>
+          <div class="info-card" id="bulk" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-border); border-radius: var(--border-radius-md); padding: 24px;">
+            <h3>Enterprise Licensing, Bulk Orders &amp; Partnerships</h3>
+            <p style="margin-block: 6px 14px; color: var(--color-text-secondary);">Corporate invoices, agency volume licensing &amp; billing administration.</p>
+            <a href="mailto:admin@bdexchz.live?subject=Enterprise%20%26%20Admin%20Inquiry%20-%20Titan%20DigiStack" class="btn btn--ghost btn--sm">admin@bdexchz.live</a>
           </div>
         </aside>
       </div>
@@ -440,8 +457,17 @@
             <strong class="footer-hotline-number">+1 (672) 895-2770</strong>
           </div>
         </a>
+        <div class="footer-contact-emails">
+          <a href="mailto:support@bdexchz.live" class="footer-email-link">
+            <span class="email-role-badge">24/7 Support:</span>
+            <strong>support@bdexchz.live</strong>
+          </a>
+          <a href="mailto:admin@bdexchz.live" class="footer-email-link">
+            <span class="email-role-badge">Billing &amp; Admin:</span>
+            <strong>admin@bdexchz.live</strong>
+          </a>
+        </div>
         <ul class="footer-contact-details">
-          <li>📧 <a href="mailto:hello@titandigistack.com">hello@titandigistack.com</a></li>
           <li>⚡ Instant Key Delivery: <strong>24/7/365</strong></li>
         </ul>
       </div>
@@ -473,24 +499,49 @@
   </footer>
 
   <script>
-    document.getElementById('contactForm')?.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name  = this.cName.value.trim();
-      const email = this.cEmail.value.trim();
-      const topic = this.cTopic.value;
-      const msg   = this.cMsg.value.trim();
+    (function () {
+      const form = document.getElementById('contactForm');
+      const emailBtn = document.getElementById('contactEmailBtn');
       const status = document.getElementById('contactStatus');
-      if (!name || !email || !msg) {
-        status.textContent = 'Please fill name, email, and message.';
-        status.style.color = 'var(--color-badge-sale)';
-        return;
+      if (!form) return;
+
+      function readFields() {
+        const name = form.cName.value.trim();
+        const email = form.cEmail.value.trim();
+        const topic = form.cTopic.value;
+        const msg = form.cMsg.value.trim();
+        if (!name || !email || !msg) {
+          status.textContent = 'Please fill name, email, and message.';
+          status.style.color = 'var(--color-badge-sale)';
+          return null;
+        }
+        return { name, email, topic, msg };
       }
-      const num = (window.STORE_CONFIG && window.STORE_CONFIG.whatsappNumber) || (window.TITAN_CONFIG && window.TITAN_CONFIG.whatsappNumber) || '16728952770';
-      const text = encodeURIComponent(`Hi Titan DigiStack,\n\nName: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${msg}`);
-      window.open(`https://wa.me/${num}?text=${text}`, '_blank', 'noopener');
-      status.style.color = 'var(--color-price)';
-      status.textContent = 'Opening WhatsApp… you can also email us directly.';
-    });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const data = readFields();
+        if (!data) return;
+        const num = (window.STORE_CONFIG && window.STORE_CONFIG.whatsappNumber) || (window.TITAN_CONFIG && window.TITAN_CONFIG.whatsappNumber) || '16728952770';
+        const text = encodeURIComponent(`Hi Titan DigiStack,\n\nName: ${data.name}\nEmail: ${data.email}\nTopic: ${data.topic}\n\n${data.msg}`);
+        window.open(`https://wa.me/${num}?text=${text}`, '_blank', 'noopener');
+        status.style.color = 'var(--color-price)';
+        status.textContent = 'Opening WhatsApp… you can also email support@bdexchz.live directly.';
+      });
+
+      emailBtn?.addEventListener('click', function () {
+        const data = readFields();
+        if (!data) return;
+        const supportAddr = (window.STORE_CONFIG && window.STORE_CONFIG.supportEmail) || 'support@bdexchz.live';
+        const subject = encodeURIComponent(`${data.topic} - Titan DigiStack`);
+        const body = encodeURIComponent(`Hi Titan DigiStack Support,\n\nName: ${data.name}\nEmail: ${data.email}\nTopic: ${data.topic}\n\n${data.msg}`);
+        const mailtoHref = `mailto:${supportAddr}?subject=${subject}&body=${body}`;
+        this.dataset.lastMailto = mailtoHref;
+        window.location.href = mailtoHref;
+        status.style.color = 'var(--color-price)';
+        status.textContent = `Opening email client for ${supportAddr}…`;
+      });
+    })();
   </script>
 
   <!-- MOBILE BOTTOM BAR (Thumb-Zone Navigation) -->
@@ -659,7 +710,7 @@
         </button>
 
         <p class="checkout-trust-note">
-          🔒 256-Bit Encrypted Verification · Instant Key Delivery via Email & WhatsApp
+          🔒 256-Bit Encrypted Verification · Need help? Email <a href="mailto:support@bdexchz.live" style="color: #00f2fe; text-decoration: underline;">support@bdexchz.live</a>
         </p>
       </form>
 

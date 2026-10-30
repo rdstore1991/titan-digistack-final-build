@@ -170,7 +170,8 @@ Format: `YYYY-MM-DDTHH:mm:ss` in the visitor's local time. Append `Z` for UTC. T
 window.STORE_CONFIG = {
   whatsappNumber: '16728952770',  // +1 (672) 895-2770 (E.164 without +)
   whatsappDisplay: '+1 (672) 895-2770',
-  contactEmail:   'hello@titandigistack.com',
+  supportEmail:   'support@bdexchz.live',
+  adminEmail:     'admin@bdexchz.live',
 };
 ```
 
@@ -217,10 +218,10 @@ Build command: empty. Output directory: project root. Deploys in seconds.
 
 These five items are the only things that need real values:
 
-1. `whatsappNumber` and `contactEmail` in `js/main.js`
+1. `whatsappNumber`, `supportEmail`, and `adminEmail` in `js/main.js`
 2. `END_DATE` in `js/countdown.js`
 3. Social URLs in the footer of each HTML page (Facebook, YouTube, WhatsApp, Telegram)
-4. The contact email shown in the header link and footer (`hello@titandigistack.com`)
+4. The official business emails shown in the footer and contact desk (`support@bdexchz.live` & `admin@bdexchz.live`)
 5. Real product images — drop files into `assets/products/` named `<product-id>.png`. See `assets/products/README.md` for the full filename checklist. Missing images fall back to placeholders automatically.
 
 ---

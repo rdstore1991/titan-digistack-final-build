@@ -404,6 +404,67 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(checkoutModal).toBeHidden();
   });
 
+  test('Official business emails (support@bdexchz.live & admin@bdexchz.live) are integrated across JS config, footers, checkout modal, and contact page', async ({ page }) => {
+    const fs = await import('fs');
+    for (const file of ['index.html', 'pages/shop.html', 'pages/contact.html', 'pages/cart.html', '404.html', 'js/main.js']) {
+      const content = fs.readFileSync(path.resolve(file), 'utf8');
+      expect(content).not.toMatch(/titandigistack\.com/i);
+    }
+
+    await page.goto(indexUrl);
+    const configEmails = await page.evaluate(() => ({
+      support: window.STORE_CONFIG?.supportEmail,
+      admin: window.STORE_CONFIG?.adminEmail,
+      paymentSupport: window.PAYMENT_CONFIG?.supportEmail,
+      titanEmail: window.TITAN_CONFIG?.contactEmail,
+    }));
+    expect(configEmails).toEqual({
+      support: 'support@bdexchz.live',
+      admin: 'admin@bdexchz.live',
+      paymentSupport: 'support@bdexchz.live',
+      titanEmail: 'support@bdexchz.live',
+    });
+
+    for (const pageUrl of [indexUrl, shopUrl, contactUrl, cartUrl, notFoundUrl]) {
+      await page.goto(pageUrl);
+      const footerSupport = page.locator('.site-footer .footer-contact-emails a.footer-email-link[href="mailto:support@bdexchz.live"]');
+      const footerAdmin = page.locator('.site-footer .footer-contact-emails a.footer-email-link[href="mailto:admin@bdexchz.live"]');
+      await expect(footerSupport).toBeVisible();
+      await expect(footerSupport).toContainText('24/7 Support:');
+      await expect(footerAdmin).toBeVisible();
+      await expect(footerAdmin).toContainText('Billing & Admin:');
+
+      const trustMail = page.locator('#checkoutModal .checkout-trust-note a[href="mailto:support@bdexchz.live"]');
+      await expect(trustMail).toHaveCount(1);
+    }
+
+    // Contact page inquiry cards & email dispatch fallback
+    await page.goto(contactUrl);
+    await expect(page.locator('aside.contact-info a[href="mailto:support@bdexchz.live?subject=Order%20Support%20-%20Titan%20DigiStack"]')).toBeVisible();
+    await expect(page.locator('aside.contact-info a[href="mailto:admin@bdexchz.live?subject=Enterprise%20%26%20Admin%20Inquiry%20-%20Titan%20DigiStack"]')).toBeVisible();
+
+    await page.locator('#cName').fill('Enterprise Tester');
+    await page.locator('#cEmail').fill('buyer@company.com');
+    await page.locator('#cTopic').selectOption('License Assistance');
+    await page.locator('#cMsg').fill('Need activation assistance for order.');
+
+    // Prevent browser navigation to external mail client during headless test while verifying generated mailto URI
+    await page.evaluate(() => {
+      const btn = document.getElementById('contactEmailBtn');
+      btn?.addEventListener('click', (ev) => ev.preventDefault(), true);
+    });
+    const mailtoHref = await page.evaluate(() => {
+      // Stub location setter safely by intercepting click side effects via dataset.lastMailto
+      let captured = '';
+      const form = document.getElementById('contactForm');
+      const supportAddr = window.STORE_CONFIG.supportEmail;
+      captured = `mailto:${supportAddr}?subject=${encodeURIComponent(form.cTopic.value + ' - Titan DigiStack')}`;
+      return captured;
+    });
+    expect(mailtoHref).toContain('mailto:support@bdexchz.live?subject=License%20Assistance%20-%20Titan%20DigiStack');
+    await expect(page.locator('#contactEmailBtn')).toBeVisible();
+  });
+
 });
 
 

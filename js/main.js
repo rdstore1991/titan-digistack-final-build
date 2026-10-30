@@ -15,10 +15,13 @@
 /* -----------------------------
    Global Store & Payment Configuration
    Official WhatsApp: +1 (672) 895-2770 (16728952770)
+   Official Business Emails: support@bdexchz.live & admin@bdexchz.live
    ----------------------------- */
 const STORE_CONFIG = {
   whatsappNumber: "16728952770", // +1 (672) 895-2770
   whatsappDisplay: "+1 (672) 895-2770",
+  supportEmail: "support@bdexchz.live",
+  adminEmail: "admin@bdexchz.live",
   bkash: {
     name: "bKash",
     type: "Personal (Send Money)",
@@ -45,7 +48,9 @@ window.STORE_CONFIG = STORE_CONFIG;
 window.TITAN_CONFIG = {
   whatsappNumber: STORE_CONFIG.whatsappNumber,
   whatsappDisplay: STORE_CONFIG.whatsappDisplay,
-  contactEmail: 'hello@titandigistack.com',
+  contactEmail: STORE_CONFIG.supportEmail,
+  supportEmail: STORE_CONFIG.supportEmail,
+  adminEmail: STORE_CONFIG.adminEmail,
 };
 
 /* -----------------------------
@@ -55,6 +60,8 @@ window.TITAN_CONFIG = {
 const PAYMENT_CONFIG = {
   whatsappAdmin: STORE_CONFIG.whatsappDisplay,
   whatsappNumber: STORE_CONFIG.whatsappNumber,
+  supportEmail: STORE_CONFIG.supportEmail,
+  adminEmail: STORE_CONFIG.adminEmail,
   bkash: {
     ...STORE_CONFIG.bkash,
     instructions: "Open your bKash App → Select 'Send Money' → Enter the number below and exact BDT amount → Copy the Transaction ID (TrxID)."

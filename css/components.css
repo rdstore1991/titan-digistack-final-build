@@ -2209,10 +2209,63 @@
   color: #25d366;
   letter-spacing: 0.02em;
 }
+.footer-contact-emails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.footer-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(0, 242, 254, 0.05);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  transition: all 0.2s ease;
+}
+.footer-email-link:hover {
+  background: rgba(0, 242, 254, 0.14);
+  border-color: #00f2fe;
+  color: #00f2fe;
+  transform: translateX(2px);
+}
+.email-role-badge {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #00f2fe;
+  font-weight: 700;
+}
+[data-theme="light"] .footer-email-link,
+[data-colorway="crystal"] .footer-email-link {
+  color: var(--color-text-primary);
+  background: rgba(8, 145, 178, 0.07);
+  border-color: rgba(8, 145, 178, 0.25);
+}
+[data-theme="light"] .footer-email-link:hover,
+[data-colorway="crystal"] .footer-email-link:hover {
+  color: #0e7490;
+  border-color: #0891b2;
+  background: rgba(8, 145, 178, 0.15);
+}
+[data-theme="light"] .email-role-badge,
+[data-colorway="crystal"] .email-role-badge {
+  color: #0891b2;
+}
+.contact-form__actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
 .footer-contact-details {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 10px 0 0 0;
   display: grid;
   gap: 8px;
   font-size: 0.85rem;
