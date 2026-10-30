@@ -568,3 +568,20 @@ body:hover .cursor-aura {
     display: none !important;
   }
 }
+
+/* ============================================================
+   Strict Unopened Modal & Hidden Element Enforcement
+   ============================================================ */
+[hidden],
+.checkout-overlay[hidden],
+.quick-view-modal[hidden],
+.quick-modal-backdrop[hidden],
+#quickPreviewModal[hidden],
+#quickViewModal[hidden],
+#checkoutModal[hidden],
+#cartDrawer[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

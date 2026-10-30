@@ -176,26 +176,87 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(headerCard).toBeVisible();
   });
 
-  test('Product cards render local assets images with squircle avatar styling', async ({ page }) => {
+  test('Product cards render full-width 16:9 local banner thumbnails and 68x68 card icons', async ({ page }) => {
     await page.goto(indexUrl);
 
-    const avatars = page.locator('.product-card__avatar');
-    await expect(avatars.first()).toBeVisible();
-    
-    // Check squircle dimensions (56x56)
-    const box = await avatars.first().boundingBox();
-    expect(box?.width).toBeCloseTo(56, 1);
-    expect(box?.height).toBeCloseTo(56, 1);
+    // Hero preview cards showcase 68x68 .card-icon local product thumbnails
+    const heroIcons = page.locator('.hero-preview-card .card-icon');
+    await expect(heroIcons).toHaveCount(2);
+    const iconBox = await heroIcons.first().boundingBox();
+    expect(iconBox?.width).toBeCloseTo(68, 1);
+    expect(iconBox?.height).toBeCloseTo(68, 1);
 
-    // Verify local image routing points to assets/products/
-    const cardAvatars = await page.locator('.product-card__avatar').all();
-    expect(cardAvatars.length).toBeGreaterThan(0);
+    // Product grid cards render full-width 16:9 top banner photos without duplicating avatar
+    const firstCardImage = page.locator('.product-card .card-image').first();
+    await expect(firstCardImage).toBeVisible();
+    const bannerBox = await firstCardImage.boundingBox();
+    expect(bannerBox).not.toBeNull();
+    if (bannerBox) {
+      expect(bannerBox.width / bannerBox.height).toBeCloseTo(16 / 9, 1);
+    }
 
-    for (const avatar of cardAvatars.slice(0, 10)) {
-      const img = avatar.locator('img');
+    const bannerPhotos = page.locator('.product-card .card-image__photo');
+    expect(await bannerPhotos.count()).toBeGreaterThan(20);
+    for (let i = 0; i < 8; i++) {
+      const img = bannerPhotos.nth(i);
       await expect(img).toBeVisible();
       const src = await img.getAttribute('src');
       expect(src).toMatch(/assets\/products\/.+\.(jpg|png|webp)/);
+    }
+
+    // Fallback .product-card__avatar stays hidden when banner photo loads
+    await expect(page.locator('.product-card .product-card__avatar').first()).toBeHidden();
+  });
+
+  test('Static HTML pre-bakes starting BDT prices, Buy Now CTAs, OpenGraph tags, JSON-LD, strict hidden modals, and floating WhatsApp button', async ({ page }) => {
+    const fs = await import('fs');
+    for (const file of ['index.html', 'pages/shop.html']) {
+      const rawHtml = fs.readFileSync(path.resolve(file), 'utf8');
+      expect(rawHtml).not.toMatch(/Call for Price/i);
+      expect(rawHtml).toContain('class="product-price" data-price-bdt="350">৳350</span>');
+      expect(rawHtml).toContain('Buy Now</button>');
+      expect(rawHtml).toContain('property="og:image"');
+      expect(rawHtml).toContain('application/ld+json');
+    }
+
+    for (const pageUrl of [indexUrl, shopUrl, contactUrl, cartUrl]) {
+      await page.goto(pageUrl);
+
+      // Unopened modals strictly enforce display:none, visibility:hidden, opacity:0, pointer-events:none
+      for (const sel of ['#checkoutModal', '#quickPreviewModal']) {
+        const loc = page.locator(sel);
+        if (await loc.count()) {
+          await expect(loc).toBeHidden();
+          const styles = await loc.evaluate(el => {
+            const cs = window.getComputedStyle(el);
+            return { display: cs.display, visibility: cs.visibility, opacity: cs.opacity, pointerEvents: cs.pointerEvents };
+          });
+          expect(styles.display).toBe('none');
+          expect(styles.visibility).toBe('hidden');
+          expect(styles.opacity).toBe('0');
+          expect(styles.pointerEvents).toBe('none');
+        }
+      }
+
+      // Floating WhatsApp Live Support button (+1 672-895-2770) is visible in bottom-right
+      const waFloat = page.locator('#whatsappLiveSupport');
+      await expect(waFloat).toBeVisible();
+      await expect(waFloat).toHaveAttribute('href', /wa\.me\/16728952770/);
+      await expect(waFloat).toContainText('+1 672-895-2770');
+
+      // OpenGraph meta tags exist
+      await expect(page.locator('meta[property="og:title"]')).toHaveCount(1);
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /assets\/og-banner\.jpg$/);
+    }
+
+    // Validate JSON-LD Product Schema on Homepage, Shop, and Contact
+    for (const schemaUrl of [indexUrl, shopUrl, contactUrl]) {
+      await page.goto(schemaUrl);
+      const rawJsonLd = await page.locator('script[type="application/ld+json"]').first().textContent();
+      expect(rawJsonLd).toBeTruthy();
+      const parsed = JSON.parse(rawJsonLd || '{}');
+      expect(parsed['@context']).toBe('https://schema.org');
+      expect(Array.isArray(parsed['@graph'])).toBe(true);
     }
   });
 
