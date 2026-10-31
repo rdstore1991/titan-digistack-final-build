@@ -1,7 +1,15 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import fs from 'fs';
 import path from 'path';
 import url from 'url';
+
+/**
+ * @typedef {Object} TitanWindowGlobals
+ * @property {{ whatsappNumber?: string, whatsappDisplay?: string, supportEmail?: string, adminEmail?: string }} [STORE_CONFIG]
+ * @property {{ supportEmail?: string, adminEmail?: string }} [PAYMENT_CONFIG]
+ * @property {{ contactEmail?: string, supportEmail?: string, adminEmail?: string }} [TITAN_CONFIG]
+ */
 
 const indexUrl = url.pathToFileURL(path.resolve('index.html')).href;
 const shopUrl = url.pathToFileURL(path.resolve('pages/shop.html')).href;
@@ -209,7 +217,6 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
   });
 
   test('Static HTML pre-bakes starting BDT prices, Buy Now CTAs, OpenGraph tags, JSON-LD, strict hidden modals, and floating WhatsApp button', async ({ page }) => {
-    const fs = await import('fs');
     for (const file of ['index.html', 'pages/shop.html']) {
       const rawHtml = fs.readFileSync(path.resolve(file), 'utf8');
       expect(rawHtml).not.toMatch(/Call for Price/i);
@@ -324,11 +331,10 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
 
     // Mock clipboard writeText for cross-browser testing
     await page.evaluate(() => {
-      if (!navigator.clipboard) {
-        // @ts-ignore
-        navigator.clipboard = {};
-      }
-      navigator.clipboard.writeText = async () => {};
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: async () => { } },
+        configurable: true,
+      });
     });
 
     const cartDrawer = page.locator('#cartDrawer');
@@ -405,19 +411,21 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
   });
 
   test('Official business emails (support@bdexchz.live & admin@bdexchz.live) are integrated across JS config, footers, checkout modal, and contact page', async ({ page }) => {
-    const fs = await import('fs');
     for (const file of ['index.html', 'pages/shop.html', 'pages/contact.html', 'pages/cart.html', '404.html', 'js/main.js']) {
       const content = fs.readFileSync(path.resolve(file), 'utf8');
       expect(content).not.toMatch(/titandigistack\.com/i);
     }
 
     await page.goto(indexUrl);
-    const configEmails = await page.evaluate(() => ({
-      support: window.STORE_CONFIG?.supportEmail,
-      admin: window.STORE_CONFIG?.adminEmail,
-      paymentSupport: window.PAYMENT_CONFIG?.supportEmail,
-      titanEmail: window.TITAN_CONFIG?.contactEmail,
-    }));
+    const configEmails = await page.evaluate(() => {
+      const win = /** @type {Window & TitanWindowGlobals} */ (window);
+      return {
+        support: win.STORE_CONFIG?.supportEmail,
+        admin: win.STORE_CONFIG?.adminEmail,
+        paymentSupport: win.PAYMENT_CONFIG?.supportEmail,
+        titanEmail: win.TITAN_CONFIG?.contactEmail,
+      };
+    });
     expect(configEmails).toEqual({
       support: 'support@bdexchz.live',
       admin: 'admin@bdexchz.live',
@@ -448,21 +456,66 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await page.locator('#cTopic').selectOption('License Assistance');
     await page.locator('#cMsg').fill('Need activation assistance for order.');
 
-    // Prevent browser navigation to external mail client during headless test while verifying generated mailto URI
-    await page.evaluate(() => {
-      const btn = document.getElementById('contactEmailBtn');
-      btn?.addEventListener('click', (ev) => ev.preventDefault(), true);
-    });
+    const emailBtn = page.locator('#contactEmailBtn');
+    await expect(emailBtn).toBeVisible();
+
     const mailtoHref = await page.evaluate(() => {
-      // Stub location setter safely by intercepting click side effects via dataset.lastMailto
-      let captured = '';
-      const form = document.getElementById('contactForm');
-      const supportAddr = window.STORE_CONFIG.supportEmail;
-      captured = `mailto:${supportAddr}?subject=${encodeURIComponent(form.cTopic.value + ' - Titan DigiStack')}`;
-      return captured;
+      const win = /** @type {Window & TitanWindowGlobals} */ (window);
+      const topicSelect = /** @type {HTMLSelectElement | null} */ (document.getElementById('cTopic'));
+      const supportAddr = win.STORE_CONFIG?.supportEmail ?? '';
+      const selectedTopic = topicSelect?.value ?? '';
+      return `mailto:${supportAddr}?subject=${encodeURIComponent(`${selectedTopic} - Titan DigiStack`)}`;
     });
-    expect(mailtoHref).toContain('mailto:support@bdexchz.live?subject=License%20Assistance%20-%20Titan%20DigiStack');
-    await expect(page.locator('#contactEmailBtn')).toBeVisible();
+    expect(mailtoHref).toBe('mailto:support@bdexchz.live?subject=License%20Assistance%20-%20Titan%20DigiStack');
+  });
+
+  test('16. Luminous Slate Default Palette, Brightened Card Surfaces & Crystal Daylight Mode', async ({ page }) => {
+    await page.goto(indexUrl);
+
+    const defaultStyles = await page.evaluate(() => {
+      const bodyStyle = getComputedStyle(document.body);
+      const card = document.querySelector('.product-card[data-id="ai-008"]');
+      const title = card?.querySelector('.card-title');
+      const price = card?.querySelector('.product-price');
+      const footer = document.querySelector('.site-footer');
+      return {
+        bodyBg: bodyStyle.backgroundColor,
+        bodyColor: bodyStyle.color,
+        cardRadius: card ? getComputedStyle(card).borderRadius : '',
+        cardPadding: card ? getComputedStyle(card).paddingTop : '',
+        titleColor: title ? getComputedStyle(title).color : '',
+        priceColor: price ? getComputedStyle(price).color : '',
+        footerBg: footer ? getComputedStyle(footer).backgroundColor : '',
+      };
+    });
+
+    // Luminous Slate (#0f172a -> rgb(15, 23, 42)) & Crisp Off-White (#f8fafc -> rgb(248, 250, 252))
+    expect(defaultStyles.bodyBg).toBe('rgb(15, 23, 42)');
+    expect(defaultStyles.bodyColor).toBe('rgb(248, 250, 252)');
+    expect(defaultStyles.cardRadius).toBe('16px');
+    expect(defaultStyles.cardPadding).toBe('20px');
+    expect(defaultStyles.titleColor).toBe('rgb(255, 255, 255)');
+    expect(defaultStyles.priceColor).toBe('rgb(56, 189, 248)');
+    expect(defaultStyles.footerBg).toBe('rgb(11, 19, 36)');
+
+    // Verify clean SaaS filter pills exist with All active
+    await expect(page.locator('.search-filters [data-filter-cat="all"]')).toHaveClass(/is-active/);
+    await expect(page.locator('.search-filters [data-filter-cat]')).toHaveCount(6);
+
+    // Switch to Crystal Daylight
+    await page.locator('#colorwayToggle').click();
+    await page.locator('[data-set-colorway="crystal"]').click();
+
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(241, 245, 249)');
+    await expect(page.locator('body')).toHaveCSS('color', 'rgb(15, 23, 42)');
+    await expect(page.locator('.product-card[data-id="ai-008"] .card-title')).toHaveCSS('color', 'rgb(15, 23, 42)');
+
+    // Switch back to Luminous Slate (aurora)
+    await page.locator('#colorwayToggle').click();
+    await page.locator('[data-set-colorway="aurora"]').click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(15, 23, 42)');
   });
 
 });

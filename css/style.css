@@ -1,81 +1,106 @@
 /* ============================================================
    Titan DigiStack — style.css
-   Prismatic Cyber-Luxe & Chromatic Gestural Design System
+   Luminous Slate & Frosted Sapphire Modern SaaS Design System
    ============================================================ */
 
 :root {
-  /* Core Base Palette — Deep Space Cosmic Obsidian */
-  --color-bg-primary: #080a14;
-  --color-bg-secondary: #0f1325;
-  --color-bg-card: #151b34;
-  --color-bg-surface: #1d2547;
-  --color-bg-glass: rgba(15, 19, 37, 0.72);
-  --color-bg-glass-card: rgba(21, 27, 52, 0.65);
+  /* Brighter, breathable slate-blue canvas instead of pitch black */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-elevated: rgba(30, 41, 59, 0.82);
+  --bg-card: linear-gradient(145deg, rgba(30, 41, 59, 0.88) 0%, rgba(15, 23, 42, 0.92) 100%);
+  --bg-card-hover: linear-gradient(145deg, rgba(51, 65, 85, 0.92) 0%, rgba(30, 41, 59, 0.96) 100%);
 
-  /* Primary Chromatic Accent — Luminous Electric Cyan */
-  --color-accent-primary: #00F2FE;
-  --color-accent-hover: #38f9d7;
-  --color-accent-glow: rgba(0, 242, 254, 0.35);
-  --color-accent-grad: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+  /* Crisp, high-visibility borders & glass highlights */
+  --border-subtle: rgba(148, 163, 184, 0.22);
+  --border-accent: rgba(56, 189, 248, 0.48);
+  --inner-glow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
 
-  /* Secondary Chromatic Accent — Hot Cyber Pink */
-  --color-accent-secondary: #FF007A;
-  --color-accent-sec-hover: #ff4097;
-  --color-accent-sec-glow: rgba(255, 0, 122, 0.35);
-  --color-accent-sec-grad: linear-gradient(135deg, #FF007A 0%, #FF5E3A 100%);
+  /* High-readability typography */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* Vibrant, friendly SaaS accents */
+  --accent-primary: #00f2fe;
+  --accent-secondary: #38bdf8;
+  --accent-indigo: #6366f1;
+  --accent-emerald: #10b981;
+  --accent-amber: #fbbf24;
+
+  /* Synced Core Alias Tokens */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: #1e293b;
+  --color-bg-surface: #334155;
+  --color-bg-glass: var(--bg-elevated);
+  --color-bg-glass-card: rgba(30, 41, 59, 0.86);
+
+  /* Primary Chromatic Accent — Luminous Sky & Electric Cyan */
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-hover: var(--accent-secondary);
+  --color-accent-glow: rgba(56, 189, 248, 0.32);
+  --color-accent-grad: linear-gradient(135deg, #00f2fe 0%, #38bdf8 100%);
+
+  /* Secondary Chromatic Accent — Luminous Indigo */
+  --color-accent-secondary: var(--accent-indigo);
+  --color-accent-sec-hover: #818cf8;
+  --color-accent-sec-glow: rgba(99, 102, 241, 0.28);
+  --color-accent-sec-grad: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
 
   /* Tertiary Accent — Radiant Amber Gold */
-  --color-accent-tertiary: #FFB300;
-  --color-accent-tert-glow: rgba(255, 179, 0, 0.35);
-  --color-accent-tert-grad: linear-gradient(135deg, #FFB300 0%, #FF5E3A 100%);
+  --color-accent-tertiary: var(--accent-amber);
+  --color-accent-tert-glow: rgba(251, 191, 36, 0.32);
+  --color-accent-tert-grad: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
 
   /* Emerald Mint Accent */
-  --color-accent-emerald: #00F5A0;
-  --color-accent-eme-glow: rgba(0, 245, 160, 0.35);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-eme-glow: rgba(16, 185, 129, 0.32);
 
   /* Electric Teal Accent */
-  --color-accent-teal: #06B6D4;
-  --color-accent-teal-glow: rgba(6, 182, 212, 0.35);
+  --color-accent-teal: #06b6d4;
+  --color-accent-teal-glow: rgba(6, 182, 212, 0.32);
 
   /* Category Chromatic Glow Signatures */
-  --cat-ai: #8A2BE2;
-  --cat-ai-glow: rgba(138, 43, 226, 0.35);
-  --cat-themes: #00D2FF;
-  --cat-themes-glow: rgba(0, 210, 255, 0.35);
-  --cat-plugins: #00F5A0;
-  --cat-plugins-glow: rgba(0, 245, 160, 0.35);
-  --cat-graphic: #FF007A;
-  --cat-graphic-glow: rgba(255, 0, 122, 0.35);
-  --cat-software: #38BDF8;
-  --cat-software-glow: rgba(56, 189, 248, 0.35);
-  --cat-tutorials: #FFB300;
-  --cat-tutorials-glow: rgba(255, 179, 0, 0.35);
-  --cat-services: #06B6D4;
-  --cat-services-glow: rgba(6, 182, 212, 0.35);
-  --cat-ebooks: #FF5757;
-  --cat-ebooks-glow: rgba(255, 87, 87, 0.35);
+  --cat-ai: #38bdf8;
+  --cat-ai-glow: rgba(56, 189, 248, 0.32);
+  --cat-themes: #00f2fe;
+  --cat-themes-glow: rgba(0, 242, 254, 0.32);
+  --cat-plugins: #10b981;
+  --cat-plugins-glow: rgba(16, 185, 129, 0.32);
+  --cat-graphic: #f43f5e;
+  --cat-graphic-glow: rgba(244, 63, 94, 0.32);
+  --cat-software: #38bdf8;
+  --cat-software-glow: rgba(56, 189, 248, 0.32);
+  --cat-tutorials: #fbbf24;
+  --cat-tutorials-glow: rgba(251, 191, 36, 0.32);
+  --cat-services: #06b6d4;
+  --cat-services-glow: rgba(6, 182, 212, 0.32);
+  --cat-ebooks: #fb7185;
+  --cat-ebooks-glow: rgba(251, 113, 133, 0.32);
 
   /* Typography Colors */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #cbd5e1;
-  --color-text-muted: #8898aa;
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
 
   /* Borders & Highlights */
-  --color-border: rgba(0, 242, 254, 0.18);
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(0, 242, 254, 0.55);
-  --color-border-glare: rgba(255, 255, 255, 0.25);
+  --color-border: rgba(56, 189, 248, 0.26);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-hover: var(--border-accent);
+  --color-border-glare: rgba(255, 255, 255, 0.22);
 
   /* Status & Badges */
-  --color-price: #00F5A0;
-  --color-badge-new: #00F2FE;
-  --color-badge-sale: #FF007A;
-  --color-badge-free: #00F5A0;
-  --color-badge-call: #FFB300;
+  --color-price: #38bdf8;
+  --color-badge-new: #38bdf8;
+  --color-badge-sale: #f43f5e;
+  --color-badge-free: #10b981;
+  --color-badge-call: #fbbf24;
 
   /* Typography */
   --font-primary: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Radii & Gestures */
@@ -86,13 +111,13 @@
   --border-radius-pill: 9999px;
 
   --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-speed: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-speed: 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-  --shadow-elev: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 242, 254, 0.15);
-  --shadow-glow: 0 0 30px var(--color-accent-glow);
-  --shadow-glow-pink: 0 0 30px var(--color-accent-sec-glow);
+  --shadow-card: var(--inner-glow), 0 10px 25px -5px rgba(2, 6, 23, 0.35);
+  --shadow-elev: var(--inner-glow), 0 20px 44px -10px rgba(2, 6, 23, 0.48), 0 0 24px rgba(56, 189, 248, 0.14);
+  --shadow-glow: 0 0 28px var(--color-accent-glow);
+  --shadow-glow-pink: 0 0 28px var(--color-accent-sec-glow);
 
   /* Layout */
   --container-max: 1340px;
@@ -101,97 +126,133 @@
 }
 
 /* ============================================================
-   Live Colorway Presets
+   Live Colorway Presets (Visually Distinct & Brightened)
    ============================================================ */
 
-/* 1. Solar Flare Colorway (Warm Ember, Coral, Amber) */
+/* 1. Solar Flare Colorway (Luminous Warm Slate, Amber & Coral) */
 [data-colorway="solar"] {
-  --color-bg-primary: #0c0a12;
-  --color-bg-secondary: #171221;
-  --color-bg-card: #20192e;
-  --color-bg-surface: #2b223d;
-  --color-bg-glass: rgba(23, 18, 33, 0.75);
-  --color-bg-glass-card: rgba(32, 25, 46, 0.68);
+  --bg-primary: #1a1426;
+  --bg-secondary: #271e38;
+  --bg-elevated: rgba(39, 30, 56, 0.84);
+  --bg-card: linear-gradient(145deg, rgba(46, 35, 68, 0.90) 0%, rgba(26, 20, 38, 0.94) 100%);
+  --bg-card-hover: linear-gradient(145deg, rgba(64, 48, 92, 0.94) 0%, rgba(39, 30, 56, 0.97) 100%);
+  --border-subtle: rgba(251, 191, 36, 0.22);
+  --border-accent: rgba(251, 191, 36, 0.55);
 
-  --color-accent-primary: #FFB300;
-  --color-accent-hover: #ffd066;
-  --color-accent-glow: rgba(255, 179, 0, 0.35);
-  --color-accent-grad: linear-gradient(135deg, #FFB300 0%, #FF5E3A 100%);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: #271e38;
+  --color-bg-surface: #36294d;
+  --color-bg-glass: var(--bg-elevated);
+  --color-bg-glass-card: rgba(39, 30, 56, 0.88);
 
-  --color-accent-secondary: #FF4B4B;
-  --color-accent-sec-hover: #ff7575;
-  --color-accent-sec-glow: rgba(255, 75, 75, 0.35);
-  --color-accent-sec-grad: linear-gradient(135deg, #FF4B4B 0%, #FF007A 100%);
+  --color-accent-primary: #fbbf24;
+  --color-accent-hover: #fcd34d;
+  --color-accent-glow: rgba(251, 191, 36, 0.34);
+  --color-accent-grad: linear-gradient(135deg, #fbbf24 0%, #fb7185 100%);
 
-  --color-border: rgba(255, 179, 0, 0.22);
-  --color-border-hover: rgba(255, 179, 0, 0.6);
-  --color-price: #FFB300;
+  --color-accent-secondary: #fb7185;
+  --color-accent-sec-hover: #fda4af;
+  --color-accent-sec-glow: rgba(251, 113, 133, 0.32);
+  --color-accent-sec-grad: linear-gradient(135deg, #fb7185 0%, #f59e0b 100%);
+
+  --color-border: rgba(251, 191, 36, 0.28);
+  --color-border-hover: rgba(251, 191, 36, 0.58);
+  --color-price: #fbbf24;
 }
 
-/* 2. Emerald Matrix Colorway (Cyber Lime, Neon Mint) */
+/* 2. Emerald Matrix Colorway (Luminous Botanical Slate, Mint & Teal) */
 [data-colorway="matrix"] {
-  --color-bg-primary: #050d0a;
-  --color-bg-secondary: #0a1813;
-  --color-bg-card: #10241d;
-  --color-bg-surface: #173329;
-  --color-bg-glass: rgba(10, 24, 19, 0.75);
-  --color-bg-glass-card: rgba(16, 36, 29, 0.68);
+  --bg-primary: #0d1f1b;
+  --bg-secondary: #153029;
+  --bg-elevated: rgba(21, 48, 41, 0.84);
+  --bg-card: linear-gradient(145deg, rgba(24, 56, 48, 0.90) 0%, rgba(13, 31, 27, 0.94) 100%);
+  --bg-card-hover: linear-gradient(145deg, rgba(32, 74, 63, 0.94) 0%, rgba(21, 48, 41, 0.97) 100%);
+  --border-subtle: rgba(52, 211, 153, 0.22);
+  --border-accent: rgba(52, 211, 153, 0.55);
 
-  --color-accent-primary: #00F5A0;
-  --color-accent-hover: #5cffc0;
-  --color-accent-glow: rgba(0, 245, 160, 0.35);
-  --color-accent-grad: linear-gradient(135deg, #00F5A0 0%, #00D2FF 100%);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: #153029;
+  --color-bg-surface: #1d4238;
+  --color-bg-glass: var(--bg-elevated);
+  --color-bg-glass-card: rgba(21, 48, 41, 0.88);
 
-  --color-accent-secondary: #A3E635;
+  --color-accent-primary: #34d399;
+  --color-accent-hover: #6ee7b7;
+  --color-accent-glow: rgba(52, 211, 153, 0.34);
+  --color-accent-grad: linear-gradient(135deg, #34d399 0%, #38bdf8 100%);
+
+  --color-accent-secondary: #a3e635;
   --color-accent-sec-hover: #bef264;
-  --color-accent-sec-glow: rgba(163, 230, 53, 0.35);
-  --color-accent-sec-grad: linear-gradient(135deg, #A3E635 0%, #00F5A0 100%);
+  --color-accent-sec-glow: rgba(163, 230, 53, 0.30);
+  --color-accent-sec-grad: linear-gradient(135deg, #a3e635 0%, #34d399 100%);
 
-  --color-border: rgba(0, 245, 160, 0.22);
-  --color-border-hover: rgba(0, 245, 160, 0.6);
-  --color-price: #00F5A0;
+  --color-border: rgba(52, 211, 153, 0.28);
+  --color-border-hover: rgba(52, 211, 153, 0.58);
+  --color-price: #34d399;
 }
 
-/* 3. Crystal Light Theme (Vibrant Prismatic White) */
+/* 3. Crystal Daylight Theme (Crisp White & Slate Daytime Storefront) */
 [data-theme="light"],
-[data-colorway="crystal"] {
-  --color-bg-primary: #f6f8fd;
-  --color-bg-secondary: #edf2fc;
-  --color-bg-card: #ffffff;
-  --color-bg-surface: #e2ecfc;
-  --color-bg-glass: rgba(255, 255, 255, 0.85);
-  --color-bg-glass-card: rgba(255, 255, 255, 0.75);
+[data-theme="crystal-prism"],
+[data-colorway="crystal"],
+[data-colorway="crystal-prism"],
+body.theme-crystal,
+body.light-mode {
+  --bg-primary: #f1f5f9 !important;
+  --bg-secondary: #ffffff !important;
+  --bg-elevated: rgba(255, 255, 255, 0.92) !important;
+  --bg-card: #ffffff !important;
+  --bg-card-hover: #f8fafc !important;
+  --border-subtle: rgba(15, 23, 42, 0.12) !important;
+  --border-accent: rgba(2, 132, 199, 0.45) !important;
+  --inner-glow: inset 0 1px 0 0 rgba(255, 255, 255, 0.9) !important;
+  --text-primary: #0f172a !important;
+  --text-secondary: #334155 !important;
+  --text-muted: #64748b !important;
+
+  --color-bg-primary: #f1f5f9 !important;
+  --color-bg-secondary: #ffffff !important;
+  --color-bg-card: #ffffff !important;
+  --color-bg-surface: #e2e8f0 !important;
+  --color-bg-glass: rgba(255, 255, 255, 0.92) !important;
+  --color-bg-glass-card: rgba(255, 255, 255, 0.95) !important;
 
   --color-accent-primary: #0284c7;
   --color-accent-hover: #0369a1;
-  --color-accent-glow: rgba(2, 132, 199, 0.25);
-  --color-accent-grad: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+  --color-accent-glow: rgba(2, 132, 199, 0.22);
+  --color-accent-grad: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
 
-  --color-accent-secondary: #db2777;
-  --color-accent-sec-hover: #be185d;
-  --color-accent-sec-glow: rgba(219, 39, 119, 0.25);
-  --color-accent-sec-grad: linear-gradient(135deg, #db2777 0%, #0284c7 100%);
+  --color-accent-secondary: #4f46e5;
+  --color-accent-sec-hover: #4338ca;
+  --color-accent-sec-glow: rgba(79, 70, 229, 0.20);
+  --color-accent-sec-grad: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
 
   --color-accent-tertiary: #d97706;
-  --color-accent-tert-glow: rgba(217, 119, 6, 0.25);
+  --color-accent-tert-glow: rgba(217, 119, 6, 0.22);
 
-  --color-text-primary: #09101d;
-  --color-text-secondary: #334155;
-  --color-text-muted: #64748b;
+  --color-text-primary: #0f172a !important;
+  --color-text-secondary: #334155 !important;
+  --color-text-muted: #64748b !important;
 
-  --color-border: rgba(2, 132, 199, 0.20);
-  --color-border-subtle: rgba(0, 0, 0, 0.08);
-  --color-border-hover: rgba(2, 132, 199, 0.5);
-  --color-border-glare: rgba(255, 255, 255, 0.8);
+  --color-border: rgba(2, 132, 199, 0.22);
+  --color-border-subtle: rgba(15, 23, 42, 0.12);
+  --color-border-hover: rgba(2, 132, 199, 0.48);
+  --color-border-glare: rgba(255, 255, 255, 0.95);
 
-  --color-price: #059669;
+  --color-price: #0284c7;
   --color-badge-new: #0284c7;
-  --color-badge-sale: #db2777;
+  --color-badge-sale: #e11d48;
   --color-badge-free: #059669;
   --color-badge-call: #d97706;
 
-  --shadow-card: 0 8px 30px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04);
-  --shadow-elev: 0 20px 50px rgba(15, 23, 42, 0.15), 0 0 25px rgba(2, 132, 199, 0.1);
+  --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.06);
+  --shadow-elev: 0 20px 44px -10px rgba(15, 23, 42, 0.14), 0 0 20px rgba(2, 132, 199, 0.08);
+
+  background-image:
+    radial-gradient(at 15% 10%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+    radial-gradient(at 85% 20%, rgba(99, 102, 241, 0.12) 0px, transparent 50%) !important;
 }
 
 /* Skip link for keyboard accessibility */
@@ -269,10 +330,15 @@ textarea {
 }
 
 body {
-  font-family: var(--font-primary);
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  line-height: 1.55;
+  background-color: var(--bg-primary) !important;
+  background-image:
+    radial-gradient(at 15% 10%, rgba(56, 189, 248, 0.18) 0px, transparent 45%),
+    radial-gradient(at 85% 15%, rgba(99, 102, 241, 0.16) 0px, transparent 45%),
+    radial-gradient(at 50% 60%, rgba(0, 242, 254, 0.10) 0px, transparent 55%) !important;
+  background-attachment: fixed !important;
+  color: var(--text-primary) !important;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif !important;
+  line-height: 1.6 !important;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   min-height: 100dvh;
@@ -281,7 +347,34 @@ body {
   transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-/* Background Ambient Lighting Mesh */
+[data-colorway="solar"] body {
+  background-image:
+    radial-gradient(at 15% 10%, rgba(251, 191, 36, 0.20) 0px, transparent 45%),
+    radial-gradient(at 85% 15%, rgba(244, 63, 94, 0.16) 0px, transparent 45%),
+    radial-gradient(at 50% 60%, rgba(245, 158, 11, 0.10) 0px, transparent 55%) !important;
+}
+
+[data-colorway="matrix"] body {
+  background-image:
+    radial-gradient(at 15% 10%, rgba(52, 211, 153, 0.20) 0px, transparent 45%),
+    radial-gradient(at 85% 15%, rgba(56, 189, 248, 0.16) 0px, transparent 45%),
+    radial-gradient(at 50% 60%, rgba(16, 185, 129, 0.11) 0px, transparent 55%) !important;
+}
+
+[data-theme="light"] body,
+[data-theme="crystal-prism"] body,
+[data-colorway="crystal"] body,
+[data-colorway="crystal-prism"] body,
+body.theme-crystal,
+body.light-mode {
+  background-color: #f1f5f9 !important;
+  background-image:
+    radial-gradient(at 15% 10%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+    radial-gradient(at 85% 20%, rgba(99, 102, 241, 0.12) 0px, transparent 50%) !important;
+  color: #0f172a !important;
+}
+
+/* Soft Atmospheric Mesh Layer */
 body::before {
   content: '';
   position: fixed;
@@ -290,11 +383,11 @@ body::before {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle at 15% 15%, var(--color-accent-glow) 0%, transparent 40%),
-    radial-gradient(circle at 85% 75%, var(--color-accent-sec-glow) 0%, transparent 45%);
+    radial-gradient(circle at 18% 14%, var(--color-accent-glow) 0%, transparent 42%),
+    radial-gradient(circle at 84% 72%, var(--color-accent-sec-glow) 0%, transparent 48%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.6;
+  opacity: 0.38;
   transition: background-image 0.6s ease;
 }
 
@@ -506,11 +599,11 @@ p {
 }
 
 .link-arrow:hover {
-  background: rgba(0, 242, 254, 0.15);
+  background: rgba(56, 189, 248, 0.16);
   border-color: var(--color-accent-primary);
-  color: #ffffff;
+  color: var(--text-primary);
   transform: translateX(4px);
-  box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.22);
 }
 
 /* Reveal-on-scroll */
@@ -530,10 +623,10 @@ p {
   position: fixed;
   top: 0;
   left: 0;
-  width: 450px;
-  height: 450px;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--color-accent-glow) 0%, rgba(255, 0, 122, 0.12) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 70%);
   pointer-events: none;
   z-index: 1;
   transform: translate(-50%, -50%);
@@ -544,6 +637,12 @@ p {
 
 body:hover .cursor-aura {
   opacity: 1;
+}
+
+[data-theme="light"] .cursor-aura,
+[data-colorway="crystal"] .cursor-aura,
+body.light-mode .cursor-aura {
+  display: none;
 }
 
 /* Reduce motion */
@@ -567,23 +666,6 @@ body:hover .cursor-aura {
   .cursor-aura {
     display: none !important;
   }
-}
-
-/* ============================================================
-   Strict Unopened Modal & Hidden Element Enforcement
-   ============================================================ */
-[hidden],
-.checkout-overlay[hidden],
-.quick-view-modal[hidden],
-.quick-modal-backdrop[hidden],
-#quickPreviewModal[hidden],
-#quickViewModal[hidden],
-#checkoutModal[hidden],
-#cartDrawer[hidden] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
 }
 
 /* ============================================================

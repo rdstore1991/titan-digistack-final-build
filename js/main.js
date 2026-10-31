@@ -517,7 +517,7 @@ function renderGrid(category) {
 }
 
 /* ============================================================
-   3D Tilt & Specular Glare Gesture Engine
+   Specular Glare & Gentle Showcase Tilt Engine
    ============================================================ */
 function initTiltGestures() {
   if (window.matchMedia('(hover: none)').matches) return;
@@ -526,6 +526,7 @@ function initTiltGestures() {
 
   cards.forEach(card => {
     let ticking = false;
+    const isHeroShowcase = card.classList.contains('hero-preview-card');
 
     const onMove = (e) => {
       if (!ticking) {
@@ -534,11 +535,11 @@ function initTiltGestures() {
           const x = (e.clientX - rect.left) / rect.width;
           const y = (e.clientY - rect.top) / rect.height;
 
-          // Limit tilt range for sleek professional feel
-          const tiltX = (0.5 - y) * 14;
-          const tiltY = (x - 0.5) * 14;
-
-          card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+          if (isHeroShowcase) {
+            const tiltX = (0.5 - y) * 5;
+            const tiltY = (x - 0.5) * 5;
+            card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+          }
           card.style.setProperty('--glare-x', `${(x * 100).toFixed(1)}%`);
           card.style.setProperty('--glare-y', `${(y * 100).toFixed(1)}%`);
           ticking = false;
@@ -548,7 +549,7 @@ function initTiltGestures() {
     };
 
     const onLeave = () => {
-      card.style.transform = '';
+      if (isHeroShowcase) card.style.transform = '';
       card.style.setProperty('--glare-x', '50%');
       card.style.setProperty('--glare-y', '50%');
     };
@@ -791,28 +792,55 @@ function initQuickPreviewModal() {
 }
 
 /* ============================================================
-   Colorway Theme Switcher Engine
+   Colorway Theme Switcher Engine (Luminous Slate & Crystal Daylight)
    ============================================================ */
+function syncThemeState(colorway, themeMode) {
+  const isCrystal = colorway === 'crystal' || colorway === 'crystal-prism' || themeMode === 'light';
+  const resolvedColorway = isCrystal && (!colorway || colorway === 'aurora') ? 'crystal' : (colorway || 'aurora');
+  const resolvedTheme = isCrystal ? 'light' : 'dark';
+
+  document.documentElement.setAttribute('data-colorway', resolvedColorway);
+  document.documentElement.setAttribute('data-theme', resolvedTheme);
+
+  if (document.body) {
+    document.body.classList.toggle('theme-crystal', isCrystal);
+    document.body.classList.toggle('light-mode', isCrystal);
+  }
+
+  $$('[data-set-colorway]').forEach(o => {
+    o.classList.toggle('is-active', o.getAttribute('data-set-colorway') === resolvedColorway);
+  });
+
+  $$('#themeToggle, .theme-toggle, #themeModeToggle').forEach(t => {
+    const label = isCrystal ? 'Switch to Luminous Slate' : 'Switch to Crystal Daylight';
+    t.setAttribute('aria-label', label);
+    t.setAttribute('title', label);
+    const modeLabel = t.querySelector('#themeModeLabel');
+    if (modeLabel) modeLabel.textContent = label;
+  });
+}
+
 function initColorwaySwitcher() {
   const savedColorway = localStorage.getItem('titan_colorway') || 'aurora';
-  document.documentElement.setAttribute('data-colorway', savedColorway);
+  const savedTheme = localStorage.getItem('titan_theme');
+  const initialIsLight = savedTheme === 'light' || savedColorway === 'crystal' || savedColorway === 'crystal-prism';
+  syncThemeState(savedColorway, initialIsLight ? 'light' : 'dark');
 
   // Wire up colorway options
   document.addEventListener('click', (e) => {
     const opt = e.target.closest('[data-set-colorway]');
     if (!opt) return;
     const colorway = opt.getAttribute('data-set-colorway');
-    document.documentElement.setAttribute('data-colorway', colorway);
-    try { localStorage.setItem('titan_colorway', colorway); } catch { }
+    const targetTheme = (colorway === 'crystal' || colorway === 'crystal-prism') ? 'light' : 'dark';
+    try {
+      localStorage.setItem('titan_colorway', colorway);
+      localStorage.setItem('titan_theme', targetTheme);
+    } catch { }
+    syncThemeState(colorway, targetTheme);
 
     // Close colorway menu if open
     const menu = $('#colorwayMenu');
     if (menu) menu.hidden = true;
-
-    // Update active class on options
-    $$('[data-set-colorway]').forEach(o => {
-      o.classList.toggle('is-active', o.getAttribute('data-set-colorway') === colorway);
-    });
   });
 
   const switcherBtn = $('#colorwayToggle');
@@ -1015,10 +1043,13 @@ function initShopPage() {
 
   const syncHashFilter = () => {
     const hash = window.location.hash.replace('#', '');
-    if (hash && CATEGORY_LABELS[hash]) {
+    const paramCat = new URLSearchParams(window.location.search).get('cat');
+    const activeCat = (hash && (hash === 'all' || CATEGORY_LABELS[hash])) ? hash : paramCat;
+    if (activeCat && (activeCat === 'all' || CATEGORY_LABELS[activeCat])) {
       $$('input[name="cat"]', root).forEach(i => i.checked = false);
-      const target = $(`input[name="cat"][value="${hash}"]`, root);
+      const target = $(`input[name="cat"][value="${activeCat}"]`, root);
       if (target) target.checked = true;
+      $$('[data-filter-cat]').forEach(p => p.classList.toggle('is-active', p.getAttribute('data-filter-cat') === activeCat));
       applyFilters();
     }
   };
@@ -1035,27 +1066,21 @@ function initThemeToggle() {
   const toggles = $$('#themeToggle, .theme-toggle, #themeModeToggle');
   if (!toggles.length) return;
 
-  function updateUI() {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    toggles.forEach(t => {
-      const label = isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
-      t.setAttribute('aria-label', label);
-      t.setAttribute('title', label);
-      const modeLabel = t.querySelector('#themeModeLabel');
-      if (modeLabel) modeLabel.textContent = label;
-    });
-  }
-
   function toggle() {
     const current = document.documentElement.getAttribute('data-theme');
-    const target = current === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', target);
-    try { localStorage.setItem('titan_theme', target); } catch { }
-    updateUI();
+    const isGoingLight = current !== 'light';
+    const nextTheme = isGoingLight ? 'light' : 'dark';
+    const nextColorway = isGoingLight ? 'crystal' : 'aurora';
+    try {
+      localStorage.setItem('titan_theme', nextTheme);
+      localStorage.setItem('titan_colorway', nextColorway);
+    } catch { }
+    syncThemeState(nextColorway, nextTheme);
+    const menu = $('#colorwayMenu');
+    if (menu) menu.hidden = true;
   }
 
   toggles.forEach(t => t.addEventListener('click', toggle));
-  updateUI();
 }
 
 /* -----------------------------
@@ -1068,7 +1093,27 @@ function initFilterPills() {
     const cat = pill.getAttribute('data-filter-cat');
     if (!cat) return;
 
-    $$('[data-filter-cat]').forEach(p => p.classList.toggle('is-active', p === pill));
+    $$('[data-filter-cat]').forEach(p => p.classList.toggle('is-active', p.getAttribute('data-filter-cat') === cat));
+
+    // Shop page direct radio filter
+    const shopRadio = $(`#shopRoot input[name="cat"][value="${cat}"]`);
+    if (shopRadio) {
+      shopRadio.checked = true;
+      shopRadio.dispatchEvent(new Event('change', { bubbles: true }));
+      const shopSection = $('#shopRoot');
+      if (shopSection) shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    // Homepage "All" pill resets state and scrolls to catalog dock
+    if (cat === 'all') {
+      const catTabs = $('#catTabs');
+      if (catTabs) {
+        $$('.product-card').forEach(c => c.classList.remove('is-dimmed', 'is-hidden'));
+        catTabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
 
     const section = document.getElementById(cat);
     if (section) {
@@ -1085,7 +1130,8 @@ function initFilterPills() {
     }
 
     const inPages = window.location.pathname.includes('/pages/');
-    window.location.href = inPages ? `shop.html?cat=${cat}` : `pages/shop.html?cat=${cat}`;
+    const targetQuery = cat === 'all' ? '' : `?cat=${cat}`;
+    window.location.href = inPages ? `shop.html${targetQuery}` : `pages/shop.html${targetQuery}`;
   });
 }
 

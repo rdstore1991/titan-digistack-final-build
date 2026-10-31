@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080a14" />
+  <meta name="theme-color" content="#0f172a" />
   <meta name="description" content="Contact Titan DigiStack — 24/7 WhatsApp live support (+1 672-895-2770), license activation help, TrxID verification &amp; bulk agency licensing." />
   <title>Contact &amp; Support — Titan DigiStack</title>
   <link rel="canonical" href="https://rdstore1991.github.io/titan-digistack-final-build/pages/contact.html" />
@@ -86,8 +86,8 @@
   <script>
     (function(){
       const t=localStorage.getItem('titan_theme');
-      if(t==='light'||(!t&&window.matchMedia('(prefers-color-scheme: light)').matches)){document.documentElement.setAttribute('data-theme','light');}
       const c=localStorage.getItem('titan_colorway');
+      if(t==='light'||c==='crystal'||c==='crystal-prism'){document.documentElement.setAttribute('data-theme','light');}else{document.documentElement.setAttribute('data-theme','dark');}
       if(c){document.documentElement.setAttribute('data-colorway', c);}
     })();
   </script>
@@ -190,7 +190,7 @@
                   <div class="colorway-menu__header">THEME PALETTE</div>
                   <button type="button" class="colorway-opt" data-set-colorway="aurora">
                     <span class="colorway-dot colorway-dot--aurora"></span>
-                    <span>Cyber Aurora</span>
+                    <span>Luminous Slate</span>
                   </button>
                   <button type="button" class="colorway-opt" data-set-colorway="solar">
                     <span class="colorway-dot colorway-dot--solar"></span>
@@ -202,7 +202,7 @@
                   </button>
                   <button type="button" class="colorway-opt" data-set-colorway="crystal">
                     <span class="colorway-dot colorway-dot--crystal"></span>
-                    <span>Crystal Prism</span>
+                    <span>Crystal Daylight</span>
                   </button>
                   <div class="colorway-divider"></div>
                   <button type="button" class="colorway-opt colorway-opt--mode" id="themeModeToggle">
@@ -254,10 +254,12 @@
 
         <div class="search-filters" aria-label="Quick category filters">
           <span class="search-filters__label">FILTER BY:</span>
-          <button type="button" class="filter-pill filter-pill--ai" data-filter-cat="ai">AI TOOLS</button>
-          <button type="button" class="filter-pill filter-pill--themes" data-filter-cat="themes">THEMES</button>
-          <button type="button" class="filter-pill filter-pill--plugins" data-filter-cat="plugins">PLUGINS</button>
-          <button type="button" class="filter-pill filter-pill--software" data-filter-cat="software">SOFTWARE</button>
+          <button type="button" class="filter-pill" data-filter-cat="all">All</button>
+          <button type="button" class="filter-pill filter-pill--ai" data-filter-cat="ai">AI Tools</button>
+          <button type="button" class="filter-pill filter-pill--themes" data-filter-cat="themes">WordPress Themes</button>
+          <button type="button" class="filter-pill filter-pill--plugins" data-filter-cat="plugins">PRO Plugins</button>
+          <button type="button" class="filter-pill filter-pill--software" data-filter-cat="software">Software</button>
+          <button type="button" class="filter-pill" data-filter-cat="ebooks">Streaming</button>
         </div>
       </section>
 
@@ -329,17 +331,17 @@
         </form>
 
         <aside class="contact-info" style="display: grid; gap: 18px;">
-          <div class="info-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-border); border-radius: var(--border-radius-md); padding: 24px;">
+          <div class="info-card">
             <h3>Direct WhatsApp Line</h3>
             <p style="margin-block: 6px 14px; color: var(--color-text-secondary);">Instant response for license activations &amp; custom quotes.</p>
             <a href="https://wa.me/16728952770" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">+1 (672) 895-2770</a>
           </div>
-          <div class="info-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-border); border-radius: var(--border-radius-md); padding: 24px;">
+          <div class="info-card">
             <h3>Customer Support &amp; Key Dispatch</h3>
             <p style="margin-block: 6px 14px; color: var(--color-text-secondary);">24/7 order assistance, TrxID verification &amp; instant replacement warranty.</p>
             <a href="mailto:support@bdexchz.live?subject=Order%20Support%20-%20Titan%20DigiStack" class="btn btn--ghost btn--sm">support@bdexchz.live</a>
           </div>
-          <div class="info-card" id="bulk" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-border); border-radius: var(--border-radius-md); padding: 24px;">
+          <div class="info-card" id="bulk">
             <h3>Enterprise Licensing, Bulk Orders &amp; Partnerships</h3>
             <p style="margin-block: 6px 14px; color: var(--color-text-secondary);">Corporate invoices, agency volume licensing &amp; billing administration.</p>
             <a href="mailto:admin@bdexchz.live?subject=Enterprise%20%26%20Admin%20Inquiry%20-%20Titan%20DigiStack" class="btn btn--ghost btn--sm">admin@bdexchz.live</a>

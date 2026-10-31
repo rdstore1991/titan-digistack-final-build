@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080a14" />
+  <meta name="theme-color" content="#0f172a" />
   <meta name="description" content="Browse all 129+ Titan DigiStack digital licenses — AI subscriptions, WordPress themes, plugins, creative tools, software keys, and eBooks starting from ৳50." />
   <title>Shop All Digital Licenses — Titan DigiStack</title>
   <link rel="canonical" href="https://rdstore1991.github.io/titan-digistack-final-build/pages/shop.html" />
@@ -148,8 +148,8 @@
   <script>
     (function(){
       const t=localStorage.getItem('titan_theme');
-      if(t==='light'||(!t&&window.matchMedia('(prefers-color-scheme: light)').matches)){document.documentElement.setAttribute('data-theme','light');}
       const c=localStorage.getItem('titan_colorway');
+      if(t==='light'||c==='crystal'||c==='crystal-prism'){document.documentElement.setAttribute('data-theme','light');}else{document.documentElement.setAttribute('data-theme','dark');}
       if(c){document.documentElement.setAttribute('data-colorway', c);}
     })();
   </script>
@@ -251,7 +251,7 @@
                   <div class="colorway-menu__header">THEME PALETTE</div>
                   <button type="button" class="colorway-opt" data-set-colorway="aurora">
                     <span class="colorway-dot colorway-dot--aurora"></span>
-                    <span>Cyber Aurora</span>
+                    <span>Luminous Slate</span>
                   </button>
                   <button type="button" class="colorway-opt" data-set-colorway="solar">
                     <span class="colorway-dot colorway-dot--solar"></span>
@@ -263,7 +263,7 @@
                   </button>
                   <button type="button" class="colorway-opt" data-set-colorway="crystal">
                     <span class="colorway-dot colorway-dot--crystal"></span>
-                    <span>Crystal Prism</span>
+                    <span>Crystal Daylight</span>
                   </button>
                   <div class="colorway-divider"></div>
                   <button type="button" class="colorway-opt colorway-opt--mode" id="themeModeToggle">
@@ -315,10 +315,12 @@
 
         <div class="search-filters" aria-label="Quick category filters">
           <span class="search-filters__label">FILTER BY:</span>
-          <button type="button" class="filter-pill filter-pill--ai" data-filter-cat="ai">AI TOOLS</button>
-          <button type="button" class="filter-pill filter-pill--themes" data-filter-cat="themes">THEMES</button>
-          <button type="button" class="filter-pill filter-pill--plugins" data-filter-cat="plugins">PLUGINS</button>
-          <button type="button" class="filter-pill filter-pill--software" data-filter-cat="software">SOFTWARE</button>
+          <button type="button" class="filter-pill is-active" data-filter-cat="all">All</button>
+          <button type="button" class="filter-pill filter-pill--ai" data-filter-cat="ai">AI Tools</button>
+          <button type="button" class="filter-pill filter-pill--themes" data-filter-cat="themes">WordPress Themes</button>
+          <button type="button" class="filter-pill filter-pill--plugins" data-filter-cat="plugins">PRO Plugins</button>
+          <button type="button" class="filter-pill filter-pill--software" data-filter-cat="software">Software</button>
+          <button type="button" class="filter-pill" data-filter-cat="ebooks">Streaming</button>
         </div>
       </section>
 
@@ -363,7 +365,7 @@
 
           <div class="filter-group">
             <h4>Search</h4>
-            <input id="shopSearch" type="search" placeholder="Filter by keyword..." aria-label="Search products in shop" style="width:100%;background:rgba(255, 255, 255, 0.05);border:1px solid var(--color-border);color:var(--color-text-primary);padding:10px 14px;border-radius:var(--border-radius-sm);" />
+            <input id="shopSearch" type="search" placeholder="Filter by keyword..." aria-label="Search products in shop" />
           </div>
 
           <div class="filter-group">

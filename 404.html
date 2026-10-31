@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080a14" />
+  <meta name="theme-color" content="#0f172a" />
   <meta name="description" content="404 — Page Not Found · Titan DigiStack" />
   <title>404 — Page Not Found · Titan DigiStack</title>
 
@@ -27,8 +27,12 @@
   <script>
     (function () {
       const t = localStorage.getItem('titan_theme');
-      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) { document.documentElement.setAttribute('data-theme', 'light'); }
       const c = localStorage.getItem('titan_colorway');
+      if (t === 'light' || c === 'crystal' || c === 'crystal-prism') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
       if (c) { document.documentElement.setAttribute('data-colorway', c); }
     })();
   </script>
