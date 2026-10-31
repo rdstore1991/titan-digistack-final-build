@@ -15,6 +15,7 @@ const indexUrl = url.pathToFileURL(path.resolve('index.html')).href;
 const shopUrl = url.pathToFileURL(path.resolve('pages/shop.html')).href;
 const cartUrl = url.pathToFileURL(path.resolve('pages/cart.html')).href;
 const contactUrl = url.pathToFileURL(path.resolve('pages/contact.html')).href;
+const aboutUrl = url.pathToFileURL(path.resolve('pages/about.html')).href;
 const notFoundUrl = url.pathToFileURL(path.resolve('404.html')).href;
 
 test.describe('Titan DigiStack E2E Test Suite', () => {
@@ -123,8 +124,8 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
   test('Colorway dropdown menu opens above adjacent page sections with elevated z-index', async ({ page }) => {
     await page.goto(indexUrl);
 
-    // Toggle colorway menu
-    const toggleBtn = page.locator('#colorwayToggle');
+    // Toggle colorway menu via separated #toggleThemeBtn
+    const toggleBtn = page.locator('#toggleThemeBtn');
     await expect(toggleBtn).toBeVisible();
     await toggleBtn.click();
 
@@ -136,7 +137,7 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     const menuZIndex = await menu.evaluate(el => window.getComputedStyle(el).zIndex);
     const headerZIndex = await page.locator('.site-header').evaluate(el => window.getComputedStyle(el).zIndex);
     const headerPosition = await page.locator('.site-header').evaluate(el => window.getComputedStyle(el).position);
-    const switcherPosition = await page.locator('.colorway-switcher').evaluate(el => window.getComputedStyle(el).position);
+    const switcherPosition = await page.locator('.header-theme-control').evaluate(el => window.getComputedStyle(el).position);
 
     expect(Number(menuZIndex)).toBe(1000);
     expect(Number(headerZIndex)).toBe(100);
@@ -503,7 +504,7 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(page.locator('.search-filters [data-filter-cat]')).toHaveCount(6);
 
     // Switch to Crystal Daylight
-    await page.locator('#colorwayToggle').click();
+    await page.locator('#toggleThemeBtn').click();
     await page.locator('[data-set-colorway="crystal"]').click();
 
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
@@ -512,10 +513,116 @@ test.describe('Titan DigiStack E2E Test Suite', () => {
     await expect(page.locator('.product-card[data-id="ai-008"] .card-title')).toHaveCSS('color', 'rgb(15, 23, 42)');
 
     // Switch back to Luminous Slate (aurora)
-    await page.locator('#colorwayToggle').click();
+    await page.locator('#toggleThemeBtn').click();
     await page.locator('[data-set-colorway="aurora"]').click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(15, 23, 42)');
+  });
+
+  test('17. Separated .toggle-theme-btn after .header-actions & Comprehensive About Us Portfolio page (pages/about.html)', async ({ page }) => {
+    // 1. Verify DOM separation across all 6 HTML pages: .header-theme-control is placed AFTER .header-actions inside .header-right
+    for (const targetUrl of [indexUrl, shopUrl, cartUrl, contactUrl, aboutUrl, notFoundUrl]) {
+      await page.goto(targetUrl);
+
+      const domCheck = await page.evaluate(() => {
+        const headerRight = document.querySelector('.header-right');
+        const headerActions = headerRight?.querySelector('.header-actions');
+        const themeControl = headerRight?.querySelector('.header-theme-control');
+        const toggleBtn = themeControl?.querySelector('button.toggle-theme-btn#toggleThemeBtn');
+        const insideActions = headerActions?.querySelector('.toggle-theme-btn, #toggleThemeBtn, .colorway-switcher');
+        return {
+          hasHeaderRight: Boolean(headerRight),
+          isDirectSiblingAfter: headerActions?.nextElementSibling === themeControl,
+          hasToggleBtn: Boolean(toggleBtn),
+          insideActionsCount: insideActions ? 1 : 0,
+        };
+      });
+
+      expect(domCheck).toEqual({
+        hasHeaderRight: true,
+        isDirectSiblingAfter: true,
+        hasToggleBtn: true,
+        insideActionsCount: 0,
+      });
+
+      // Verify About & Portfolio navigation & footer links exist on every page
+      await expect(page.locator('.header-nav a', { hasText: 'About & Portfolio' })).toBeVisible();
+      await expect(page.locator('.site-footer a', { hasText: 'About Us & Portfolio' })).toBeVisible();
+    }
+
+    // 2. Navigate to pages/about.html with clean storage and audit zero console/asset errors + all 7 sections
+    /** @type {string[]} */
+    const consoleErrors = [];
+    /** @type {string[]} */
+    const failedLocalAssets = [];
+
+    page.on('console', msg => {
+      if (msg.type() === 'error' && !msg.text().includes('ERR_NAME_NOT_RESOLVED')) {
+        consoleErrors.push(msg.text());
+      }
+    });
+    page.on('requestfailed', req => {
+      if (req.url().startsWith('file://')) {
+        failedLocalAssets.push(req.url());
+      }
+    });
+
+    await page.goto(aboutUrl);
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+
+    expect(consoleErrors).toEqual([]);
+    expect(failedLocalAssets).toEqual([]);
+
+    // Defaults cleanly to Crystal Daylight design system on fresh load
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('.header-nav a.active', { hasText: 'About & Portfolio' })).toBeVisible();
+
+    // Section 1: Corporate Identity & Mission Hero
+    await expect(page.locator('.about-hero__badge')).toContainText('OFFICIAL CORPORATE PROFILE & PORTFOLIO');
+    await expect(page.locator('#aboutHeroTitle')).toHaveText('Architecting Next-Gen Digital Infrastructure, AI Access & Enterprise Software Solutions');
+    await expect(page.locator('.about-hero__actions a[href="shop.html"]')).toContainText('Explore Full Catalog');
+    await expect(page.locator('.about-hero__actions a.btn-whatsapp-partner')).toHaveAttribute('href', /wa\.me\/16728952770/);
+
+    // Section 2: 4 Live Impact Stat Cards
+    await expect(page.locator('.about-metric-card')).toHaveCount(4);
+    await expect(page.locator('.about-metrics-grid')).toContainText('10,000+');
+    await expect(page.locator('.about-metrics-grid')).toContainText('129+');
+    await expect(page.locator('.about-metrics-grid')).toContainText('99.9%');
+    await expect(page.locator('.about-metrics-grid')).toContainText('< 5 Mins');
+
+    // Section 3: 2-Column Who We Are & Technical DNA Bento
+    await expect(page.locator('.about-bento-card')).toHaveCount(2);
+    await expect(page.locator('.about-dna-item')).toHaveCount(4);
+
+    // Section 4: 6-Card Filterable Company Portfolio & Service Divisions
+    const divisionCards = page.locator('.portfolio-card');
+    await expect(divisionCards).toHaveCount(6);
+    await page.locator('[data-portfolio-filter="ai"]').click();
+    await expect(page.locator('.portfolio-card:not(.is-filtered-out)')).toHaveCount(1);
+    await expect(page.locator('.portfolio-card:not(.is-filtered-out)')).toContainText('Generative AI & LLM Infrastructure');
+    await page.locator('[data-portfolio-filter="all"]').click();
+    await expect(page.locator('.portfolio-card:not(.is-filtered-out)')).toHaveCount(6);
+
+    // Section 5: 3 Featured Case Studies
+    await expect(page.locator('.case-study-card')).toHaveCount(3);
+    await expect(page.locator('#caseStudies')).toContainText('62%');
+    await expect(page.locator('#caseStudies')).toContainText('30+');
+    await expect(page.locator('#caseStudies')).toContainText('2,500+');
+
+    // Section 6: 4-Step Verification & Fulfillment Pipeline
+    await expect(page.locator('.pipeline-step')).toHaveCount(4);
+
+    // Section 7: Corporate Contact & Verification Banner
+    await expect(page.locator('.corporate-channel-card')).toHaveCount(3);
+    await expect(page.locator('.corporate-contact-banner')).toContainText('+1 (672) 895-2770');
+    await expect(page.locator('.corporate-contact-banner')).toContainText('support@bdexchz.live');
+    await expect(page.locator('.corporate-contact-banner')).toContainText('admin@bdexchz.live');
+
+    // Unopened modals remain strictly hidden
+    await expect(page.locator('#cartDrawer')).toBeHidden();
+    await expect(page.locator('#checkoutModal')).toBeHidden();
+    await expect(page.locator('#quickPreviewModal')).toBeHidden();
   });
 
 });

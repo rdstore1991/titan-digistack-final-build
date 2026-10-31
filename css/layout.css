@@ -417,11 +417,13 @@
 }
 
 .header-nav__link:hover,
-.header-nav__link.is-active {
+.header-nav__link.is-active,
+.header-nav__link.active {
   color: #38bdf8;
 }
 
-.header-nav__link.is-active::after {
+.header-nav__link.is-active::after,
+.header-nav__link.active::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -434,9 +436,9 @@
 }
 
 .header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
   overflow: visible !important;
 }
 
@@ -447,9 +449,55 @@
 }
 
 .header-actions {
-  display: flex;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.header-theme-control {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 12px !important;
+  border-left: 1.5px solid var(--border-subtle, #cbd5e1) !important;
+}
+
+.toggle-theme-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.22) !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.toggle-theme-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.38) !important;
+}
+
+.toggle-theme-btn .theme-icon-sun,
+.toggle-theme-btn .theme-icon-moon {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  font-size: 0.92rem;
+  line-height: 1;
+}
+
+:root:not([data-theme="light"]) .toggle-theme-btn .theme-icon-sun {
+  display: none;
+}
+
+[data-theme="light"] .toggle-theme-btn .theme-icon-moon {
+  display: none;
 }
 
 /* Dedicated Search Bar Section */

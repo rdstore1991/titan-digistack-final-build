@@ -821,9 +821,13 @@ function syncThemeState(colorway, themeMode) {
 }
 
 function initColorwaySwitcher() {
-  const savedColorway = localStorage.getItem('titan_colorway') || 'aurora';
+  const defaultColorway = document.documentElement.getAttribute('data-default-colorway') || 'aurora';
+  const savedColorway = localStorage.getItem('titan_colorway') || defaultColorway;
   const savedTheme = localStorage.getItem('titan_theme');
-  const initialIsLight = savedTheme === 'light' || savedColorway === 'crystal' || savedColorway === 'crystal-prism';
+  const initialIsLight = savedTheme === 'light'
+    || (!savedTheme && document.documentElement.getAttribute('data-theme') === 'light')
+    || savedColorway === 'crystal'
+    || savedColorway === 'crystal-prism';
   syncThemeState(savedColorway, initialIsLight ? 'light' : 'dark');
 
   // Wire up colorway options
@@ -843,15 +847,33 @@ function initColorwaySwitcher() {
     if (menu) menu.hidden = true;
   });
 
-  const switcherBtn = $('#colorwayToggle');
+  const switcherBtns = $$('#toggleThemeBtn, #colorwayToggle');
   const menu = $('#colorwayMenu');
-  if (switcherBtn && menu) {
-    switcherBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      menu.hidden = !menu.hidden;
+  if (switcherBtns.length && menu) {
+    switcherBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.hidden = !menu.hidden;
+        btn.setAttribute('aria-expanded', String(!menu.hidden));
+      });
     });
     document.addEventListener('click', () => {
       menu.hidden = true;
+      switcherBtns.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    });
+  } else if (switcherBtns.length) {
+    switcherBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const isGoingLight = current !== 'light';
+        const nextTheme = isGoingLight ? 'light' : 'dark';
+        const nextColorway = isGoingLight ? 'crystal' : 'aurora';
+        try {
+          localStorage.setItem('titan_theme', nextTheme);
+          localStorage.setItem('titan_colorway', nextColorway);
+        } catch { }
+        syncThemeState(nextColorway, nextTheme);
+      });
     });
   }
 }
@@ -884,9 +906,35 @@ function initScrollReveal() {
     });
   }, { rootMargin: '0px 0px -30px 0px', threshold: 0.05 });
 
-  $$('.cat-section, .why__item, .offer-card, .product-card, .section-head, .hero-preview-card').forEach(el => {
+  $$('.cat-section, .why__item, .offer-card, .product-card, .section-head, .hero-preview-card, .about-metric-card, .about-bento-card, .portfolio-card, .case-study-card, .pipeline-step, .corporate-contact-banner').forEach(el => {
     el.classList.add('reveal');
     io.observe(el);
+  });
+}
+
+/* -----------------------------
+   About & Portfolio Division Filter
+   ----------------------------- */
+function initPortfolioFilter() {
+  const filterBtns = $$('[data-portfolio-filter]');
+  const cards = $$('.portfolio-card[data-division-cat]');
+  if (!filterBtns.length || !cards.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-portfolio-filter') || 'all';
+      filterBtns.forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-division-cat') || '';
+        const match = target === 'all' || cat === target;
+        card.classList.toggle('is-filtered-out', !match);
+        if (match) card.classList.add('is-visible');
+      });
+    });
   });
 }
 
@@ -1422,6 +1470,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCheckoutModal();
   initFloatingWhatsApp();
   initScrollReveal();
+  initPortfolioFilter();
   initMobileNav();
   initFooterYear();
   initShopPage();
